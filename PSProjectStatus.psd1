@@ -1,45 +1,38 @@
-#
 # Module manifest for module 'PSProjectStatus'
-#
-
 
 @{
-RootModule = 'PSProjectStatus.psm1'
-ModuleVersion = '0.1.0'
-CompatiblePSEditions = 'Desktop','Core'
-GUID = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
-Author = 'Jeff Hicks'
-CompanyName = 'JDH Information Technology Solutions, Inc.'
-Copyright = '(c) JDH Information Technology Solutions, Inc. All rights reserved.'
-Description = 'A set of PowerShell tools for tracking module development status'
-PowerShellVersion = '5.1'
+    RootModule           = 'PSProjectStatus.psm1'
+    ModuleVersion        = '0.2.0'
+    CompatiblePSEditions = 'Desktop', 'Core'
+    GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
+    Author               = 'Jeff Hicks'
+    CompanyName          = 'JDH Information Technology Solutions, Inc.'
+    Copyright            = '(c) JDH Information Technology Solutions, Inc. All rights reserved.'
+    Description          = 'A set of PowerShell tools for tracking module development status.'
+    PowerShellVersion    = '5.1'
 
-# Type files (.ps1xml) to be loaded when importing this module
-# TypesToProcess = @()
+    # Type files (.ps1xml) to be loaded when importing this module
+    # TypesToProcess = @()
 
-# Format files (.ps1xml) to be loaded when importing this module
-# FormatsToProcess = @()
-FunctionsToExport = 'Get-PSProjectStatus',"New-PSProjectStatus","Set-PSProjectStatus"
-AliasesToExport = '*'
+    # Format files (.ps1xml) to be loaded when importing this module
+    FormatsToProcess     = @('formats\psprojectstatus.format.ps1xml')
+    FunctionsToExport    = 'Get-PSProjectStatus', "New-PSProjectStatus", "Set-PSProjectStatus"
+    # AliasesToExport = ''
 
-# Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
-PrivateData = @{
+    # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
+    PrivateData          = @{
+        PSData = @{
+                    Tags = @("modules", "scripting")
 
-    PSData = @{
+                    # LicenseUri = ''
+                    # ProjectUri = ''
+                    # IconUri = ''
+                    # ReleaseNotes = ''
+                    # Prerelease = ''
+                    # RequireLicenseAcceptance = $false
+                    # ExternalModuleDependencies = @()
+        } # End of PSData hashtable
 
-         Tags = @("modules","scripting")
-
-        # LicenseUri = ''
-        # ProjectUri = ''
-        # IconUri = ''
-        # ReleaseNotes = ''
-        # Prerelease = ''
-        # RequireLicenseAcceptance = $false
-        # ExternalModuleDependencies = @()
-
-    } # End of PSData hashtable
-
-} # End of PrivateData hashtable
-
+    } # End of PrivateData hashtable
 }
 

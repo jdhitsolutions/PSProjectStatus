@@ -2,11 +2,18 @@ enum PSProjectStatus {
     Development
     Updating
     Stable
+    AlphaTesting
+    BetaTesting
+    ReleaseCandidate
+    Patching
+    UnitTesting
+    AcceptanceTesting
+    Other
 }
 
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
-    [string]$Path = (Get-Location).path
+    [string]$Path = (Convert-Path (Get-Location).path)
     [datetime]$LastUpdate = (Get-Date)
     [string[]]$Tasks
     [PSProjectStatus]$Status = "Development"

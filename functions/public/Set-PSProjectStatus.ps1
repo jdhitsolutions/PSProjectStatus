@@ -1,9 +1,10 @@
 Function Set-PSProjectStatus {
     [cmdletbinding(SupportsShouldProcess)]
+    [OutputType("PSProject")]
     Param(
-        [Parameter(Mandatory, ValueFromPipeline, HelpMessage = "Specify a PSProject object")]
+        [Parameter(ValueFromPipeline, HelpMessage = "Specify a PSProject object")]
         [ValidateNotNullOrEmpty()]
-        [PSProject]$InputObject,
+        [object]$InputObject = (Get-PSProjectStatus -Path .),
 
         [Parameter(HelpMessage = "What is the project name?")]
         [ValidateNotNullOrEmpty()]
@@ -20,7 +21,7 @@ Function Set-PSProjectStatus {
         [Parameter(HelpMessage = "Concatentate tasks")]
         [switch]$Concatenate,
 
-        [Parameter(HelpMessage = "When was the project status?")]
+        [Parameter(HelpMessage = "What is the project status?")]
         [ValidateNotNullOrEmpty()]
         [PSProjectStatus]$Status
     )
