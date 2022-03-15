@@ -19,6 +19,7 @@ Function Set-PSProjectStatus {
         [string[]]$Tasks,
 
         [Parameter(HelpMessage = "Concatentate tasks")]
+        [alias("add")]
         [switch]$Concatenate,
 
         [Parameter(HelpMessage = "What is the project status?")]

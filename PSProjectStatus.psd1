@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.2.0'
+    ModuleVersion        = '0.3.0'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
@@ -22,14 +22,13 @@
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData          = @{
         PSData = @{
-                    Tags = @("modules", "scripting")
-
-                    # LicenseUri = ''
-                    # ProjectUri = ''
+                    Tags = @("modules", "scripting","project-management","project")
+                    LicenseUri = 'https://github.com/jdhitsolutions/PSProjectStatus/blob/main/License.txt'
+                    ProjectUri = 'https://github.com/jdhitsolutions/PSProjectStatus'
                     # IconUri = ''
-                    # ReleaseNotes = ''
+                    #ReleaseNotes = ''
                     # Prerelease = ''
-                    # RequireLicenseAcceptance = $false
+                    RequireLicenseAcceptance = $false
                     # ExternalModuleDependencies = @()
         } # End of PSData hashtable
 

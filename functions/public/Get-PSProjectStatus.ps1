@@ -8,6 +8,7 @@ Function Get-PSProjectStatus {
             ValueFromPipelineByPropertyName,
             HelpMessage = "Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.")]
         [ValidateScript({ Test-Path $_ })]
+        [alias("fullname")]
         [string]$Path = "."
     )
 

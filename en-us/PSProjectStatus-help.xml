@@ -15,7 +15,7 @@
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSProjectStatus</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
           <maml:name>Path</maml:name>
           <maml:description>
             <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
@@ -30,7 +30,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
         <maml:name>Path</maml:name>
         <maml:description>
           <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
@@ -472,7 +472,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
           <maml:name>Concatenate</maml:name>
           <maml:description>
             <maml:para>Concatentate new tasks.</maml:para>
@@ -508,7 +508,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
         <maml:name>Concatenate</maml:name>
         <maml:description>
           <maml:para>Concatentate new tasks.</maml:para>

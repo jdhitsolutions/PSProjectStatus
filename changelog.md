@@ -1,5 +1,12 @@
 # Changelog for PSProjectStatus
 
+## v0.3.0
+
++ Update `README.md`
++ Updated private data in the module manifest.
++ Added parameter alias `add` to `Concatenate` in `Set-PSProjectStatus`.
++ Added parameter alias `fullname` to `Path` in `Get-PSProjectStatus`.
+
 ## v0.2.0
 
 + Modified commands to ignore `Age` type extension.

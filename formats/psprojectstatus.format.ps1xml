@@ -66,9 +66,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                       <!--yellow-->
                       "$([char]27)[93m$($_.status)$([char]27)[0m"
                     }
-                    else {
+                    elseif ($_.status -eq 'Stable') {
                       <!--green-->
                      "$([char]27)[92m$($_.status)$([char]27)[0m"
+                     }
+                     else {
+                       $_.status
                      }
                    }
                   else {

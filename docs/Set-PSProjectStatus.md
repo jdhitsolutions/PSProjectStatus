@@ -75,7 +75,7 @@ Concatentate new tasks.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: add
 
 Required: False
 Position: Named

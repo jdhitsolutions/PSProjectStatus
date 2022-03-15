@@ -89,7 +89,7 @@ c:\scripts\mymodule.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: fullname
 
 Required: False
 Position: 0
