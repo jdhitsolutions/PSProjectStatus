@@ -53,6 +53,9 @@ Function Set-PSProjectStatus {
         If (Test-Path .git) {
             $inputobject.GitBranch = git branch --show-current
         }
+
+        $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+
         if ($PSCmdlet.ShouldProcess($InputObject.Name)) {
             $InputObject
             $InputObject.Save()

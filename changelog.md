@@ -1,5 +1,12 @@
 # Changelog for PSProjectStatus
 
+## v0.4.0
+
++ Updated module commands to include an `UpdateUser` property.
++ Help updates.
++ Updated `README`.
++ Published module to the PowerShell Gallery
+
 ## v0.3.0
 
 + Update `README.md`

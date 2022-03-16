@@ -393,8 +393,8 @@ LastUpdate             Status      Tasks              GitBranch          Age
     </command:details>
     <maml:description>
       <maml:para>Use this command to update a PSProject status. Ideally, you wil run the Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
-      <maml:para>Get-Date | ConvertTo-JSON | Set-Clipboard</maml:para>
-      <maml:para>The Status value is an integer indicating a private enumaration value.</maml:para>
+      <maml:para>Get-Date -format o | Set-Clipboard</maml:para>
+      <maml:para>The Status value is an integer indicating a private enumeration value.</maml:para>
       <maml:para>Development = 0 Updating = 1 Stable = 2 AlphaTesting = 3 BetaTesting = 4 ReleaseCandidate = 5 Patching = 6 UnitTesting = 7 AcceptanceTesting = 8 Other = 9</maml:para>
     </maml:description>
     <command:syntax>
@@ -648,13 +648,12 @@ LastUpdate             Status      Tasks              GitBranch          Age
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\Scripts\PSProjectStatus&gt; Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "github" -Concatenate | Format-List
 
-Name       : PSProjectStatus
-Path       : C:\scripts\PSProjectStatus
-LastUpdate : 3/15/2022 10:20:26 AM
+   Project: PSProjectStatus [C:\scripts\PSProjectStatus]
+
 Status     : Development
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
 GitBranch  : 0.2.0
-Age        : 00:00:00.0610744</dev:code>
+LastUpdate : 3/15/2022 10:20:26 AM</dev:code>
         <dev:remarks>
           <maml:para>Update the project and add a task.</maml:para>
         </dev:remarks>

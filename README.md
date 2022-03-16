@@ -26,6 +26,8 @@ Class PSProject {
     [string[]]$Tasks
     [PSProjectStatus]$Status = "Development"
     [string]$GitBranch
+    [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
@@ -93,6 +95,7 @@ The command will create `psproject.json` in the root folder.
   "Path": "C:\\Scripts\\PSHelpDesk",
   "LastUpdate": "2018-02-20T09:47:33-05:00",
   "Status": 1,
+  "UpdateUser": "THINKX1-JH\\Jeff"
   "Tasks": [
     "update help"
   ],
@@ -143,7 +146,7 @@ This makes it easier to view tasks.
 To update a project status, you could always manually update the JSON file in your script editor. Use this code snippet to get the datetime value in the proper format.
 
 ```powershell
-Get-Date | ConvertTo=Json | Set-Clipboard
+Get-Date -format o | Set-Clipboard
 ```
 
 Paste the datetime value into the file.
@@ -219,9 +222,15 @@ If no you longer want to track a project status, all you have to do is delete th
 
 These are a few things I'm considering.
 
-+ Integration with VS Code
-+ Integration with the PowerShell ISE
-+ Add command aliases to make the functions easier to use in the console
-+ Possibly capture the credentials of who last made a change. This might be useful in a development team scenario.
++ Integration with VS Code.
++ Integration with the PowerShell ISE.
++ Add command aliases to make the functions easier to use in the console.
++ Additional properties
+  + priority
+  + computername
+  + module version
+  + user-defined comment
++ Extend the module to integrate into a SQLite database file.
++ A WPF form to display the project status and make it easier to edit tasks.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's Github repository.

@@ -21,9 +21,9 @@ Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] 
 
 Use this command to update a PSProject status. Ideally, you wil run the Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.
 
-Get-Date | ConvertTo-JSON | Set-Clipboard
+Get-Date -format o | Set-Clipboard
 
-The Status value is an integer indicating a private enumaration value.
+The Status value is an integer indicating a private enumeration value.
 
 Development = 0
 Updating = 1
@@ -55,13 +55,12 @@ LastUpdate             Status      Tasks              GitBranch          Age
 ```powershell
 PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "github" -Concatenate | Format-List
 
-Name       : PSProjectStatus
-Path       : C:\scripts\PSProjectStatus
-LastUpdate : 3/15/2022 10:20:26 AM
+   Project: PSProjectStatus [C:\scripts\PSProjectStatus]
+
 Status     : Development
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
 GitBranch  : 0.2.0
-Age        : 00:00:00.0610744
+LastUpdate : 3/15/2022 10:20:26 AM
 ```
 
 Update the project and add a task.

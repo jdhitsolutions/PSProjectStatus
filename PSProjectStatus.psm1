@@ -18,6 +18,8 @@ Class PSProject {
     [string[]]$Tasks
     [PSProjectStatus]$Status = "Development"
     [string]$GitBranch
+    #using .NET classes to ensure compatibility with non-Windows platforms
+    [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
