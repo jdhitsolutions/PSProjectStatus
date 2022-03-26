@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version:
+online version: https://bit.ly/3JlDkEM
 schema: 2.0.0
 ---
 
@@ -14,12 +14,12 @@ Update a PSProject status.
 ## SYNTAX
 
 ```yaml
-Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>] [[-Tasks] <String[]>] [-Concatenate] [[-Status] <PSProjectStatus>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>]  [[-Tasks] <String[]>] [-Concatenate] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-WhatIf]  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Use this command to update a PSProject status. Ideally, you wil run the Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.
+Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you wil run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.
 
 Get-Date -format o | Set-Clipboard
 
@@ -57,10 +57,11 @@ PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (Get-Date) -Statu
 
    Project: PSProjectStatus [C:\scripts\PSProjectStatus]
 
-Status     : Development
+Version    : 0.5.0
+Status     : Updating
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
-GitBranch  : 0.2.0
-LastUpdate : 3/15/2022 10:20:26 AM
+GitBranch  : 0.5.0
+LastUpdate : 3/23/2022 10:20:26 AM
 ```
 
 Update the project and add a task.
@@ -197,6 +198,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ProjectVersion
+
+What is the project version?
+
+```yaml
+Type: Version
+Parameter Sets: (All)
+Aliases: version
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -210,6 +227,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### PSProject
 
 ## NOTES
+
+This command has an alias of spstat.
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 

@@ -65,6 +65,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of gpstat.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -114,6 +115,7 @@ LastUpdate             Status            Tasks                 GitBranch        
 
    Project: PSCalendar [C:\Scripts\PSCalendar]
 
+Version    : 2.9.0
 Status     : Patching
 Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
 GitBranch  : 2.9.0
@@ -122,8 +124,26 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
           <maml:para>Use the default List view. This makes it easier to view the tasks.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | select versioninfo,age
+
+Name       : PSProjectStatus
+Status     : Updating
+Version    : 0.5.0
+GitBranch  : 0.5.0
+LastUpdate : 3/23/2022 11:30:42 AM
+Age        : 00:06:06.2337458</dev:code>
+        <dev:remarks>
+          <maml:para>Get status using the versionInfo property set and the Age script property.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/37oLez9</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
@@ -144,7 +164,7 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Create a new PSProject file. Ideally, you will run this command in the module root directory.</maml:para>
+      <maml:para>Create a new PSProject file. Ideally, you will run this command in the module root directory. The module manifest, if found, will be used for the Project Version. If a git branch is detected, it will automatically be used.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -243,6 +263,18 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
+          <maml:name>ProjectVersion</maml:name>
+          <maml:description>
+            <maml:para>What is the project version? The default value will be detected from a module manifest if found.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+          <dev:type>
+            <maml:name>Version</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>module version</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -330,6 +362,18 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
+        <maml:name>ProjectVersion</maml:name>
+        <maml:description>
+          <maml:para>What is the project version? The default value will be detected from a module manifest if found.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+        <dev:type>
+          <maml:name>Version</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>module version</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -353,6 +397,7 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of npstat.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -373,6 +418,10 @@ LastUpdate             Status      Tasks              GitBranch          Age
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3MXO7Ho</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -392,7 +441,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to update a PSProject status. Ideally, you wil run the Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
+      <maml:para>Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you wil run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
       <maml:para>Get-Date -format o | Set-Clipboard</maml:para>
       <maml:para>The Status value is an integer indicating a private enumeration value.</maml:para>
       <maml:para>Development = 0 Updating = 1 Stable = 2 AlphaTesting = 3 BetaTesting = 4 ReleaseCandidate = 5 Patching = 6 UnitTesting = 7 AcceptanceTesting = 8 Other = 9</maml:para>
@@ -505,6 +554,18 @@ LastUpdate             Status      Tasks              GitBranch          Age
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
+          <maml:name>ProjectVersion</maml:name>
+          <maml:description>
+            <maml:para>What is the project version?</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+          <dev:type>
+            <maml:name>Version</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -604,6 +665,18 @@ LastUpdate             Status      Tasks              GitBranch          Age
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
+        <maml:name>ProjectVersion</maml:name>
+        <maml:description>
+          <maml:para>What is the project version?</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+        <dev:type>
+          <maml:name>Version</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -627,6 +700,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of spstat.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -650,16 +724,21 @@ LastUpdate             Status      Tasks              GitBranch          Age
 
    Project: PSProjectStatus [C:\scripts\PSProjectStatus]
 
-Status     : Development
+Version    : 0.5.0
+Status     : Updating
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
-GitBranch  : 0.2.0
-LastUpdate : 3/15/2022 10:20:26 AM</dev:code>
+GitBranch  : 0.5.0
+LastUpdate : 3/23/2022 10:20:26 AM</dev:code>
         <dev:remarks>
           <maml:para>Update the project and add a task.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3JlDkEM</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>

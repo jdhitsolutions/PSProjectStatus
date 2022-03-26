@@ -108,6 +108,10 @@ https://github.com/jdhitsolutions/PSScriptTools
           <ListEntry>
             <ListItems>
               <ListItem>
+                <Label>Version</Label>
+                <PropertyName>ProjectVersion</PropertyName>
+              </ListItem>
+                <ListItem>
                 <Label>Status</Label>
                 <PropertyName>Status</PropertyName>
               </ListItem>

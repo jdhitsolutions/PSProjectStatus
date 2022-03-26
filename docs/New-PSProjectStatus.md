@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version:
+online version: https://bit.ly/3MXO7Ho
 schema: 2.0.0
 ---
 
@@ -14,12 +14,12 @@ Create a new PSProjectStatus.
 ## SYNTAX
 
 ```yaml
-New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Create a new PSProject file. Ideally, you will run this command in the module root directory.
+Create a new PSProject file. Ideally, you will run this command in the module root directory. The module manifest, if found, will be used for the Project Version. If a git branch is detected, it will automatically be used.
 
 ## EXAMPLES
 
@@ -153,6 +153,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ProjectVersion
+
+What is the project version? The default value will be detected from a module manifest if found.
+
+```yaml
+Type: Version
+Parameter Sets: (All)
+Aliases: version
+
+Required: False
+Position: Named
+Default value: module version
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -166,6 +182,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### PSProject
 
 ## NOTES
+
+This command has an alias of npstat.
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 

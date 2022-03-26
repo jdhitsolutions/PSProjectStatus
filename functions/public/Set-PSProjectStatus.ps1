@@ -1,5 +1,6 @@
 Function Set-PSProjectStatus {
     [cmdletbinding(SupportsShouldProcess)]
+    [alias('spstat')]
     [OutputType("PSProject")]
     Param(
         [Parameter(ValueFromPipeline, HelpMessage = "Specify a PSProject object")]
@@ -24,7 +25,12 @@ Function Set-PSProjectStatus {
 
         [Parameter(HelpMessage = "What is the project status?")]
         [ValidateNotNullOrEmpty()]
-        [PSProjectStatus]$Status
+        [PSProjectStatus]$Status,
+
+        [Parameter(HelpMessage = "What is the project version?")]
+        [ValidateNotNullOrEmpty()]
+        [alias("version")]
+        [version]$ProjectVersion
     )
 
     Begin {
@@ -33,7 +39,7 @@ Function Set-PSProjectStatus {
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $($inputobject.name)"
 
-        $properties = "Name","Status","LastUpdate"
+        $properties = "Name","Status","LastUpdate","ProjectVersion"
         foreach ($property in $properties) {
             if ($PSBoundParameters.ContainsKey($property)) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $property"
@@ -52,9 +58,12 @@ Function Set-PSProjectStatus {
         }
         If (Test-Path .git) {
             $inputobject.GitBranch = git branch --show-current
+             #get git remote
+            $inputobject.RemoteRepository = _getRemote
         }
 
         $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+        $InputObject.Computername = [System.Environment]::MachineName
 
         if ($PSCmdlet.ShouldProcess($InputObject.Name)) {
             $InputObject

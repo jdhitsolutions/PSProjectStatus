@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version:
+online version: https://bit.ly/37oLez9
 schema: 2.0.0
 ---
 
@@ -71,6 +71,7 @@ PS C:\Scripts\PSCalendar> Get-PSProjectStatus | Format-List
 
    Project: PSCalendar [C:\Scripts\PSCalendar]
 
+Version    : 2.9.0
 Status     : Patching
 Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
 GitBranch  : 2.9.0
@@ -78,6 +79,21 @@ LastUpdate : 3/3/2022 10:24:49 AM
 ```
 
 Use the default List view. This makes it easier to view the tasks.
+
+### Example 4
+
+```powershell
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | select versioninfo,age
+
+Name       : PSProjectStatus
+Status     : Updating
+Version    : 0.5.0
+GitBranch  : 0.5.0
+LastUpdate : 3/23/2022 11:30:42 AM
+Age        : 00:06:06.2337458
+```
+
+Get status using the versionInfo property set and the Age script property.
 
 ## PARAMETERS
 
@@ -111,6 +127,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### PSProject
 
 ## NOTES
+
+This command has an alias of gpstat.
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 

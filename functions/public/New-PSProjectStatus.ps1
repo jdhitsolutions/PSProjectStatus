@@ -1,5 +1,6 @@
 Function New-PSProjectStatus {
     [cmdletbinding(SupportsShouldProcess)]
+    [alias("npstat")]
     [OutputType("PSProject")]
     Param (
         [Parameter(Position = 0, HelpMessage = "What is the project name?")]
@@ -20,7 +21,12 @@ Function New-PSProjectStatus {
 
         [Parameter(HelpMessage = "When is the project status?")]
         [ValidateNotNullOrEmpty()]
-        [PSProjectStatus]$Status = "Development"
+        [PSProjectStatus]$Status = "Development",
+
+        [Parameter(HelpMessage = "What is the project version?")]
+        [ValidateNotNullOrEmpty()]
+        [alias("version")]
+        [version]$ProjectVersion
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
@@ -46,6 +52,9 @@ Function New-PSProjectStatus {
         $branch = git branch --show-current
         Write-Verbose "Detected git branch $branch"
         $new.GitBranch = $branch
+
+        #get git remote
+        $new.RemoteRepository = _getRemote
     }
     else {
         Write-Verbose "No git branch detected"

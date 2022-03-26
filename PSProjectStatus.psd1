@@ -2,22 +2,22 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.4.0'
+    ModuleVersion        = '0.5.0'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
     CompanyName          = 'JDH Information Technology Solutions, Inc.'
-    Copyright            = '(c) JDH Information Technology Solutions, Inc. All rights reserved.'
+    Copyright            = '(c) 2022 JDH Information Technology Solutions, Inc. All rights reserved.'
     Description          = 'A set of PowerShell tools for tracking module development status.'
     PowerShellVersion    = '5.1'
 
     # Type files (.ps1xml) to be loaded when importing this module
-    # TypesToProcess = @()
+    TypesToProcess = @('types\psprojectstatus.types.ps1xml')
 
     # Format files (.ps1xml) to be loaded when importing this module
     FormatsToProcess     = @('formats\psprojectstatus.format.ps1xml')
     FunctionsToExport    = 'Get-PSProjectStatus', "New-PSProjectStatus", "Set-PSProjectStatus"
-    # AliasesToExport = ''
+    AliasesToExport = 'gpstat','npstat','spstat'
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData          = @{
@@ -27,7 +27,6 @@
                     ProjectUri = 'https://github.com/jdhitsolutions/PSProjectStatus'
                     # IconUri = ''
                     #ReleaseNotes = ''
-                    # Prerelease = ''
                     RequireLicenseAcceptance = $false
                     # ExternalModuleDependencies = @()
         } # End of PSData hashtable

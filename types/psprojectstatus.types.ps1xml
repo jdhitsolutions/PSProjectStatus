@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file was created with New-PSPropertySet from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+-->
+<Types>
+  <Type>
+    <Name>PSProject</Name>
+    <Members>
+      <PropertySet>
+        <Name>versionInfo</Name>
+        <ReferencedProperties>
+          <Name>Name</Name>
+          <Name>Status</Name>
+          <Name>Version</Name>
+          <Name>GitBranch</Name>
+          <Name>LastUpdate</Name>
+        </ReferencedProperties>
+      </PropertySet>
+      <AliasProperty>
+        <Name>Version</Name>
+        <ReferencedMemberName>ProjectVersion</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>Age</Name>
+        <GetScriptBlock> (Get-Date) - $this.lastUpdate </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

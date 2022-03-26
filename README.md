@@ -19,19 +19,63 @@ This module should work in Windows PowerShell and PowerShell 7.
 The status is based on a private class-based definition. The JSON file is used to create a `PSProject` object and update its properties.
 
 ```powershell
+
+Class PSProjectRemote {
+    [string]$Name
+    [string]$Url
+    [gitMode]$Mode
+
+    PSProjectRemote ($Name, $url, $mode) {
+        $this.Name = $Name
+        $this.url = $url
+        $this.mode = $mode
+    }
+}
+
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
     [datetime]$LastUpdate = (Get-Date)
     [string[]]$Tasks
     [PSProjectStatus]$Status = "Development"
+    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
     [string]$GitBranch
+    #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
-
+    [string]$Computername = [System.Environment]::MachineName
+    [PSProjectRemote[]]$RemoteRepository = $(_getRemote)
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
-        $this | Select-Object -Property * -exclude Age | ConvertTo-Json | Out-File $json
+        #convert the ProjectVersion to a string in the JSON file
+        $this | Select-Object Name,Path,LastUpdate,Status,
+        @{Name="ProjectVersion";Expression={$_.ProjectVersion.toString()}},UpdateUser,
+        Computername,RemoteRepository,Tasks,GitBranch | ConvertTo-Json | Out-File $json
+    }
+    [void]RefreshProjectVersion() {
+        $this.ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
+    }
+    [void]RefreshUser() {
+        $this.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+    }
+    [void]RefreshComputer() {
+        $this.Computername = [System.Environment]::MachineName
+    }
+    [void]RefreshRemoteRepository() {
+        if (Test-Path .git) {
+            $remotes = git remote -v
+            if ($remotes) {
+                $repos = @()
+                foreach ($remote in $remotes) {
+                    $split = $remote.split()
+                    $RemoteName = $split[0]
+                    $Url = $split[1]
+                    $Mode = $split[2].replace("(","").Replace(")","")
+                    $repos += [PSProjectRemote]::new($remotename,$url,$mode)
+                } #foreach
+                $this.RemoteRepository = $repos
+            } #if remotes found
+        }
     }
 }
 ```
@@ -55,37 +99,50 @@ enum PSProjectStatus {
 
 At this time it is not possible to include a user-defined status. It is hoped that you can find something appropriate from the current status list.
 
-The `Age` ScriptProperty is added to the object as a type extension.
+The `Age` ScriptProperty and `VersionInfo` property set are added to the object as type extensions.
 
-```powershell
-Update-TypeData -TypeName PSProject -MemberType ScriptProperty -MemberName Age -Value { (Get-Date) - $this.lastUpdate } -Force
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Types>
+  <Type>
+    <Name>PSProject</Name>
+    <Members>
+      <PropertySet>
+        <Name>versionInfo</Name>
+        <ReferencedProperties>
+          <Name>Name</Name>
+          <Name>Status</Name>
+          <Name>Version</Name>
+          <Name>GitBranch</Name>
+          <Name>LastUpdate</Name>
+        </ReferencedProperties>
+      </PropertySet>
+      <AliasProperty>
+        <Name>Version</Name>
+        <ReferencedMemberName>ProjectVersion</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>Age</Name>
+        <GetScriptBlock> (Get-Date) - $this.lastUpdate </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
 ```
 
 ## Creating a Project Status
 
 To create a project status file, navigate to the module root and run [New-PSProjectStatus](docs/New-PSProjectStatus.md). The default status is `Development`
 
-```dos
-C:\Scripts\PSHelpDesk> New-PSProjectStatus
-
-   Name: PSHelpDesk [C:\Scripts\PSHelpDesk]
-
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-3/15/2022 5:21:23 PM   Development                                   dev   00.00:00
-```
+![new psproject status](images/new-psprojectstatus.png)
 
 You can update properties when you create the project status.
 
-```dos
- C:\Scripts\PSHelpDesk> New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).lastwritetime -Status Updating -tasks "update help"
-
-   Name: PSHelpDesk [C:\Scripts\PSHelpDesk]
-
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-2/20/2018 9:47:33 AM   Updating          {update help}               dev 1484.07:36
+```powershell
+New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).lastwritetime -Status Updating -tasks "update help"
 ```
+
+![new customn project status](images/new-psprojectstatus2.png)
 
 The command will create `psproject.json` in the root folder.
 
@@ -95,7 +152,10 @@ The command will create `psproject.json` in the root folder.
   "Path": "C:\\Scripts\\PSHelpDesk",
   "LastUpdate": "2018-02-20T09:47:33-05:00",
   "Status": 1,
-  "UpdateUser": "THINKX1-JH\\Jeff"
+  "ProjectVersion": "0.1.0",
+  "UpdateUser": "PROSPERO\\Jeff",
+  "Computername": "PROSPERO",
+  "RemoteRepository": null,
   "Tasks": [
     "update help"
   ],
@@ -103,7 +163,7 @@ The command will create `psproject.json` in the root folder.
 }
 ```
 
-Note that the update time is formatted as a UTC string.
+Note that the update time is formatted as a UTC string. The Project version will be pulled from the module manifest, if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
 
 > If you are using *git* with your module you may want to add `psproject.json` to your `.gitignore` file.
 
@@ -132,7 +192,7 @@ PS C:\scripts\PSCalendar> Get-PSProjectStatus | format-list
 
    Project: PSCalendar [C:\Scripts\PSCalendar]
 
-
+Version    : 2.9.0
 Status     : Patching
 Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
 GitBranch  : 2.9.0
@@ -151,7 +211,7 @@ Get-Date -format o | Set-Clipboard
 
 Paste the datetime value into the file.
 
-The Status value is an integer indicating a private enumaration value.
+The `Status` value is an integer indicating a private enumeration value.
 
 ```text
 Development = 0
@@ -180,6 +240,53 @@ LastUpdate             Status            Tasks                 GitBranch        
 ```
 
 When defining tasks, use `-Concatenate` to append the tasks. Otherwise, tasks will be overwritten with the new value.
+
+## Source Control Status
+
+The commands in this module assume you are most likely using `git` for source control. The status object will automatically detect the local git branch. It will also detect the primary remote repositories.
+
+![remote repository status](images/remote-repository.png)
+
+## Manually Updating with the Object
+
+The PSProject class has been updated since the first version of this module was released. You can use the object's methods to refresh some properties. Here is a status that is incomplete.
+
+```dos
+PS C:\Scripts\WingetTools> Get-PSProjectStatus | select *
+
+Name             : WingetTools
+Status           : Stable
+Version          :
+GitBranch        : main
+LastUpdate       : 3/17/2022 9:46:35 AM
+Age              : 9.00:22:39.3936893
+Path             : C:\Scripts\WingetTools
+ProjectVersion   :
+UpdateUser       : THINKX1-JH\Jeff
+Computername     :
+RemoteRepository : {}
+Tasks            : {}
+```
+
+To update, get a reference to the project status object.
+
+```powershell
+$p = Get-PSProjectStatus
+```
+
+`Get-Member` will show you the available methods.
+
+![psproject methods](images/psproject-methods.png)
+
+```powershell
+$p.RefreshComputer()
+$p.RefreshUser()
+$p.RefreshProjectVersion()
+$p.RefreshRemoteRepository()
+$p.save()
+```
+
+![refresh a project status](images/refresh-psproject.png)
 
 ## Project Management
 
@@ -224,11 +331,8 @@ These are a few things I'm considering.
 
 + Integration with VS Code.
 + Integration with the PowerShell ISE.
-+ Add command aliases to make the functions easier to use in the console.
 + Additional properties
   + priority
-  + computername
-  + module version
   + user-defined comment
 + Extend the module to integrate into a SQLite database file.
 + A WPF form to display the project status and make it easier to edit tasks.
