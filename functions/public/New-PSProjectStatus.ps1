@@ -26,7 +26,10 @@ Function New-PSProjectStatus {
         [Parameter(HelpMessage = "What is the project version?")]
         [ValidateNotNullOrEmpty()]
         [alias("version")]
-        [version]$ProjectVersion
+        [version]$ProjectVersion,
+
+        [Parameter(HelpMessage = "Enter an optional comment. This could be git tag, or an indication about the type of project.")]
+        [string]$Comment
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
@@ -48,6 +51,7 @@ Function New-PSProjectStatus {
         $new.$($_.key) = $_.value
     }
 
+    Write-Verbose "Testing for .git"
     If (Test-Path .git) {
         $branch = git branch --show-current
         Write-Verbose "Detected git branch $branch"

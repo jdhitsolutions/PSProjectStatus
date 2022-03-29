@@ -14,7 +14,7 @@ Create a new PSProjectStatus.
 ## SYNTAX
 
 ```yaml
-New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Create a new PSProject file. Ideally, you will run this command in the module ro
 ### Example 1
 
 ```powershell
-PS S:\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-item .\PSScriptingInventory.psd1).lastwritetime -Status Stable
+PS S:\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
@@ -165,6 +165,22 @@ Aliases: version
 Required: False
 Position: Named
 Default value: module version
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Comment
+
+Enter an optional comment. This could be git tag, or an indication about the type of project.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

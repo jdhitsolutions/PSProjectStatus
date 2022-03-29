@@ -1,3 +1,11 @@
+
+#dot source functions
+Get-ChildItem $psscriptroot\functions\*.ps1 -Recurse |
+ForEach-Object {
+    . $_.FullName
+}
+
+#region class definitions
 enum PSProjectStatus {
     Development
     Updating
@@ -34,22 +42,23 @@ Class PSProject {
     [datetime]$LastUpdate = (Get-Date)
     [string[]]$Tasks
     [PSProjectStatus]$Status = "Development"
-    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
+    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     [string]$GitBranch
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
-    [PSProjectRemote[]]$RemoteRepository = $(_getRemote)
+    [PSProjectRemote[]]$RemoteRepository
+    [string]$Comment
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
-        $this | Select-Object Name,Path,LastUpdate,Status,
-        @{Name="ProjectVersion";Expression={$_.ProjectVersion.toString()}},UpdateUser,
-        Computername,RemoteRepository,Tasks,GitBranch | ConvertTo-Json | Out-File $json
+        $this | Select-Object Name, Path, LastUpdate, Status,
+        @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } }, UpdateUser,
+        Computername, RemoteRepository, Tasks, GitBranch, Comment | ConvertTo-Json | Out-File $json
     }
     [void]RefreshProjectVersion() {
-        $this.ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
+        $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     }
     [void]RefreshUser() {
         $this.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
@@ -66,17 +75,153 @@ Class PSProject {
                     $split = $remote.split()
                     $RemoteName = $split[0]
                     $Url = $split[1]
-                    $Mode = $split[2].replace("(","").Replace(")","")
-                    $repos += [PSProjectRemote]::new($remotename,$url,$mode)
+                    $Mode = $split[2].replace("(", "").Replace(")", "")
+                    $repos += [PSProjectRemote]::new($remotename, $url, $mode)
                 } #foreach
                 $this.RemoteRepository = $repos
             } #if remotes found
         }
     }
+
+    [void]RefreshAll() {
+        $this.RefreshProjectVersion()
+        $this.RefreshUser()
+        $this.RefreshComputer()
+        $this.RefreshRemoteRepository()
+        $this.Save()
+    }
 }
 
-Get-ChildItem $psscriptroot\functions\*.ps1 -Recurse |
-ForEach-Object {
-    . $_.FullName
-}
+#endregion
 
+#region add a VSCode/PowerShell ISE extension to the project
+
+if ($host.name -eq 'visual studio code host') {
+    Function Update-PSProjectStatus {
+        [cmdletbinding()]
+        Param ($context)
+
+        $title = "$([char]27)[4;3;38;5;228mStatus Options$([char]27)[0m"
+
+        $menu = @"
+
+        $title
+
+        [1] Development        [6] ReleaseCandidate
+        [2] Updating           [7] Patching
+        [3] Stable             [8] UnitTesting
+        [4] AlphaTesting       [9] AcceptanceTesting
+        [5] BetaTesting        [10] Other
+
+"@
+
+        Do {
+            Clear-Host
+            Write-Host $menu
+            [int]$r = Read-Host "Select a project status. Enter no value to cancel"
+            if ($r -eq 0) {
+                #cancel
+                return
+            }
+            if ($r -lt 1 -OR $r -gt 10) {
+                $pseditor.Window.ShowWarningMessage("You entered an invalid value. Enter nothing or a value between 1 and 10.")
+            }
+
+        } until ($r -ge 1 -AND $r -le 10)
+
+        $pseditor.Window.SetStatusBarMessage("Updating PSProject status", 3000)
+        switch ($r) {
+            1 { $status = "Development" }
+            2 { $status = "Updating" }
+            3 { $status = "Stable" }
+            4 { $status = "AlphaTesting" }
+            5 { $status = "BetaTesting" }
+            6 { $status = "ReleaseCandidate" }
+            7 { $status = "Patching" }
+            8 { $status = "UnitTesting" }
+            9 { $status = "AcceptanceTesting" }
+            10 { $status = "Other" }
+        }
+
+        if ($status) {
+            #update the project if a status is specified
+            $splat = @{
+                LastUpdate = (Get-Date)
+                Status     = $status
+            }
+            if (Test-Path ".\$(Split-Path $pwd -Leaf).psd1" ) {
+                $splat.Add("ProjectVersion", (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
+            }
+
+            $s = Set-PSProjectStatus @splat | Select-Object VersionInfo | Out-String
+            #parse out ANSI escape sequences
+            $detail = $s -replace "$([char]27)\[[\d;]*m",''
+            #show a summary message
+            $pseditor.Window.ShowInformationMessage($detail)
+        }
+
+    }#end function
+
+    Register-EditorCommand -Function "Update-PSProjectStatus" -name "UpdatePSProjectStatus" -DisplayName "Update PSProject Status"
+} #VSCode
+
+if ($host.name -match "ISE") {
+    #The ISE specific version of the update function
+    Function Update-PSProjectStatus {
+        [cmdletbinding()]
+        Param ()
+
+        $title = "Status Options`n    --------------"
+
+        $menu = @"
+
+    $title
+
+    [1] Development        [6] ReleaseCandidate
+    [2] Updating           [7] Patching
+    [3] Stable             [8] UnitTesting
+    [4] AlphaTesting       [9] AcceptanceTesting
+    [5] BetaTesting        [10] Other
+
+"@
+
+        Write-Host $menu
+
+        [int]$r = Read-Host "Select a project status. Enter no value to cancel"
+        if ($r -lt 1 -OR $r -gt 10) {
+            return "You entered an invalid value. "
+        }
+        switch ($r) {
+            1 { $status = "Development" }
+            2 { $status = "Updating" }
+            3 { $status = "Stable" }
+            4 { $status = "AlphaTesting" }
+            5 { $status = "BetaTesting" }
+            6 { $status = "ReleaseCandidate" }
+            7 { $status = "Patching" }
+            8 { $status = "UnitTesting" }
+            9 { $status = "AcceptanceTesting" }
+            10 { $status = "Other" }
+        }
+
+        if ($status) {
+            #update the project if a status is specified
+            $splat = @{
+                LastUpdate = (Get-Date)
+                Status     = $status
+            }
+            if (Test-Path ".\$(Split-Path $pwd -Leaf).psd1" ) {
+                $splat.Add("ProjectVersion", (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
+            }
+
+            Set-PSProjectStatus @splat | Select-Object -Property VersionInfo
+        }
+
+    }#end function
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains "Update PSProjectStatus") {
+        #add the action to the Add-Ons menu
+        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("Update PSProjectStatus", { Update-PSProjectStatus }, $Null))
+    }
+} #ISE
+
+#endregion

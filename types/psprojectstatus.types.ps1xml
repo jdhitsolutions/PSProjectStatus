@@ -22,6 +22,10 @@ the PowerShell Gallery.
         <Name>Version</Name>
         <ReferencedMemberName>ProjectVersion</ReferencedMemberName>
       </AliasProperty>
+      <AliasProperty>
+        <Name>Username</Name>
+        <ReferencedMemberName>UpdateUser</ReferencedMemberName>
+      </AliasProperty>
       <ScriptProperty>
         <Name>Age</Name>
         <GetScriptBlock> (Get-Date) - $this.lastUpdate </GetScriptBlock>

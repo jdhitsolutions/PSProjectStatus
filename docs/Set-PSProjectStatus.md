@@ -14,7 +14,7 @@ Update a PSProject status.
 ## SYNTAX
 
 ```yaml
-Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>]  [[-Tasks] <String[]>] [-Concatenate] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-WhatIf]  [-Confirm] [<CommonParameters>]
+Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>] [[-Tasks] <String[]>] [-Concatenate] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Other = 9
 ### Example 1
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (get-date) -Status Development
+PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (get-date) -Status Development -comment (git tag -l | select -last 1)
 
    Name: PSProjectStatus [C:\scripts\PSProjectStatus]
 
@@ -49,6 +49,8 @@ LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
 3/15/2022 10:09:05 AM  Develo..    {help docs, readm… 0.2.0         00.00:00
 ```
+
+Update the project status using the current date and time. Set the Status property to Development and use the last git tag as a comment.
 
 ### Example 2
 
@@ -206,6 +208,22 @@ What is the project version?
 Type: Version
 Parameter Sets: (All)
 Aliases: version
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Comment
+
+Enter an optional comment. This could be git tag, or an indication about the type of project.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

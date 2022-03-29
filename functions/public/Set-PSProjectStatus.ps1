@@ -30,7 +30,10 @@ Function Set-PSProjectStatus {
         [Parameter(HelpMessage = "What is the project version?")]
         [ValidateNotNullOrEmpty()]
         [alias("version")]
-        [version]$ProjectVersion
+        [version]$ProjectVersion,
+
+        [Parameter(HelpMessage = "Enter an optional comment. This could be git tag, or an indication about the type of project.")]
+        [string]$Comment
     )
 
     Begin {
@@ -39,7 +42,7 @@ Function Set-PSProjectStatus {
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $($inputobject.name)"
 
-        $properties = "Name","Status","LastUpdate","ProjectVersion"
+        $properties = "Name","Status","LastUpdate","ProjectVersion","Comment"
         foreach ($property in $properties) {
             if ($PSBoundParameters.ContainsKey($property)) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $property"

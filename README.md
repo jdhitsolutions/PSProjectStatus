@@ -43,14 +43,15 @@ Class PSProject {
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
-    [PSProjectRemote[]]$RemoteRepository = $(_getRemote)
+    [PSProjectRemote[]]$RemoteRepository
+    [string]$Comment
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         $this | Select-Object Name,Path,LastUpdate,Status,
         @{Name="ProjectVersion";Expression={$_.ProjectVersion.toString()}},UpdateUser,
-        Computername,RemoteRepository,Tasks,GitBranch | ConvertTo-Json | Out-File $json
+        Computername,RemoteRepository,Tasks,GitBranch,Comment | ConvertTo-Json | Out-File $json
     }
     [void]RefreshProjectVersion() {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
@@ -121,6 +122,10 @@ The `Age` ScriptProperty and `VersionInfo` property set are added to the object 
         <Name>Version</Name>
         <ReferencedMemberName>ProjectVersion</ReferencedMemberName>
       </AliasProperty>
+      <AliasProperty>
+        <Name>Username</Name>
+        <ReferencedMemberName>UpdateUser</ReferencedMemberName>
+      </AliasProperty>
       <ScriptProperty>
         <Name>Age</Name>
         <GetScriptBlock> (Get-Date) - $this.lastUpdate </GetScriptBlock>
@@ -129,6 +134,8 @@ The `Age` ScriptProperty and `VersionInfo` property set are added to the object 
   </Type>
 </Types>
 ```
+
+> Note that some screen shots may be incomplete as I am still adding properties to the PSProject class.
 
 ## Creating a Project Status
 
@@ -266,6 +273,7 @@ UpdateUser       : THINKX1-JH\Jeff
 Computername     :
 RemoteRepository : {}
 Tasks            : {}
+Comment          :
 ```
 
 To update, get a reference to the project status object.
@@ -278,6 +286,8 @@ $p = Get-PSProjectStatus
 
 ![psproject methods](images/psproject-methods.png)
 
+Invoke the methods that apply to your project. You need to invoke the `Save()` method to commit the changes to disk.
+
 ```powershell
 $p.RefreshComputer()
 $p.RefreshUser()
@@ -287,6 +297,8 @@ $p.save()
 ```
 
 ![refresh a project status](images/refresh-psproject.png)
+
+As an alternative, can use the `RefreshAll()` method which will invoke all the refresh methods __and__ save the file.
 
 ## Project Management
 
@@ -325,15 +337,44 @@ You can select a single project, press Enter, and open the folder in VS Code. Yo
 
 If no you longer want to track a project status, all you have to do is delete the JSON file.
 
+## Editor Integrations
+
+If you import this module into your PowerShell editor, either Visual Studio Code or the PowerShell ISE, the module will add an update function called `Update-PSProjectStatus`. You can run the command from the integrated terminal or use the appropriate shortcut. The command will the status based on user input, update the `LastUpdate` time to the current date and time, update the project version from the module manifest (if found), and update the git branch if found.
+
+You need to make sure your terminal or console window is set to your project's root directory.
+
+### PowerShell ISE
+
+If you import the module in the PowerShell ISE, it will add a menu shortcut under `Add-Ons`.
+
+![add-on menu](images/ise-update.png)
+
+Click the shortcut and a status menu will be displaed in the console pane.
+
+![ISE update status](images/update-psprojectstatus-ise.png)
+
+Select a status and press <kbd>Enter</kbd> The function will call `Set-PSProjectStatus` and display the updated `versioninfo` property.
+
+### VS Code
+
+Likewise, in VS Code open the command palette and go to `PowerShell: Show Additional commands from PoweShell modules`. You should see an option to update.
+
+![VSCode additional command](images/code-update.png)
+
+Select the menu choice and switch to the integrated terminal window.
+
+![VSCode update status](images/update-psprojectstatus.png)
+
+The menu will loop and display until you enter a valid number or press Enter with no value. The summary will be displayed as a VSCode information message.
+
 ## Road Map
 
-These are a few things I'm considering.
+These are a few things I'm considering or have been suggested.
 
-+ Integration with VS Code.
-+ Integration with the PowerShell ISE.
 + Additional properties
   + priority
-  + user-defined comment
+  + project type
+  + git status
 + Extend the module to integrate into a SQLite database file.
 + A WPF form to display the project status and make it easier to edit tasks.
 

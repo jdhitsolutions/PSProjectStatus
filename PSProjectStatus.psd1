@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.5.0'
+    ModuleVersion        = '0.6.0'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
@@ -12,8 +12,9 @@
     PowerShellVersion    = '5.1'
     TypesToProcess       = @('types\psprojectstatus.types.ps1xml')
     FormatsToProcess     = @('formats\psprojectstatus.format.ps1xml')
-    FunctionsToExport    = 'Get-PSProjectStatus', 'New-PSProjectStatus', 'Set-PSProjectStatus'
-    AliasesToExport      = 'gpstat', 'npstat', 'spstat'
+    FunctionsToExport    = 'Get-PSProjectStatus', 'New-PSProjectStatus', 'Set-PSProjectStatus','Update-PSProjectStatus',
+    'Get-PSProjectGitStatus'
+    AliasesToExport      = 'gpstat', 'npstat', 'spstat','gitstat'
     PrivateData          = @{
         PSData = @{
             Tags                     = @("modules", "scripting", "project-management", "project")
