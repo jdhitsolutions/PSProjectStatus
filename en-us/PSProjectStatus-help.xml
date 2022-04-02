@@ -2,6 +2,70 @@
 <helpItems schema="maml" xmlns="http://msh">
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PSProjectGitStatus</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSProjectGitStatus</command:noun>
+      <maml:description>
+        <maml:para>Get git project status.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not a git repository, nothing will be returned.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSProjectGitStatus</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSProjectGit</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of gitstat.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>S C:\Scripts\PSProjectStatus&gt; Get-PSProjectGitStatus
+
+Name            Branch LastCommit           Remote
+----            ------ ----------           ------
+PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2022 10:36:00 AM}</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSProjectStatus</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSProjectStatus</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSProjectStatus</command:noun>
@@ -275,6 +339,18 @@ Age        : 00:06:06.2337458</dev:code>
           </dev:type>
           <dev:defaultValue>module version</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Comment</maml:name>
+          <maml:description>
+            <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -374,6 +450,18 @@ Age        : 00:06:06.2337458</dev:code>
         </dev:type>
         <dev:defaultValue>module version</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Comment</maml:name>
+        <maml:description>
+          <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -404,7 +492,7 @@ Age        : 00:06:06.2337458</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS S:\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-item .\PSScriptingInventory.psd1).lastwritetime -Status Stable
+        <dev:code>PS S:\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
@@ -566,6 +654,18 @@ LastUpdate             Status      Tasks              GitBranch          Age
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Comment</maml:name>
+          <maml:description>
+            <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -677,6 +777,18 @@ LastUpdate             Status      Tasks              GitBranch          Age
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Comment</maml:name>
+        <maml:description>
+          <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -707,7 +819,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Set-PSProjectStatus -LastUpdate (get-date) -Status Development
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Set-PSProjectStatus -LastUpdate (get-date) -Status Development -comment (git tag -l | select -last 1)
 
    Name: PSProjectStatus [C:\scripts\PSProjectStatus]
 
@@ -715,7 +827,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
 3/15/2022 10:09:05 AM  Develo..    {help docs, readm… 0.2.0         00.00:00</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Update the project status using the current date and time. Set the Status property to Development and use the last git tag as a comment.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
