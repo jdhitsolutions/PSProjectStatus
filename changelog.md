@@ -1,5 +1,17 @@
 # Changelog for PSProjectStatus
 
+## 0.6.0
+
++ Added `Comment` property to the `PSProject` class.
++ Added `Comment` parameter to `New-PSProjectStatus` and `Set-PSProjectStatus`.
++ Added alias property `Username` for `UpdateUser`.
++ Suppressed error message from `New-PSProjectStatus` when the project folder isn't initialized as a git repository.
++ Added `Update-PSProjectStatus` as function for VSCode and the PowerShell ISE.
++ Added `Get-PSProjectGitStatus` with an alias of `gitstat`.
++ Added a `RefreshAll()` method to the `PSProject` class. This will run all refresh methods __AND__ save the file.
++ Help updates.
++ Updated `README.md`.
+
 ## 0.5.0
 
 + Added online help links.

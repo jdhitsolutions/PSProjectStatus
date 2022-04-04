@@ -376,6 +376,7 @@ These are a few things I'm considering or have been suggested.
   + project type
   + git status
 + Extend the module to integrate into a SQLite database file.
++ Editor integration to manage project tasks
 + A WPF form to display the project status and make it easier to edit tasks.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's Github repository.
