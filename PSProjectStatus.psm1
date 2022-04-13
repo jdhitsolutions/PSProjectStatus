@@ -55,7 +55,7 @@ Class PSProject {
         #convert the ProjectVersion to a string in the JSON file
         $this | Select-Object Name, Path, LastUpdate, Status,
         @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } }, UpdateUser,
-        Computername, RemoteRepository, Tasks, GitBranch, Comment | ConvertTo-Json | Out-File $json
+        Computername, RemoteRepository, Tasks, GitBranch, Comment | ConvertTo-Json | Out-File $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version

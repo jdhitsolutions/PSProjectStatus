@@ -59,6 +59,10 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3jSB1hH</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>

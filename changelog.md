@@ -1,5 +1,11 @@
 # Changelog for PSProjectStatus
 
+## 0.7.0
+
++ Updated `Save()` method to specify UTF-8 file encoding for the JSON file.
++ Updated module manifest.
++ Updated missing online help links.
+
 ## 0.6.0
 
 + Added `Comment` property to the `PSProject` class.
