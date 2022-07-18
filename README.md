@@ -367,6 +367,10 @@ Select the menu choice and switch to the integrated terminal window.
 
 The menu will loop and display until you enter a valid number or press Enter with no value. The summary will be displayed as a VSCode information message.
 
+### JSON Schema
+
+A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with v0.8.0. If you edit the `psproject.json` file in VSCode, you should get tab-completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
+
 ## Road Map
 
 These are a few things I'm considering or have been suggested.
@@ -374,9 +378,8 @@ These are a few things I'm considering or have been suggested.
 + Additional properties
   + priority
   + project type
-  + git status
 + Extend the module to integrate into a SQLite database file.
-+ Editor integration to manage project tasks
++ Editor integration to manage project tasks.
 + A WPF form to display the project status and make it easier to edit tasks.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's Github repository.

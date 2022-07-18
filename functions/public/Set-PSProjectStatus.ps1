@@ -42,7 +42,7 @@ Function Set-PSProjectStatus {
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $($inputobject.name)"
 
-        $properties = "Name","Status","LastUpdate","ProjectVersion","Comment"
+        $properties = "Name", "Status", "LastUpdate", "ProjectVersion", "Comment"
         foreach ($property in $properties) {
             if ($PSBoundParameters.ContainsKey($property)) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $property"
@@ -61,13 +61,12 @@ Function Set-PSProjectStatus {
         }
         If (Test-Path .git) {
             $inputobject.GitBranch = git branch --show-current
-             #get git remote
+            #get git remote
             $inputobject.RemoteRepository = _getRemote
         }
 
         $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
         $InputObject.Computername = [System.Environment]::MachineName
-
         if ($PSCmdlet.ShouldProcess($InputObject.Name)) {
             $InputObject
             $InputObject.Save()

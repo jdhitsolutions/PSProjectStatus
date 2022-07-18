@@ -1,5 +1,11 @@
 # Changelog for PSProjectStatus
 
+## 0.8.0
+
++ Added JSON schema file and update code to insert the schema reference into the `psproject.json` file.
++ Modified the code to save the JSON file to store the `Status` as its string value. This makes the file compatible with the new schema.
++ Updated `README.md`.
+
 ## 0.7.0
 
 + Updated `Save()` method to specify UTF-8 file encoding for the JSON file.

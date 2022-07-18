@@ -53,9 +53,11 @@ Class PSProject {
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
-        $this | Select-Object Name, Path, LastUpdate, Status,
+        $this | Select-Object @{Name = '$schema'; Expression = { "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json" } },
+        Name, Path, LastUpdate, @{Name = "Status"; Expression = { $_.status.toString() } },
         @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } }, UpdateUser,
-        Computername, RemoteRepository, Tasks, GitBranch, Comment | ConvertTo-Json | Out-File $json -Encoding utf8
+        Computername, RemoteRepository, Tasks, GitBranch, Comment |
+        ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
@@ -155,7 +157,7 @@ if ($host.name -eq 'visual studio code host') {
 
             $s = Set-PSProjectStatus @splat | Select-Object VersionInfo | Out-String
             #parse out ANSI escape sequences
-            $detail = $s -replace "$([char]27)\[[\d;]*m",''
+            $detail = $s -replace "$([char]27)\[[\d;]*m", ''
             #show a summary message
             $pseditor.Window.ShowInformationMessage($detail)
         }
@@ -225,3 +227,8 @@ if ($host.name -match "ISE") {
 } #ISE
 
 #endregion
+
+#path to the JSON schema file
+$jsonSchema = "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json"
+# for testing
+#"file:///c:/scripts/psprojectstatus/psproject.schema.json"

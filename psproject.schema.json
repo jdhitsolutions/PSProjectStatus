@@ -1,0 +1,106 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
+    "title": "PSProject Status Schema",
+    "description": "Schema for the PSProjectStatus configuration file.",
+    "type": "object",
+    "properties": {
+        "Name": {
+            "description": "Specify the project name. In PowerShell, this will typically be the module name.",
+            "type": "string"
+        },
+        "Path": {
+            "description": "Specify the project path. It should be the directory containing this file.",
+            "type": "string"
+        },
+        "LastUpdate": {
+            "description": "Specify the last update time of the project. This value will be formatted by ConvertTo-JSON.",
+            "type": "string"
+        },
+        "ProjectVersion": {
+            "description": "Specify the project version. You might use the PowerShell module version.",
+            "type": "string"
+        },
+        "Computername": {
+            "description": "Specify the computer name where this project was last updated.",
+            "type": "string"
+        },
+        "Author": {
+            "description": "Specify the project author. It could be the module author.",
+            "type": "string"
+        },
+        "UpdateUser": {
+            "description": "Specify the user who updated the project.",
+            "type": "string"
+        },
+        "GitBranch": {
+            "description": "Specify the git branch of the project.",
+            "type": "string"
+        },
+        "Comment": {
+            "description": "Add additional comments about the project.",
+            "type": "string"
+        },
+        "Tasks": {
+            "description": "Specify a list of pending tasks for the project.",
+            "type": "array"
+        },
+        "Status": {
+            "description": "Specify the project status.",
+            "type": "string",
+            "enum": [
+                "Development",
+                "Updating",
+                "Stable",
+                "AlphaTesting",
+                "BetaTesting",
+                "ReleaseCandidate",
+                "Patching",
+                "UnitTesting",
+                "AcceptanceTesting",
+                "Other"
+            ]
+        },
+        "RemoteRepository": {
+            "description": "Enter information about remote git repositories.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Name": {
+                        "description": "Specify the name of the remote repository.",
+                        "default": "origin",
+                        "type": "string"
+                    },
+                    "Url": {
+                        "description": "Specify the url of the remote repository.",
+                        "type": "string"
+                    },
+                    "Mode": {
+                        "description": "Specify the git mode for the remote branch.",
+                        "type": "integer",
+                        "oneOf": [
+                            {
+                                "const": 0,
+                                "description": "fetch"
+                            },
+                            {
+                                "const": 1,
+                                "description": "push"
+                            }
+                        ]
+                    },
+                    "required": [
+                        "Name",
+                        "Url",
+                        "Mode"
+                    ]
+                }
+            }
+        }
+    },
+    "required": [
+        "Name",
+        "Path"
+    ]
+}
