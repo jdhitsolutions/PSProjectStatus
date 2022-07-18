@@ -1,5 +1,9 @@
 # Changelog for PSProjectStatus
 
+## 0.8.1
+
++ fixed version number.
+
 ## 0.8.0
 
 + Added JSON schema file and update code to insert the schema reference into the `psproject.json` file.

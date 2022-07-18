@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.7.0'
+    ModuleVersion        = '0.8.1'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
