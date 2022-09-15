@@ -58,6 +58,7 @@
                 "Patching",
                 "UnitTesting",
                 "AcceptanceTesting",
+                "Archive",
                 "Other"
             ]
         },
