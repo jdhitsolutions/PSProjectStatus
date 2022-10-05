@@ -47,7 +47,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>S C:\Scripts\PSProjectStatus&gt; Get-PSProjectGitStatus
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectGitStatus
 
 Name            Branch LastCommit           Remote
 ----            ------ ----------           ------
@@ -194,7 +194,7 @@ LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | select versioninfo,age
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | Select-Object versioninfo,age
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -496,13 +496,13 @@ Age        : 00:06:06.2337458</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS S:\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
+        <dev:code>PS C:\Scripts\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
 LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
-6/19/2020 8:42:04 AM   Stable                         master       634.01:13</dev:code>
+6/19/2020 8:42:04 AM   Stable                         main         634.01:13</dev:code>
         <dev:remarks>
           <maml:para>Create a new project status. PSDrive references will be converted to filesystem paths. The Age property is automatically calculated from the LastUpdate value.</maml:para>
         </dev:remarks>
@@ -533,10 +533,12 @@ LastUpdate             Status      Tasks              GitBranch          Age
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you wil run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
+      <maml:para>Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you will run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
       <maml:para>Get-Date -format o | Set-Clipboard</maml:para>
+      <maml:para>Manually copy the value into the JSON file.</maml:para>
       <maml:para>The Status value is an integer indicating a private enumeration value.</maml:para>
       <maml:para>Development = 0 Updating = 1 Stable = 2 AlphaTesting = 3 BetaTesting = 4 ReleaseCandidate = 5 Patching = 6 UnitTesting = 7 AcceptanceTesting = 8 Other = 9</maml:para>
+      <maml:para>Enter one of these string values. If you edit the file in VSCode, it should detect the JSON schema and provide completion values.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -823,7 +825,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Set-PSProjectStatus -LastUpdate (get-date) -Status Development -comment (git tag -l | select -last 1)
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -comment (git tag -l | Select-Object -last 1)
 
    Name: PSProjectStatus [C:\scripts\PSProjectStatus]
 

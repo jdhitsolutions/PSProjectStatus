@@ -40,7 +40,8 @@ Function New-PSProjectStatus {
 
     Write-Verbose "Creating a new instance of the PSProject class"
     $new = [psproject]::New()
-    write-Verbose "Using schema path $jsonSchema"
+    $new | Select-Object * | Out-String | Write-Debug
+    Write-Verbose "Using schema path $jsonSchema"
     #convert the path to a filesystem path to avoid using PSDrive references
     $new.Path = Convert-Path $Path
     Write-Verbose "Using path $Path"

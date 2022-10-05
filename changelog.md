@@ -1,5 +1,12 @@
 # Changelog for PSProjectStatus
 
+## 0.9.0
+
++ Insert `[]` for empty tasks and remote repositories.
++ Update to property descriptions in the JSON schema.
++ Set default `LastUpdate` value to use value from `Get-Date -format o`. This provides a consistent value between PowerShell versions. Although converting `Get-Date` to JSON will still work.
++ Help updates.
+
 ## 0.8.1
 
 + fixed version number.

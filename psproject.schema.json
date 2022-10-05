@@ -10,7 +10,7 @@
             "type": "string"
         },
         "Path": {
-            "description": "Specify the project path. It should be the directory containing this file.",
+            "description": "Specify the full project path. It should be the directory containing this file.",
             "type": "string"
         },
         "LastUpdate": {
@@ -30,20 +30,22 @@
             "type": "string"
         },
         "UpdateUser": {
-            "description": "Specify the user who updated the project.",
+            "description": "Specify the user who last updated the project.",
             "type": "string"
         },
         "GitBranch": {
-            "description": "Specify the git branch of the project.",
+            "description": "Specify the current git branch of the project.",
             "type": "string"
         },
         "Comment": {
             "description": "Add additional comments about the project.",
-            "type": "string"
+            "type": "string",
+            "default": "none"
         },
         "Tasks": {
             "description": "Specify a list of pending tasks for the project.",
-            "type": "array"
+            "type": "array",
+            "default": "none"
         },
         "Status": {
             "description": "Specify the project status.",

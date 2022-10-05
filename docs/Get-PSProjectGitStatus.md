@@ -26,7 +26,7 @@ Presumably you are using git to manage your project. If so, some git-related inf
 ### Example 1
 
 ```powershell
-S C:\Scripts\PSProjectStatus> Get-PSProjectGitStatus
+PS C:\Scripts\PSProjectStatus> Get-PSProjectGitStatus
 
 Name            Branch LastCommit           Remote
 ----            ------ ----------           ------

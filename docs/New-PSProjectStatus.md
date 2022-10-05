@@ -26,13 +26,13 @@ Create a new PSProject file. Ideally, you will run this command in the module ro
 ### Example 1
 
 ```powershell
-PS S:\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
+PS C:\Scripts\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
 LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
-6/19/2020 8:42:04 AM   Stable                         master       634.01:13
+6/19/2020 8:42:04 AM   Stable                         main         634.01:13
 ```
 
 Create a new project status. PSDrive references will be converted to filesystem paths. The Age property is automatically calculated from the LastUpdate value.

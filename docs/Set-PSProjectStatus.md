@@ -19,9 +19,11 @@ Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] 
 
 ## DESCRIPTION
 
-Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you wil run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.
+Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you will run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.
 
 Get-Date -format o | Set-Clipboard
+
+Manually copy the value into the JSON file.
 
 The Status value is an integer indicating a private enumeration value.
 
@@ -36,12 +38,14 @@ UnitTesting = 7
 AcceptanceTesting = 8
 Other = 9
 
+Enter one of these string values. If you edit the file in VSCode, it should detect the JSON schema and provide completion values.
+
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (get-date) -Status Development -comment (git tag -l | select -last 1)
+PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -comment (git tag -l | Select-Object -last 1)
 
    Name: PSProjectStatus [C:\scripts\PSProjectStatus]
 

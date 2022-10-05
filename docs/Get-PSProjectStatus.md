@@ -83,7 +83,7 @@ Use the default List view. This makes it easier to view the tasks.
 ### Example 4
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | select versioninfo,age
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object versioninfo,age
 
 Name       : PSProjectStatus
 Status     : Updating
