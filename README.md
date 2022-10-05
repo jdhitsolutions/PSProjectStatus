@@ -36,22 +36,27 @@ Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
     [datetime]$LastUpdate = (Get-Date)
-    [string[]]$Tasks
+    [string[]]$Tasks = @()
     [PSProjectStatus]$Status = "Development"
     [Version]$ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
-    [string]$GitBranch
+    [string]$GitBranch = ""
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository
-    [string]$Comment
+    [string]$Comment = "none"
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
-        $this | Select-Object Name,Path,LastUpdate,Status,
-        @{Name="ProjectVersion";Expression={$_.ProjectVersion.toString()}},UpdateUser,
-        Computername,RemoteRepository,Tasks,GitBranch,Comment | ConvertTo-Json | Out-File $json
+        #convert the LastUpdate to a formatted date string
+        $this | Select-Object @{Name = '$schema'; Expression = { "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json" } },
+        Name, Path,
+        @{Name="LastUpdate";Expression={ "{0:o}" -f $_.LastUpdate}},
+        @{Name = "Status"; Expression = { $_.status.toString() } },
+        @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } },
+        UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
+        ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
