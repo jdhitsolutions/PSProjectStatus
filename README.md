@@ -160,9 +160,10 @@ The command will create `psproject.json` in the root folder.
 
 ```json
 {
+  "$schema": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
   "Name": "PSHelpDesk",
   "Path": "C:\\Scripts\\PSHelpDesk",
-  "LastUpdate": "2018-02-20T09:47:33-05:00",
+  "LastUpdate": "2022-02-20T09:47:33-05:00",
   "Status": 1,
   "ProjectVersion": "0.1.0",
   "UpdateUser": "PROSPERO\\Jeff",
@@ -264,7 +265,7 @@ The commands in this module assume you are most likely using `git` for source co
 The PSProject class has been updated since the first version of this module was released. You can use the object's methods to refresh some properties. Here is a status that is incomplete.
 
 ```dos
-PS C:\Scripts\WingetTools> Get-PSProjectStatus | select *
+PS C:\Scripts\WingetTools> Get-PSProjectStatus | Select-Object *
 
 Name             : WingetTools
 Status           : Stable
