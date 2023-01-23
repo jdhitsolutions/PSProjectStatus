@@ -15,9 +15,13 @@ function _getRemote {
                 [PSProjectRemote]::new($name, $url, $mode)
             } #foreach
         } #if remotes found
+        else {
+            '[]'
+        }
     } #if .git found
     else {
         Write-Warning "Could not find .git in the current location."
+        '[]'
     }
 }
 

@@ -1,4 +1,3 @@
-
 #dot source functions
 Get-ChildItem $psscriptroot\functions\*.ps1 -Recurse |
 ForEach-Object {

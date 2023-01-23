@@ -64,6 +64,9 @@ Function Set-PSProjectStatus {
             #get git remote
             $inputobject.RemoteRepository = _getRemote
         }
+        else {
+            $InputObject.RemoteRepository = '[]'
+        }
 
         $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
         $InputObject.Computername = [System.Environment]::MachineName
