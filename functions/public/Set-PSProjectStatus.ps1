@@ -60,12 +60,16 @@ Function Set-PSProjectStatus {
             }
         }
         If (Test-Path .git) {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting git branch"
             $inputobject.GitBranch = git branch --show-current
             #get git remote
-            $inputobject.RemoteRepository = _getRemote
-        }
-        else {
-            $InputObject.RemoteRepository = '[]'
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting remote git information"
+            $rm = _getRemote
+            $rm | out-string | write-verbose
+            if ($null -eq $rm) {
+                $rm = @()
+            }
+            $inputobject.RemoteRepository = $rm
         }
 
         $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"

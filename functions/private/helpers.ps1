@@ -16,12 +16,11 @@ function _getRemote {
             } #foreach
         } #if remotes found
         else {
-            '[]'
+            Write-Verbose "No remote git information detected."
         }
     } #if .git found
     else {
         Write-Warning "Could not find .git in the current location."
-        '[]'
     }
 }
 
@@ -43,7 +42,7 @@ function _getLastPushDate {
     Param([string]$Remote)
     if (Test-Path .git) {
 
-        $dt =  git log --remotes=$remote --max-count 1 --date=iso | Select-String Date
+        $dt = git log --remotes=$remote --max-count 1 --date=iso | Select-String Date
         if ($dt) {
             $split = $dt -split ":", 2
             #Get the date

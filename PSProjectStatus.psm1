@@ -33,6 +33,11 @@ Class PSProjectRemote {
         $this.url = $url
         $this.mode = $mode
     }
+    #allow an empy remote setting
+    PSProjectRemote() {
+        $this.Name = ''
+        $this.url = ''
+    }
 }
 
 Class PSProject {
@@ -55,7 +60,7 @@ Class PSProject {
         #convert the LastUpdate to a formatted date string
         $this | Select-Object @{Name = '$schema'; Expression = { "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json" } },
         Name, Path,
-        @{Name="LastUpdate";Expression={ "{0:o}" -f $_.LastUpdate}},
+        @{Name = "LastUpdate"; Expression = { "{0:o}" -f $_.LastUpdate } },
         @{Name = "Status"; Expression = { $_.status.toString() } },
         @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } },
         UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |

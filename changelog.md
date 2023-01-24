@@ -1,5 +1,9 @@
 # Changelog for PSProjectStatus
 
+## 0.9.2
+
+- Another fix to handling no RemoteRepository settings in the JSON file.
+
 ## 0.9.1
 
 - Update commands to use an empty array `[]` for `RemoteRepository` setting if nothing is detected.
