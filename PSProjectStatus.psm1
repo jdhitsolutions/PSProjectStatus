@@ -33,7 +33,7 @@ Class PSProjectRemote {
         $this.url = $url
         $this.mode = $mode
     }
-    #allow an empy remote setting
+    #allow an empty remote setting
     PSProjectRemote() {
         $this.Name = ''
         $this.url = ''
@@ -43,26 +43,26 @@ Class PSProjectRemote {
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
-    [datetime]$LastUpdate = (Get-Date)
+    [DateTime]$LastUpdate = (Get-Date)
     [string[]]$Tasks = @()
-    [PSProjectStatus]$Status = "Development"
+    [PSProjectStatus]$Status = 'Development'
     [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
-    [string]$GitBranch = ""
+    [string]$GitBranch = ''
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository = @()
-    [string]$Comment = "none"
+    [string]$Comment = 'none'
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         #convert the LastUpdate to a formatted date string
-        $this | Select-Object @{Name = '$schema'; Expression = { "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json" } },
+        $this | Select-Object @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
         Name, Path,
-        @{Name = "LastUpdate"; Expression = { "{0:o}" -f $_.LastUpdate } },
-        @{Name = "Status"; Expression = { $_.status.toString() } },
-        @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } },
+        @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
+        @{Name = 'Status'; Expression = { $_.status.toString() } },
+        @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
         UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
         ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
@@ -84,7 +84,7 @@ Class PSProject {
                     $split = $remote.split()
                     $RemoteName = $split[0]
                     $Url = $split[1]
-                    $Mode = $split[2].replace("(", "").Replace(")", "")
+                    $Mode = $split[2].replace('(', '').Replace(')', '')
                     $repos += [PSProjectRemote]::new($remotename, $url, $mode)
                 } #foreach
                 $this.RemoteRepository = $repos
@@ -127,29 +127,29 @@ if ($host.name -eq 'visual studio code host') {
         Do {
             Clear-Host
             Write-Host $menu
-            [int]$r = Read-Host "Select a project status. Enter no value to cancel"
+            [int]$r = Read-Host 'Select a project status. Enter no value to cancel'
             if ($r -eq 0) {
                 #cancel
                 return
             }
             if ($r -lt 1 -OR $r -gt 10) {
-                $pseditor.Window.ShowWarningMessage("You entered an invalid value. Enter nothing or a value between 1 and 10.")
+                $pseditor.Window.ShowWarningMessage('You entered an invalid value. Enter nothing or a value between 1 and 10.')
             }
 
         } until ($r -ge 1 -AND $r -le 10)
 
-        $pseditor.Window.SetStatusBarMessage("Updating PSProject status", 3000)
+        $pseditor.Window.SetStatusBarMessage('Updating PSProject status', 3000)
         switch ($r) {
-            1 { $status = "Development" }
-            2 { $status = "Updating" }
-            3 { $status = "Stable" }
-            4 { $status = "AlphaTesting" }
-            5 { $status = "BetaTesting" }
-            6 { $status = "ReleaseCandidate" }
-            7 { $status = "Patching" }
-            8 { $status = "UnitTesting" }
-            9 { $status = "AcceptanceTesting" }
-            10 { $status = "Other" }
+            1 { $status = 'Development' }
+            2 { $status = 'Updating' }
+            3 { $status = 'Stable' }
+            4 { $status = 'AlphaTesting' }
+            5 { $status = 'BetaTesting' }
+            6 { $status = 'ReleaseCandidate' }
+            7 { $status = 'Patching' }
+            8 { $status = 'UnitTesting' }
+            9 { $status = 'AcceptanceTesting' }
+            10 { $status = 'Other' }
         }
 
         if ($status) {
@@ -159,7 +159,7 @@ if ($host.name -eq 'visual studio code host') {
                 Status     = $status
             }
             if (Test-Path ".\$(Split-Path $pwd -Leaf).psd1" ) {
-                $splat.Add("ProjectVersion", (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
+                $splat.Add('ProjectVersion', (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
             }
 
             $s = Set-PSProjectStatus @splat | Select-Object VersionInfo | Out-String
@@ -171,10 +171,10 @@ if ($host.name -eq 'visual studio code host') {
 
     }#end function
 
-    Register-EditorCommand -Function "Update-PSProjectStatus" -name "UpdatePSProjectStatus" -DisplayName "Update PSProject Status"
+    Register-EditorCommand -Function 'Update-PSProjectStatus' -name 'UpdatePSProjectStatus' -DisplayName 'Update PSProject Status'
 } #VSCode
 
-if ($host.name -match "ISE") {
+if ($host.name -match 'ISE') {
     #The ISE specific version of the update function
     Function Update-PSProjectStatus {
         [cmdletbinding()]
@@ -196,21 +196,21 @@ if ($host.name -match "ISE") {
 
         Write-Host $menu
 
-        [int]$r = Read-Host "Select a project status. Enter no value to cancel"
+        [int]$r = Read-Host 'Select a project status. Enter no value to cancel'
         if ($r -lt 1 -OR $r -gt 10) {
-            return "You entered an invalid value. "
+            return 'You entered an invalid value. '
         }
         switch ($r) {
-            1 { $status = "Development" }
-            2 { $status = "Updating" }
-            3 { $status = "Stable" }
-            4 { $status = "AlphaTesting" }
-            5 { $status = "BetaTesting" }
-            6 { $status = "ReleaseCandidate" }
-            7 { $status = "Patching" }
-            8 { $status = "UnitTesting" }
-            9 { $status = "AcceptanceTesting" }
-            10 { $status = "Other" }
+            1 { $status = 'Development' }
+            2 { $status = 'Updating' }
+            3 { $status = 'Stable' }
+            4 { $status = 'AlphaTesting' }
+            5 { $status = 'BetaTesting' }
+            6 { $status = 'ReleaseCandidate' }
+            7 { $status = 'Patching' }
+            8 { $status = 'UnitTesting' }
+            9 { $status = 'AcceptanceTesting' }
+            10 { $status = 'Other' }
         }
 
         if ($status) {
@@ -220,23 +220,23 @@ if ($host.name -match "ISE") {
                 Status     = $status
             }
             if (Test-Path ".\$(Split-Path $pwd -Leaf).psd1" ) {
-                $splat.Add("ProjectVersion", (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
+                $splat.Add('ProjectVersion', (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1").version)
             }
 
             Set-PSProjectStatus @splat | Select-Object -Property VersionInfo
         }
 
     }#end function
-    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains "Update PSProjectStatus") {
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains 'Update PSProjectStatus') {
         #add the action to the Add-Ons menu
-        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("Update PSProjectStatus", { Update-PSProjectStatus }, $Null))
+        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('Update PSProjectStatus', { Update-PSProjectStatus }, $Null))
     }
 } #ISE
 
 #endregion
 
 #path to the JSON schema file
-$jsonSchema = "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json"
+$jsonSchema = 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json'
 
 # for testing
 # $jsonSchema = "file:///c:/scripts/psprojectstatus/psproject.schema.json"

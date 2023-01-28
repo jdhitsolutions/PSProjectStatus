@@ -16,10 +16,9 @@ This module should work in Windows PowerShell and PowerShell 7.
 
 ## Class-Based
 
-The status is based on a private class-based definition. The JSON file is used to create a `PSProject` object and update its properties.
+The status is based on a private class-based definition. The classes are used to construct the JSON file which in turn is used to create a `PSProject` object and update its properties.
 
 ```powershell
-
 Class PSProjectRemote {
     [string]$Name
     [string]$Url
@@ -30,36 +29,41 @@ Class PSProjectRemote {
         $this.url = $url
         $this.mode = $mode
     }
+   #allow an empty remote setting
+    PSProjectRemote() {
+        $this.Name = ''
+        $this.url = ''
+    }
 }
 
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
-    [datetime]$LastUpdate = (Get-Date)
+    [DateTime]$LastUpdate = (Get-Date)
     [string[]]$Tasks = @()
-    [PSProjectStatus]$Status = "Development"
-    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
-    [string]$GitBranch = ""
+    [PSProjectStatus]$Status = 'Development'
+    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
+    [string]$GitBranch = ''
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
-    [PSProjectRemote[]]$RemoteRepository
-    [string]$Comment = "none"
+    [PSProjectRemote[]]$RemoteRepository = @()
+    [string]$Comment = 'none'
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         #convert the LastUpdate to a formatted date string
-        $this | Select-Object @{Name = '$schema'; Expression = { "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json" } },
+        $this | Select-Object @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
         Name, Path,
-        @{Name="LastUpdate";Expression={ "{0:o}" -f $_.LastUpdate}},
-        @{Name = "Status"; Expression = { $_.status.toString() } },
-        @{Name = "ProjectVersion"; Expression = { $_.ProjectVersion.toString() } },
+        @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
+        @{Name = 'Status'; Expression = { $_.status.toString() } },
+        @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
         UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
         ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
-        $this.ProjectVersion = (Test-ModuleManifest ".\$(split-path $pwd -leaf).psd1" -ErrorAction SilentlyContinue).version
+        $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     }
     [void]RefreshUser() {
         $this.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
@@ -76,12 +80,20 @@ Class PSProject {
                     $split = $remote.split()
                     $RemoteName = $split[0]
                     $Url = $split[1]
-                    $Mode = $split[2].replace("(","").Replace(")","")
-                    $repos += [PSProjectRemote]::new($remotename,$url,$mode)
+                    $Mode = $split[2].replace('(', '').Replace(')', '')
+                    $repos += [PSProjectRemote]::new($remotename, $url, $mode)
                 } #foreach
                 $this.RemoteRepository = $repos
             } #if remotes found
         }
+    }
+
+    [void]RefreshAll() {
+        $this.RefreshProjectVersion()
+        $this.RefreshUser()
+        $this.RefreshComputer()
+        $this.RefreshRemoteRepository()
+        $this.Save()
     }
 }
 ```
@@ -154,7 +166,7 @@ You can update properties when you create the project status.
 New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).lastwritetime -Status Updating -tasks "update help"
 ```
 
-![new customn project status](images/new-psprojectstatus2.png)
+![new custom project status](images/new-psprojectstatus2.png)
 
 The command will create `psproject.json` in the root folder.
 
@@ -176,7 +188,7 @@ The command will create `psproject.json` in the root folder.
 }
 ```
 
-Note that the update time is formatted as a UTC string. The Project version will be pulled from the module manifest, if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
+Note that the update time is formatted as a UTC string. The Project version will be pulled from the module manifest if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
 
 > If you are using *git* with your module you may want to add `psproject.json` to your `.gitignore` file.
 
@@ -200,7 +212,7 @@ If the host supports ANSI, a status of `Stable` will be displayed in Green. `Dev
 The module has a default list view.
 
 ```dos
-PS C:\scripts\PSCalendar> Get-PSProjectStatus | format-list
+PS C:\scripts\PSCalendar> Get-PSProjectStatus | Format-List
 
 
    Project: PSCalendar [C:\Scripts\PSCalendar]
@@ -216,13 +228,13 @@ This makes it easier to view tasks.
 
 ## Updating a Project Status
 
-To update a project status, you could always manually update the JSON file in your script editor. Use this code snippet to get the datetime value in the proper format.
+To update the project status, you could always manually update the JSON file in your script editor. Use this code snippet to get the DateTime value in the proper format.
 
 ```powershell
 Get-Date -format o | Set-Clipboard
 ```
 
-Paste the datetime value into the file.
+Paste the value into the file.
 
 The `Status` value is an integer indicating a private enumeration value.
 
@@ -262,7 +274,7 @@ The commands in this module assume you are most likely using `git` for source co
 
 ## Manually Updating with the Object
 
-The PSProject class has been updated since the first version of this module was released. You can use the object's methods to refresh some properties. Here is a status that is incomplete.
+The PSProject class has been updated since the first version of this module was released. You can use the object's methods to refresh some properties. Here is an example of an incomplete status.
 
 ```dos
 PS C:\Scripts\WingetTools> Get-PSProjectStatus | Select-Object *
@@ -292,7 +304,7 @@ $p = Get-PSProjectStatus
 
 ![psproject methods](images/psproject-methods.png)
 
-Invoke the methods that apply to your project. You need to invoke the `Save()` method to commit the changes to disk.
+Invoke the methods that apply to your project. You need to invoke the `Save()` method to commit the changes to the JSON file.
 
 ```powershell
 $p.RefreshComputer()
@@ -302,9 +314,7 @@ $p.RefreshRemoteRepository()
 $p.save()
 ```
 
-![refresh a project status](images/refresh-psproject.png)
-
-As an alternative, can use the `RefreshAll()` method which will invoke all the refresh methods __and__ save the file.
+![refresh a project status]As an alternative can use the `RefreshAll()` method which will invoke all the refresh methods __and__ save the file.
 
 ## Project Management
 
@@ -330,7 +340,7 @@ $all = Get-ChildItem -Path C:\scripts -Directory |
 Get-PSProjectStatus -WarningAction SilentlyContinue
 $all | Sort-Object Status, LastUpdate |
 Select-Object Path, Status, @{Name = "Tasks"; Expression = { $_.Tasks -join ',' } },
-Gitbranch, LastUpdate |
+GitBranch, LastUpdate |
 Out-ConsoleGridView -Title "PSProject Management" -OutputMode Single |
 ForEach-Object { code $_.path }
 ```
@@ -341,7 +351,7 @@ This will give you a list of projects.
 
 You can select a single project, press Enter, and open the folder in VS Code. You could write a similar script for Windows PowerShell using `Out-Gridview`.
 
-If no you longer want to track a project status, all you have to do is delete the JSON file.
+If no you longer want to track the project status, all you have to do is delete the JSON file.
 
 ## Editor Integrations
 
@@ -355,7 +365,7 @@ If you import the module in the PowerShell ISE, it will add a menu shortcut unde
 
 ![add-on menu](images/ise-update.png)
 
-Click the shortcut and a status menu will be displaed in the console pane.
+Click the shortcut and a status menu will be displayed in the console pane.
 
 ![ISE update status](images/update-psprojectstatus-ise.png)
 
@@ -363,7 +373,7 @@ Select a status and press <kbd>Enter</kbd> The function will call `Set-PSProject
 
 ### VS Code
 
-Likewise, in VS Code open the command palette and go to `PowerShell: Show Additional commands from PoweShell modules`. You should see an option to update.
+Likewise, in VS Code open the command palette and go to `PowerShell: Show Additional commands from PowerShell modules`. You should see an option to update.
 
 ![VSCode additional command](images/code-update.png)
 
@@ -375,7 +385,7 @@ The menu will loop and display until you enter a valid number or press Enter wit
 
 ### JSON Schema
 
-A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with v0.8.0. If you edit the `psproject.json` file in VSCode, you should get tab-completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
+A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with v0.8.0. If you edit the `psproject.json` file in VSCode, you should get tab completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
 
 ## Road Map
 
@@ -388,4 +398,4 @@ These are a few things I'm considering or have been suggested.
 + Editor integration to manage project tasks.
 + A WPF form to display the project status and make it easier to edit tasks.
 
-If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's Github repository.
+If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
