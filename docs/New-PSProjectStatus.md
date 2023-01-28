@@ -208,3 +208,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-PSProjectStatus](Get-PSProjectStatus.md)
 
 [Set-PSProjectStatus](Set-PSProjectStatus.md)
+
+[Get-PSProjectReport](Get-PSProjectReport.md)

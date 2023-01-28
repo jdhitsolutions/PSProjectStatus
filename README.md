@@ -249,12 +249,13 @@ Patching = 6
 UnitTesting = 7
 AcceptanceTesting = 8
 Other = 9
+Archive = 10
 ```
 
 Or use the [Set-PSProjectStatus](docs/Set-PSProjectStatus.md) function.
 
 ```dos
-PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (get-date) -Status Development -Tasks "add printer status function","revise user password function" -Concatenate
+PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "add printer status function","revise user password function" -Concatenate
 
 
    Name: PSHelpDesk [C:\Scripts\PSHelpDesk]
@@ -349,9 +350,46 @@ This will give you a list of projects.
 
 ![project list](images/manage-psproject.png)
 
-You can select a single project, press Enter, and open the folder in VS Code. You could write a similar script for Windows PowerShell using `Out-Gridview`.
+You can select a single project, press Enter, and open the folder in VS Code. You could write a similar script for Windows PowerShell using `Out-GridView`.
 
-If no you longer want to track the project status, all you have to do is delete the JSON file.
+### [Get-PSProjectReport](docs\Get-PSProjectReport.md)
+
+Beginning with version '0.10.0` you can use `Get-PSProjectReport` to simplify project management.
+
+You can get all projects.
+
+```powershell
+Get-PSProjectReport c:\scripts
+```
+
+You can filter by status.
+
+```powershell
+PS C:\> Get-PSProjectReport c:\scripts -Status Other
+
+   Name: PSMessaging [C:\Scripts\PSMessaging]
+
+LastUpdate             Status            Tasks         GitBranch        Age
+----------             ------            -----         ---------        ---
+7/20/2022 11:58:54 AM  Other             {}                master  192.02:11
+```
+
+And you can filter by age.
+
+```powershell
+PS C:\> Get-PSProjectReport c:\scripts -NewerThan 10 -Status Stable
+
+
+   Name: PluralsightTools [C:\Scripts\PluralsightTools]
+
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+1/20/2023 2:20:39 PM   Stable            {convert modu...       main   07.23:51
+```
+
+## Removing Project Status
+
+If no you longer want to track the project status for a given folder, all you have to do is delete the associated JSON file. As an alternative, you may want to set a status of `Archive`.
 
 ## Editor Integrations
 
@@ -394,6 +432,7 @@ These are a few things I'm considering or have been suggested.
 + Additional properties
   + priority
   + project type
+  + tags
 + Extend the module to integrate into a SQLite database file.
 + Editor integration to manage project tasks.
 + A WPF form to display the project status and make it easier to edit tasks.

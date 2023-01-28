@@ -70,6 +70,10 @@ https://github.com/jdhitsolutions/PSScriptTools
                       <!--green-->
                      "$([char]27)[92m$($_.status)$([char]27)[0m"
                      }
+                     elseif ($_.status -eq 'Archive') {
+                      <!--orange-->
+                     "$([char]27)[38;5;214m$($_.status)$([char]27)[0m"
+                     }
                      else {
                        $_.status
                      }

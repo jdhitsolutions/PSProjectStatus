@@ -1,5 +1,19 @@
 # Changelog for PSProjectStatus
 
+## 0.10.0
+
+### Added
+
+- Added `Archive` as 'PSProjectStatus` enumeration value.
+- Added command `Get-PSProjectReport`.
+
+### Updated
+
+- Modified `psprojectstatus.format.ps1xml` to display Archive status in orange using a custom ANSI sequence.
+- Modified editor integration commands to recognize the `Archive` status.
+- Updated help content.
+- Updated `README.md`
+
 ## 0.9.2
 
 - Another fix to handling no RemoteRepository settings in the JSON file.

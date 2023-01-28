@@ -1,5 +1,5 @@
 #dot source functions
-Get-ChildItem $psscriptroot\functions\*.ps1 -Recurse |
+Get-ChildItem $PSScriptRoot\functions\*.ps1 -Recurse |
 ForEach-Object {
     . $_.FullName
 }
@@ -16,6 +16,7 @@ enum PSProjectStatus {
     UnitTesting
     AcceptanceTesting
     Other
+    Archive
 }
 
 Enum gitMode {
@@ -121,7 +122,7 @@ if ($host.name -eq 'visual studio code host') {
         [3] Stable             [8] UnitTesting
         [4] AlphaTesting       [9] AcceptanceTesting
         [5] BetaTesting        [10] Other
-
+        [11] Archive
 "@
 
         Do {
@@ -133,12 +134,12 @@ if ($host.name -eq 'visual studio code host') {
                 return
             }
             if ($r -lt 1 -OR $r -gt 10) {
-                $pseditor.Window.ShowWarningMessage('You entered an invalid value. Enter nothing or a value between 1 and 10.')
+                $PSEditor.Window.ShowWarningMessage('You entered an invalid value. Enter nothing or a value between 1 and 10.')
             }
 
         } until ($r -ge 1 -AND $r -le 10)
 
-        $pseditor.Window.SetStatusBarMessage('Updating PSProject status', 3000)
+        $PSEditor.Window.SetStatusBarMessage('Updating PSProject status', 3000)
         switch ($r) {
             1 { $status = 'Development' }
             2 { $status = 'Updating' }
@@ -150,6 +151,7 @@ if ($host.name -eq 'visual studio code host') {
             8 { $status = 'UnitTesting' }
             9 { $status = 'AcceptanceTesting' }
             10 { $status = 'Other' }
+            11 {$status = 'Archive'}
         }
 
         if ($status) {
@@ -166,7 +168,7 @@ if ($host.name -eq 'visual studio code host') {
             #parse out ANSI escape sequences
             $detail = $s -replace "$([char]27)\[[\d;]*m", ''
             #show a summary message
-            $pseditor.Window.ShowInformationMessage($detail)
+            $PSEditor.Window.ShowInformationMessage($detail)
         }
 
     }#end function
@@ -191,6 +193,7 @@ if ($host.name -match 'ISE') {
     [3] Stable             [8] UnitTesting
     [4] AlphaTesting       [9] AcceptanceTesting
     [5] BetaTesting        [10] Other
+    [11] Archive
 
 "@
 
@@ -211,6 +214,7 @@ if ($host.name -match 'ISE') {
             8 { $status = 'UnitTesting' }
             9 { $status = 'AcceptanceTesting' }
             10 { $status = 'Other' }
+            11 { $status = 'Archive'}
         }
 
         if ($status) {
