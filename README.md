@@ -354,7 +354,7 @@ You can select a single project, press Enter, and open the folder in VS Code. Yo
 
 ### [Get-PSProjectReport](docs\Get-PSProjectReport.md)
 
-Beginning with version '0.10.0` you can use `Get-PSProjectReport` to simplify project management.
+Beginning with version `0.10.0` you can use `Get-PSProjectReport` to simplify project management.
 
 You can get all projects.
 
