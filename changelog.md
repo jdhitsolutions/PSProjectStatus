@@ -1,5 +1,17 @@
 # Changelog for PSProjectStatus
 
+## v0.10.1
+
+### Fixed
+
+- Removed hard-coded path reference in `Get-PSProjectReport`. ([Issue #9](https://github.com/jdhitsolutions/PSProjectStatus/issues/9))
+
+- General code cleanup
+
+### Added
+
+- Added missing online help links
+
 ## 0.10.0
 
 ### Added

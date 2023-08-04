@@ -1,5 +1,5 @@
 Function Set-PSProjectStatus {
-    [cmdletbinding(SupportsShouldProcess)]
+    [CmdletBinding(SupportsShouldProcess)]
     [alias('spstat')]
     [OutputType("PSProject")]
     Param(
@@ -9,19 +9,19 @@ Function Set-PSProjectStatus {
 
         [Parameter(HelpMessage = "What is the project name?")]
         [ValidateNotNullOrEmpty()]
-        [string]$Name,
+        [String]$Name,
 
         [Parameter(HelpMessage = "When was the project last worked on?")]
         [ValidateNotNullOrEmpty()]
         [alias("date")]
-        [datetime]$LastUpdate,
+        [DateTime]$LastUpdate,
 
         [Parameter(HelpMessage = "What are the remaining tasks?")]
         [string[]]$Tasks,
 
-        [Parameter(HelpMessage = "Concatentate tasks")]
+        [Parameter(HelpMessage = "Concatenate tasks")]
         [alias("add")]
-        [switch]$Concatenate,
+        [Switch]$Concatenate,
 
         [Parameter(HelpMessage = "What is the project status?")]
         [ValidateNotNullOrEmpty()]
@@ -33,43 +33,43 @@ Function Set-PSProjectStatus {
         [version]$ProjectVersion,
 
         [Parameter(HelpMessage = "Enter an optional comment. This could be git tag, or an indication about the type of project.")]
-        [string]$Comment
+        [String]$Comment
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $($inputobject.name)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating $($InputObject.name)"
 
         $properties = "Name", "Status", "LastUpdate", "ProjectVersion", "Comment"
         foreach ($property in $properties) {
             if ($PSBoundParameters.ContainsKey($property)) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $property"
-                $inputobject.$property = $PSBoundParameters[$property]
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating $property"
+                $InputObject.$property = $PSBoundParameters[$property]
             }
         }
         if ($PSBoundParameters.ContainsKey("Tasks")) {
             if ($Concatenate) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Appending tasks"
-                $inputobject.Tasks += $PSBoundParameters["Tasks"]
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Appending tasks"
+                $InputObject.Tasks += $PSBoundParameters["Tasks"]
             }
             else {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Replacing tasks"
-                $inputobject.Tasks = $PSBoundParameters["Tasks"]
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Replacing tasks"
+                $InputObject.Tasks = $PSBoundParameters["Tasks"]
             }
         }
         If (Test-Path .git) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting git branch"
-            $inputobject.GitBranch = git branch --show-current
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting git branch"
+            $InputObject.GitBranch = git branch --show-current
             #get git remote
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting remote git information"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting remote git information"
             $rm = _getRemote
-            $rm | out-string | write-verbose
+            $rm | Out-String | Write-Verbose
             if ($null -eq $rm) {
                 $rm = @()
             }
-            $inputobject.RemoteRepository = $rm
+            $InputObject.RemoteRepository = $rm
         }
 
         $InputObject.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
@@ -80,6 +80,6 @@ Function Set-PSProjectStatus {
         }
     } #process
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }

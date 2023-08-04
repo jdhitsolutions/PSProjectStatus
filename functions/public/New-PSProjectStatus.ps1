@@ -1,20 +1,20 @@
 Function New-PSProjectStatus {
-    [cmdletbinding(SupportsShouldProcess)]
+    [CmdletBinding(SupportsShouldProcess)]
     [alias("npstat")]
     [OutputType("PSProject")]
     Param (
         [Parameter(Position = 0, HelpMessage = "What is the project name?")]
         [ValidateNotNullOrEmpty()]
-        [string]$Name = (Split-Path (Get-Location).path -Leaf),
+        [String]$Name = (Split-Path (Get-Location).path -Leaf),
 
         [Parameter(HelpMessage = "What is the project path?")]
         [ValidateScript({ Test-Path $_ })]
-        [string]$Path = (Get-Location).path,
+        [String]$Path = (Get-Location).path,
 
         [Parameter(HelpMessage = "When was the project last worked on?")]
         [ValidateNotNullOrEmpty()]
         [alias("date")]
-        [datetime]$LastUpdate = (Get-Date),
+        [DateTime]$LastUpdate = (Get-Date),
 
         [Parameter(HelpMessage = "What are the remaining tasks?")]
         [string[]]$Tasks,
@@ -29,7 +29,7 @@ Function New-PSProjectStatus {
         [version]$ProjectVersion,
 
         [Parameter(HelpMessage = "Enter an optional comment. This could be git tag, or an indication about the type of project.")]
-        [string]$Comment
+        [String]$Comment
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
@@ -46,7 +46,7 @@ Function New-PSProjectStatus {
     $new.Path = Convert-Path $Path
     Write-Verbose "Using path $Path"
     #set the instance properties using parameter values from this command
-    $PSBoundParameters.GetEnumerator() | Where-Object { $exclude -notcontains $_.key } |
+    $PSBoundParameters.GetEnumerator() | Where-Object { $exclude -NotContains $_.key } |
     ForEach-Object {
         Write-Verbose "Setting property $($_.key)"
         $new.$($_.key) = $_.value
@@ -64,7 +64,7 @@ Function New-PSProjectStatus {
     else {
         Write-Verbose "No git branch detected"
     }
-    if ($pscmdlet.ShouldProcess($Name)) {
+    if ($PSCmdlet.ShouldProcess($Name)) {
         $new
         $new.Save()
     }

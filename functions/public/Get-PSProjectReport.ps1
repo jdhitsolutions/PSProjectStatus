@@ -1,7 +1,7 @@
 #Get a top level view of your projects
 
 Function Get-PSProjectReport {
-    [cmdletbinding(DefaultParameterSetName="status")]
+    [CmdletBinding(DefaultParameterSetName="status")]
     [OutputType("PSProject")]
     Param(
         [Parameter(
@@ -10,7 +10,8 @@ Function Get-PSProjectReport {
             HelpMessage = "Specify the top level folder"
         )]
         [ValidateScript({Test-Path $_})]
-        [string]$Path,
+        [String]$Path,
+
         [Parameter(
             ParameterSetName = "status",
             HelpMessage = "Filter projects by status"
@@ -22,12 +23,13 @@ Function Get-PSProjectReport {
             ParameterSetName = "newer",
             HelpMessage="Get projects where the age is newer than X number of days"
         )]
-        [int]$NewerThan,
+        [Int]$NewerThan,
+
         [Parameter(
             ParameterSetName = "older",
             HelpMessage="Get projects where the age is older than X number of days"
         )]
-        [int]$OlderThan
+        [Int]$OlderThan
     )
 
     Begin {
@@ -37,7 +39,7 @@ Function Get-PSProjectReport {
 
     Process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing PSProjects under $Path "
-        $All =  Get-ChildItem -Path C:\scripts -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
+        $All =  Get-ChildItem -Path $Path -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($All.count) projects"
 
         Switch ($PSCmdlet.ParameterSetName) {

@@ -76,7 +76,7 @@ Update the project and add a task.
 
 ### -Concatenate
 
-Concatentate new tasks.
+Concatenate new tasks.
 
 ```yaml
 Type: SwitchParameter

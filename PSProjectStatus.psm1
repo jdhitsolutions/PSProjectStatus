@@ -231,7 +231,7 @@ if ($host.name -match 'ISE') {
         }
 
     }#end function
-    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains 'Update PSProjectStatus') {
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notContains 'Update PSProjectStatus') {
         #add the action to the Add-Ons menu
         [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('Update PSProjectStatus', { Update-PSProjectStatus }, $Null))
     }

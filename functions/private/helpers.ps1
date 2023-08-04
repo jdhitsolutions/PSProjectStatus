@@ -1,7 +1,7 @@
 #these are the module's private helper functions
 
 function _getRemote {
-    [cmdletbinding()]
+    [CmdletBinding()]
     Param()
 
     if (Test-Path .git) {
@@ -32,21 +32,21 @@ function _getLastCommitDate {
         if ($dt) {
             $split = $dt -split ":", 2
             #Get the date
-            $split[1].Trim() -as [datetime]
+            $split[1].Trim() -as [DateTime]
         }
     }
 }
 
 function _getLastPushDate {
     [CmdletBinding()]
-    Param([string]$Remote)
+    Param([String]$Remote)
     if (Test-Path .git) {
 
         $dt = git log --remotes=$remote --max-count 1 --date=iso | Select-String Date
         if ($dt) {
             $split = $dt -split ":", 2
             #Get the date
-            $split[1].Trim() -as [datetime]
+            $split[1].Trim() -as [DateTime]
         }
     }
 }
@@ -54,8 +54,8 @@ function _getLastPushDate {
 
 #for possible future use
 Function _getStatusEnum {
-    [cmdletbinding()]
+    [CmdletBinding()]
     Param()
-    [enum]::GetValues([PSProjectStatus]).foreach({ $_.tostring() })
+    [enum]::GetValues([PSProjectStatus]).foreach({ $_.ToString() })
 }
 

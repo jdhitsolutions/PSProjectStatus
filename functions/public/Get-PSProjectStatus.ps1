@@ -1,5 +1,5 @@
 Function Get-PSProjectStatus {
-    [cmdletbinding()]
+    [CmdletBinding()]
     [alias("gpstat")]
     [OutputType("PSProject")]
     Param(
@@ -9,8 +9,8 @@ Function Get-PSProjectStatus {
             ValueFromPipelineByPropertyName,
             HelpMessage = "Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.")]
         [ValidateScript({ Test-Path $_ })]
-        [alias("fullname")]
-        [string]$Path = "."
+        [alias("FullName")]
+        [String]$Path = "."
     )
 
     Begin {
@@ -24,7 +24,7 @@ Function Get-PSProjectStatus {
             $psproject = [PSProject]::new()
 
             #get property names from the class
-            $properties = $psproject.psobject.properties.name | Where-Object { $_ -ne "Age" }
+            $properties = $psproject.PSObject.properties.name | Where-Object { $_ -ne "Age" }
             foreach ($property in $properties) {
                 if ($property -eq 'RemoteRepository') {
                     Write-Verbose "Creating remote repository information"
@@ -40,8 +40,8 @@ Function Get-PSProjectStatus {
                     $psproject.$property = $in.$property
                 }
             }
-            #datetime is stored as a UTC value so convert it to local
-            $psproject.lastUpdate = $psproject.lastUpdate.tolocalTime()
+            #The date time is stored as a UTC value so convert it to local
+            $psproject.lastUpdate = $psproject.lastUpdate.ToLocalTime()
             #write the new object to the pipeline
             $psproject
         }

@@ -100,12 +100,12 @@ Get status using the versionInfo property set and the Age script property.
 ### -Path
 
 Enter the parent path to the psproject.json file, e.g.
-c:\scripts\mymodule.
+c:\scripts\mymodule
 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: fullname
+Aliases: FullName
 
 Required: False
 Position: 0

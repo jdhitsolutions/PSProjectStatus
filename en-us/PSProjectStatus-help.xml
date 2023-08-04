@@ -294,11 +294,15 @@ LastUpdate             Status            Tasks             GitBranch        Age
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C&gt;\&gt; Get-PSProjectReport c:\scripts -NewerThan 30 | Select Path,Name,Status,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | foreach-object { code $_.path }</dev:code>
         <dev:remarks>
-          <maml:para>Get projects modified in the last 30 days and send to Out-Gridview. The selected project folder will be opened in VSCode.</maml:para>
+          <maml:para>Get projects modified in the last 30 days and send to Out-GridView. The selected project folder will be opened in VSCode.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3OSBu3L</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
@@ -320,10 +324,10 @@ LastUpdate             Status            Tasks             GitBranch        Age
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSProjectStatus</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -335,10 +339,10 @@ LastUpdate             Status            Tasks             GitBranch        Age
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="fullname">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -859,7 +863,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
           <maml:name>Concatenate</maml:name>
           <maml:description>
-            <maml:para>Concatentate new tasks.</maml:para>
+            <maml:para>Concatenate new tasks.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -919,7 +923,7 @@ LastUpdate             Status      Tasks              GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
         <maml:name>Concatenate</maml:name>
         <maml:description>
-          <maml:para>Concatentate new tasks.</maml:para>
+          <maml:para>Concatenate new tasks.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>

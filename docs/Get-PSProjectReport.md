@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version:
+online version: https://bit.ly/3OSBu3L
 schema: 2.0.0
 ---
 
@@ -73,7 +73,7 @@ Get PSProjects modified within the last 10 days.
 PS C>\> Get-PSProjectReport c:\scripts -NewerThan 30 | Select Path,Name,Status,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | foreach-object { code $_.path }
 ```
 
-Get projects modified in the last 30 days and send to Out-Gridview. The selected project folder will be opened in VSCode.
+Get projects modified in the last 30 days and send to Out-GridView. The selected project folder will be opened in VSCode.
 
 ## PARAMETERS
 
