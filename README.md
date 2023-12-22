@@ -2,7 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSProjectStatus.png?style=for-the-badge&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSProjectStatus/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSProjectStatus.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSProjectStatus/)
 
-This PowerShell module is designed to make it easier to manage your projects and modules. It provides a snapshot overview of the project's status. You can use this to quickly determine when you last worked on a module and what high-level tasks remain. Status information is stored in a JSON file that resides in the module's root directory. If you have initialized *git* for the module, the status will include the current branch.
+This PowerShell module is designed to make it easier to manage your projects and modules. It provides a snapshot overview of the project's status. You can use this to quickly determine when you last worked on a module and what high-level tasks remain. Status information is stored in a JSON file that resides in the module's root directory. If you have initialized *git* for the module, the project status will include the current branch.
 
 ## Installation
 
@@ -12,11 +12,12 @@ Install this module from the PowerShell Gallery.
 Install-Module PSProjectStatus
 ```
 
-This module should work in Windows PowerShell and PowerShell 7.
+This module should work in Windows PowerShell 5.1 and PowerShell 7.
 
 ## Class-Based
 
-The status is based on a private class-based definition. The classes are used to construct the JSON file which in turn is used to create a `PSProject` object and update its properties.
+The project status is based on a private class-based definition. The PowerShell classes are used to construct the JSON file which in turn is used to create a `PSProject` object and update its properties.
+
 
 ```powershell
 Class PSProjectRemote {
@@ -29,7 +30,7 @@ Class PSProjectRemote {
         $this.url = $url
         $this.mode = $mode
     }
-   #allow an empty remote setting
+    #allow an empty remote setting
     PSProjectRemote() {
         $this.Name = ''
         $this.url = ''
@@ -45,7 +46,7 @@ Class PSProject {
     [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     [string]$GitBranch = ''
     #using .NET classes to ensure compatibility with non-Windows platforms
-    [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+    [string]$UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository = @()
     [string]$Comment = 'none'
@@ -66,7 +67,7 @@ Class PSProject {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     }
     [void]RefreshUser() {
-        $this.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+        $this.UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     }
     [void]RefreshComputer() {
         $this.Computername = [System.Environment]::MachineName
@@ -81,7 +82,7 @@ Class PSProject {
                     $RemoteName = $split[0]
                     $Url = $split[1]
                     $Mode = $split[2].replace('(', '').Replace(')', '')
-                    $repos += [PSProjectRemote]::new($remotename, $url, $mode)
+                    $repos += [PSProjectRemote]::new($RemoteName, $url, $mode)
                 } #foreach
                 $this.RemoteRepository = $repos
             } #if remotes found
@@ -95,8 +96,7 @@ Class PSProject {
         $this.RefreshRemoteRepository()
         $this.Save()
     }
-}
-```
+}```
 
 The class includes a status enumeration.
 
@@ -115,9 +115,9 @@ enum PSProjectStatus {
 }
 ```
 
-At this time it is not possible to include a user-defined status. It is hoped that you can find something appropriate from the current status list.
+At this time it is not possible to include a user-defined project status. It is hoped that you can find something appropriate from the current status list.
 
-The `Age` ScriptProperty and `VersionInfo` property set are added to the object as type extensions.
+The `Age` ScriptProperty and `VersionInfo` property sets are added to the object as type extensions.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -163,7 +163,7 @@ To create a project status file, navigate to the module root and run [New-PSProj
 You can update properties when you create the project status.
 
 ```powershell
-New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).lastwritetime -Status Updating -tasks "update help"
+New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).LastWriteTime -Status Updating -tasks "update help"
 ```
 
 ![new custom project status](images/new-psprojectstatus2.png)
@@ -188,7 +188,7 @@ The command will create `psproject.json` in the root folder.
 }
 ```
 
-Note that the update time is formatted as a UTC string. The Project version will be pulled from the module manifest if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
+Note that the update time is formatted as a UTC string. The project version will be pulled from the module manifest if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
 
 > If you are using *git* with your module you may want to add `psproject.json` to your `.gitignore` file.
 
@@ -196,7 +196,7 @@ Note that the update time is formatted as a UTC string. The Project version will
 
 The easiest way to view a project status is by using [Get-PSProjectStatus](docs/New-PSProjectStatus.md).
 
-```dos
+```powershell
 PS C:\scripts\PSCalendar> Get-PSProjectStatus
 
 
@@ -207,11 +207,11 @@ LastUpdate             Status            Tasks                 GitBranch        
 3/3/2022 10:24:49 AM   Patching          {Update help docu...      2.9.0   12.07:07
 ```
 
-If the host supports ANSI, a status of `Stable` will be displayed in Green. `Development` will be shown in Red and `Updating` in Yellow.
+If the PowerShell host supports ANSI, a status of `Stable` will be displayed in Green. `Development` will be shown in Red and `Updating` in Yellow.
 
 The module has a default list view.
 
-```dos
+```powershell
 PS C:\scripts\PSCalendar> Get-PSProjectStatus | Format-List
 
 
@@ -254,7 +254,7 @@ Archive = 10
 
 Or use the [Set-PSProjectStatus](docs/Set-PSProjectStatus.md) function.
 
-```dos
+```powershell
 PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "add printer status function","revise user password function" -Concatenate
 
 
@@ -277,7 +277,7 @@ The commands in this module assume you are most likely using `git` for source co
 
 The PSProject class has been updated since the first version of this module was released. You can use the object's methods to refresh some properties. Here is an example of an incomplete status.
 
-```dos
+```powershell
 PS C:\Scripts\WingetTools> Get-PSProjectStatus | Select-Object *
 
 Name             : WingetTools
@@ -317,6 +317,36 @@ $p.save()
 
 ![refresh a project status]As an alternative can use the `RefreshAll()` method which will invoke all the refresh methods __and__ save the file.
 
+## Project Tasks
+
+This module is intended to be a _simple_ project management tool. You can use it to track tasks or to-do items. These are added to the `Tasks` property as an array of strings. You can manually add them to the JSON file or use the `Set-PSProjectStatus` function.
+
+```powershell
+C:\Scripts\PSProjectStatus> Set-PSProjectStatus -Tasks "Update missing online help links" -Concatenate
+
+   Name: PSProjectStatus [C:\Scripts\PSProjectStatus]
+
+LastUpdate             Status            Tasks                 GitBranch        Age
+----------             ------            -----                 ---------        ---
+12/22/2023 9:08:30 AM  Updating          {Consider a schema …     0.11.0   00.00:00
+```
+
+Or you can use the task-related commands.
+
+![Get-PSProjectTask](images/get-psprojecttask.png)
+
+If the PowerShell host supports it, you should get ANSI formatting. The task ID is automatically generated for each item and displayed in square brackets.
+
+You can also add a task.
+
+![New-PSProjectTask](images/new-psprojecttask.png)
+
+You can manually remove items from the JSON file or use the `Remove-PSProjectTask` function. You will need to know the task id.
+
+```powershell
+Remove-PSProjectTask -TaskID 4
+```
+
 ## Project Management
 
 If you have many projects, you can use this module to manage all of them.
@@ -327,7 +357,7 @@ Get-ChildItem -Path c:\scripts -Directory | Get-PSProjectStatus -WarningAction S
 
 ![list projects](images/list-projects.png)
 
-You will want to suppress Warning messages. If you are running PowerShell 7 and have the ConsoleGuiTools module installed, you can run a script like this:
+You will want to suppress Warning messages. If you are running PowerShell 7 and have the `Microsoft.PowerShell.ConsoleGuiTools` module installed, you can run a script like this:
 
 ```powershell
 #requires -version 7.2
@@ -340,7 +370,8 @@ Import-Module PSProjectStatus -Force
 $all = Get-ChildItem -Path C:\scripts -Directory |
 Get-PSProjectStatus -WarningAction SilentlyContinue
 $all | Sort-Object Status, LastUpdate |
-Select-Object Path, Status, @{Name = "Tasks"; Expression = { $_.Tasks -join ',' } },
+Select-Object Path, Status,
+@{Name = "Tasks"; Expression = { $_.Tasks -join ',' } },
 GitBranch, LastUpdate |
 Out-ConsoleGridView -Title "PSProject Management" -OutputMode Single |
 ForEach-Object { code $_.path }
@@ -356,7 +387,7 @@ You can select a single project, press Enter, and open the folder in VS Code. Yo
 
 Beginning with version `0.10.0` you can use `Get-PSProjectReport` to simplify project management.
 
-You can get all projects.
+You can get all of your projects.
 
 ```powershell
 Get-PSProjectReport c:\scripts
@@ -389,11 +420,11 @@ LastUpdate             Status            Tasks             GitBranch        Age
 
 ## Removing Project Status
 
-If no you longer want to track the project status for a given folder, all you have to do is delete the associated JSON file. As an alternative, you may want to set a status of `Archive`.
+If no you longer want to track the project status for a given folder, simply delete the associated JSON file. As an alternative, you can set the status to `Archive`.
 
-## Editor Integrations
+## Editor Integration
 
-If you import this module into your PowerShell editor, either Visual Studio Code or the PowerShell ISE, the module will add an update function called `Update-PSProjectStatus`. You can run the command from the integrated terminal or use the appropriate shortcut. The command will the status based on user input, update the `LastUpdate` time to the current date and time, update the project version from the module manifest (if found), and update the git branch if found.
+If you import this module into your PowerShell editor, either Visual Studio Code or the PowerShell ISE, the module will add an update function called `Update-PSProjectStatus`. You can run the command from the integrated terminal or use the appropriate shortcut (see below). The command will the status based on user input, update the `LastUpdate` time to the current date and time, update the project version from the module manifest (if found), and update the git branch if found.
 
 You need to make sure your terminal or console window is set to your project's root directory.
 
@@ -423,7 +454,7 @@ The menu will loop and display until you enter a valid number or press Enter wit
 
 ### JSON Schema
 
-A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with v0.8.0. If you edit the `psproject.json` file in VSCode, you should get tab completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
+A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with `v0.8.0`. If you edit the `psproject.json` file in VSCode, you should get tab completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
 
 ## Road Map
 
@@ -433,8 +464,8 @@ These are a few things I'm considering or have been suggested.
   + priority
   + project type
   + tags
-+ Extend the module to integrate into a SQLite database file.
++ Extend the module to integrate into a SQLite database file. Although I would want this to work cross-platform.
 + Editor integration to manage project tasks.
-+ A WPF form to display the project status and make it easier to edit tasks.
++ A WPF or TUI form to display the project status and make it easier to edit tasks.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.

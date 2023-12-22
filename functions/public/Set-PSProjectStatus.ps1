@@ -14,7 +14,7 @@ Function Set-PSProjectStatus {
         [Parameter(HelpMessage = "When was the project last worked on?")]
         [ValidateNotNullOrEmpty()]
         [alias("date")]
-        [DateTime]$LastUpdate,
+        [DateTime]$LastUpdate = $(Get-Date),
 
         [Parameter(HelpMessage = "What are the remaining tasks?")]
         [string[]]$Tasks,
@@ -38,16 +38,26 @@ Function Set-PSProjectStatus {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using PowerShell Host $($Host.Name)"
     } #begin
     Process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating $($InputObject.name)"
 
-        $properties = "Name", "Status", "LastUpdate", "ProjectVersion", "Comment"
+        $properties = "Name", "Status", "ProjectVersion", "Comment"
         foreach ($property in $properties) {
             if ($PSBoundParameters.ContainsKey($property)) {
                 Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating $property"
                 $InputObject.$property = $PSBoundParameters[$property]
             }
+        }
+        #11/28/2023 - always update the LastUpdate property -JDH
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating LastUpdate"
+        if ($PSBoundParameters.ContainsKey("LastUpdate")) {
+            $InputObject.LastUpdate = $PSBoundParameters["LastUpdate"]
+        }
+        else {
+            $InputObject.LastUpdate = $LastUpdate
         }
         if ($PSBoundParameters.ContainsKey("Tasks")) {
             if ($Concatenate) {

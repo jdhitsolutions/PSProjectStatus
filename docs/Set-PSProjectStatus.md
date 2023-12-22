@@ -27,16 +27,16 @@ Manually copy the value into the JSON file.
 
 The Status value is an integer indicating a private enumeration value.
 
-Development = 0
-Updating = 1
-Stable = 2
-AlphaTesting = 3
-BetaTesting = 4
-ReleaseCandidate = 5
-Patching = 6
-UnitTesting = 7
-AcceptanceTesting = 8
-Other = 9
+- Development = 0
+- Updating = 1
+- Stable = 2
+- AlphaTesting = 3
+- BetaTesting = 4
+- ReleaseCandidate = 5
+- Patching = 6
+- UnitTesting = 7
+- AcceptanceTesting = 8
+- Other = 9
 
 Enter one of these string values. If you edit the file in VSCode, it should detect the JSON schema and provide completion values.
 
@@ -45,13 +45,13 @@ Enter one of these string values. If you edit the file in VSCode, it should dete
 ### Example 1
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -comment (git tag -l | Select-Object -last 1)
+PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -Status Development -comment (git tag -l | Select-Object -last 1)
 
    Name: PSProjectStatus [C:\scripts\PSProjectStatus]
 
 LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
-3/15/2022 10:09:05 AM  Develo..    {help docs, readm… 0.2.0         00.00:00
+3/15/2023 10:09:05 AM  Develo..    {help docs, readm… 0.2.0         00.00:00
 ```
 
 Update the project status using the current date and time. Set the Status property to Development and use the last git tag as a comment.
@@ -59,7 +59,7 @@ Update the project status using the current date and time. Set the Status proper
 ### Example 2
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "github" -Concatenate | Format-List
+PS C:\Scripts\PSProjectStatus> Set-PSProjectStatus -Status Development -Tasks "github" -Concatenate | Format-List
 
    Project: PSProjectStatus [C:\scripts\PSProjectStatus]
 
@@ -67,7 +67,7 @@ Version    : 0.5.0
 Status     : Updating
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
 GitBranch  : 0.5.0
-LastUpdate : 3/23/2022 10:20:26 AM
+LastUpdate : 3/23/2023 10:20:26 AM
 ```
 
 Update the project and add a task.
@@ -133,7 +133,7 @@ Aliases: date
 
 Required: False
 Position: 2
-Default value: None
+Default value: current date and time
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -237,7 +237,6 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -259,3 +258,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [New-PSProjectStatus](New-PSProjectStatus.md)
 
 [Get-PSProjectStatus](Get-PSProjectStatus.md)
+
+[New-PSProjectTask](New-PSProjectTask.md)

@@ -13,26 +13,45 @@ Create a new PSProjectStatus.
 
 ## SYNTAX
 
-```yaml
-New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm]  [<CommonParameters>]
+```
+New-PSProjectStatus [[-Name] <String>] [-Path <String>]
+[-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>]
+[-ProjectVersion <Version>] [-Comment <String>] [-Force] [-WhatIf] [-Confirm]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Create a new PSProject file. Ideally, you will run this command in the module root directory. The module manifest, if found, will be used for the Project Version. If a git branch is detected, it will automatically be used.
 
+The command will not overwrite an existing PSProjectStatus file. If you want to overwrite an existing file, use the -Force parameter.
+
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\Scripts\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).lastwritetime -Status Stable -Comment "Script module"
+PS C:\Projects\Contoso> New-PSProjectStatus
+
+   Name: Contoso [C:\Projects\Contoso]
+
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+12/22/2023 8:35:55 AM  Development       {}                     main   00.00:00
+```
+
+Create a new project status using default values.
+
+### Example 2
+
+```powershell
+PS C:\Scripts\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).LastWriteTime -Status Stable -Comment "Script module"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
-LastUpdate             Status      Tasks              GitBranch          Age
-----------             ------      -----              ---------          ---
-6/19/2020 8:42:04 AM   Stable                         main         634.01:13
+LastUpdate             Status      Tasks                GitBranch          Age
+----------             ------      -----                ---------          ---
+6/19/2020 8:42:04 AM   Stable      {}                        main    634.01:13
 ```
 
 Create a new project status. PSDrive references will be converted to filesystem paths. The Age property is automatically calculated from the LastUpdate value.
@@ -185,8 +204,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
+### -Force
+Overwrite an existing PSProjectStatus file.
 
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

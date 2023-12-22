@@ -1,5 +1,25 @@
 # Changelog for PSProjectStatus
 
+## v0.11.0
+
+### Fixed
+
+- Removed hard-coded path reference in `Get-PSProjectReport`. ([Issue #9](https://github.com/jdhitsolutions/PSProjectStatus/issues/9))
+
+### Changed
+
+- Updated `README.md`.
+- Updated `Set-PSProjectStatus` to use the current date time as the default for the `LastUpdate` parameter. __This is a potential breaking change.__
+- Updated `New-PSProjectStatus`to not overwrite an existing file if found. Added a `-Force` parameter.
+- Updated Verbose output in all commands.
+- Help updates
+
+### Added
+
+- Added command `Get-PSProjectTask` which is based on a new class definition.
+- Added custom format file `psprojecttask.format.ps1xml`
+- Added commands `New-PSProjectTask` and `Remove-PSProjectTask`.
+
 ## v0.10.1
 
 ### Fixed
@@ -95,7 +115,7 @@
 - Update `README.md`
 - Updated private data in the module manifest.
 - Added parameter alias `add` to `Concatenate` in `Set-PSProjectStatus`.
-- Added parameter alias `fullname` to `Path` in `Get-PSProjectStatus`.
+- Added parameter alias `FullName` to `Path` in `Get-PSProjectStatus`.
 
 ## v0.2.0
 

@@ -14,12 +14,14 @@ Function Get-PSProjectStatus {
     )
 
     Begin {
-        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using PowerShell Host $($Host.Name)"
     }
     Process {
         $json = Join-Path (Convert-Path $path) -ChildPath psproject.json
         if (Test-Path $json) {
-            Write-Verbose "Getting project status from $json"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting project status from $json"
             $in = Get-Content -Path $json | ConvertFrom-Json
             $psproject = [PSProject]::new()
 
@@ -27,7 +29,7 @@ Function Get-PSProjectStatus {
             $properties = $psproject.PSObject.properties.name | Where-Object { $_ -ne "Age" }
             foreach ($property in $properties) {
                 if ($property -eq 'RemoteRepository') {
-                    Write-Verbose "Creating remote repository information"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating remote repository information"
                     $remote = @()
                     foreach ($repo in $in.RemoteRepository) {
                         $remote += [PSProjectRemote]::new($repo.name, $repo.url, $repo.mode)
@@ -36,7 +38,7 @@ Function Get-PSProjectStatus {
 
                 }
                 else {
-                    Write-Verbose "Adding property $property"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Adding property $property"
                     $psproject.$property = $in.$property
                 }
             }
@@ -51,6 +53,6 @@ Function Get-PSProjectStatus {
     } #process
 
     End {
-        Write-Verbose "Ending $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     }
 }

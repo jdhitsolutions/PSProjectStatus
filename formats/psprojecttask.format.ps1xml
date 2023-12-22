@@ -1,0 +1,52 @@
+<!--
+Format type data generated 11/28/2023 17:36:59 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 11/28/2023 17:37:00 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>PSProjectTask</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"{0} [{1}]" -f $_.ProjectName,$_.path</ScriptBlock>
+        <Label>Name</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <HideTableHeaders/>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>TaskDescription</Label>
+            <Width>59</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($Host.Name -match "console|code") {
+                  <!-- display task in italics-->
+                  "   $([char]9679) $([char]27)[3m$($_.TaskDescription) [$($_.TaskID)]$([char]27)[0"
+                }
+                else {
+                  "{0} [{1}]" -f $_.TaskDescription,$_.TaskID
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

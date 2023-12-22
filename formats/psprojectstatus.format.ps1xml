@@ -57,10 +57,10 @@ https://github.com/jdhitsolutions/PSScriptTools
               <TableColumnItem>
                 <ScriptBlock>
                   if ($host.name -match 'console|code') {
-                   <!-- display status in color-->
-                   if ($_.status -eq 'Development') {
-                     <!--red-->
-                     "$([char]27)[91m$($_.status)$([char]27)[0m"
+                    <!-- display status in color-->
+                    if ($_.status -eq 'Development') {
+                      <!--red-->
+                      "$([char]27)[91m$($_.status)$([char]27)[0m"
                     }
                     elseif ($_.status -eq 'Updating') {
                       <!--yellow-->
@@ -68,16 +68,16 @@ https://github.com/jdhitsolutions/PSScriptTools
                     }
                     elseif ($_.status -eq 'Stable') {
                       <!--green-->
-                     "$([char]27)[92m$($_.status)$([char]27)[0m"
-                     }
-                     elseif ($_.status -eq 'Archive') {
+                      "$([char]27)[92m$($_.status)$([char]27)[0m"
+                      }
+                      elseif ($_.status -eq 'Archive') {
                       <!--orange-->
-                     "$([char]27)[38;5;214m$($_.status)$([char]27)[0m"
-                     }
-                     else {
-                       $_.status
-                     }
-                   }
+                      "$([char]27)[38;5;214m$($_.status)$([char]27)[0m"
+                      }
+                      else {
+                        $_.status
+                      }
+                    }
                   else {
                     $_.Status
                   }

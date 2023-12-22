@@ -50,7 +50,7 @@ Class PSProject {
     [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     [string]$GitBranch = ''
     #using .NET classes to ensure compatibility with non-Windows platforms
-    [string]$UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+    [string]$UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository = @()
     [string]$Comment = 'none'
@@ -71,7 +71,7 @@ Class PSProject {
         $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
     }
     [void]RefreshUser() {
-        $this.UpdateUser = "$([system.environment]::UserDomainName)\$([System.Environment]::Username)"
+        $this.UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     }
     [void]RefreshComputer() {
         $this.Computername = [System.Environment]::MachineName
@@ -86,7 +86,7 @@ Class PSProject {
                     $RemoteName = $split[0]
                     $Url = $split[1]
                     $Mode = $split[2].replace('(', '').Replace(')', '')
-                    $repos += [PSProjectRemote]::new($remotename, $url, $mode)
+                    $repos += [PSProjectRemote]::new($RemoteName, $url, $mode)
                 } #foreach
                 $this.RemoteRepository = $repos
             } #if remotes found
@@ -99,6 +99,34 @@ Class PSProject {
         $this.RefreshComputer()
         $this.RefreshRemoteRepository()
         $this.Save()
+    }
+}
+
+<#
+Consider expanding the schema to add a structured task object,
+with commands to add, set, complete, and remove.
+This would be a major breaking change
+
+[DateTime]$Created
+[DateTime]$DueDate
+[String]$AssignedTo
+[Int32]$Progress
+[Boolean]$Completed
+
+#>
+
+Class PSProjectTask {
+    [string]$ProjectName
+    [string]$Path
+    [string]$TaskDescription
+    [version]$ProjectVersion
+    [int]$TaskID
+
+    PSProjectTask ($TaskDescription, $Path, $ProjectName, $ProjectVersion) {
+        $this.ProjectName = $ProjectName
+        $this.Path = $Path
+        $this.TaskDescription = $TaskDescription
+        $this.ProjectVersion = $ProjectVersion
     }
 }
 
@@ -151,7 +179,7 @@ if ($host.name -eq 'visual studio code host') {
             8 { $status = 'UnitTesting' }
             9 { $status = 'AcceptanceTesting' }
             10 { $status = 'Other' }
-            11 {$status = 'Archive'}
+            11 { $status = 'Archive' }
         }
 
         if ($status) {
@@ -214,7 +242,7 @@ if ($host.name -match 'ISE') {
             8 { $status = 'UnitTesting' }
             9 { $status = 'AcceptanceTesting' }
             10 { $status = 'Other' }
-            11 { $status = 'Archive'}
+            11 { $status = 'Archive' }
         }
 
         if ($status) {

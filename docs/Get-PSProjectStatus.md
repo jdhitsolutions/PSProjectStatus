@@ -13,7 +13,7 @@ Get project status.
 
 ## SYNTAX
 
-```yaml
+```
 Get-PSProjectStatus [[-Path] <String>] [<CommonParameters>]
 ```
 
@@ -83,7 +83,7 @@ Use the default List view. This makes it easier to view the tasks.
 ### Example 4
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object versioninfo,age
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,age
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -115,7 +115,6 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
