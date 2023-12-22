@@ -1,5 +1,11 @@
 # Changelog for PSProjectStatus
 
+## v0.11.1
+
+### Fixed
+
+- Added missing online help links.
+
 ## v0.11.0
 
 ### Fixed

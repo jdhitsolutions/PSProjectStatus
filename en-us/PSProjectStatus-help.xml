@@ -584,6 +584,10 @@ Age        : 00:06:06.2337458</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/4833Pv8</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1151,6 +1155,10 @@ LastUpdate             Status      Tasks                GitBranch          Age
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3tyR5xe</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1308,6 +1316,10 @@ LastUpdate             Status      Tasks                GitBranch          Age
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/48pXpWM</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
@@ -1777,6 +1789,11 @@ LastUpdate : 3/23/2023 10:20:26 AM</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/41FZknV</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
 </helpItems>

@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version:
+online version: https://bit.ly/41FZknV
 schema: 2.0.0
 ---
 
