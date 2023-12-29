@@ -4,9 +4,13 @@ Function Get-PSProjectGitStatus {
     [OutputType('PSProjectGit')]
     Param( )
 
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Running under PowerShell version $($PSVersionTable.PSVersion)"
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Using PowerShell Host $($Host.Name)"
+    $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+    $PSDefaultParameterValues["_verbose:block"] = "Process"
+    $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;51m"
+    _verbose -message $strings.Starting
+    _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+    _verbose -message ($strings.UsingHost -f $host.Name)
+    _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
 
     if (Test-Path .git) {
 
@@ -23,7 +27,9 @@ Function Get-PSProjectGitStatus {
         }
     }
     else {
-        Write-Verbose "You must run this command from the root of a git repository."
+        Write-Verbose $strings.gitWarning
     }
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
+    $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+    $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;51m"
+    _verbose $strings.Ending
 }

@@ -1,90 +1,99 @@
 Function New-PSProjectStatus {
     [CmdletBinding(SupportsShouldProcess)]
-    [alias("npstat")]
-    [OutputType("PSProject")]
+    [alias('npstat')]
+    [OutputType('PSProject')]
     Param (
-        [Parameter(Position = 0, HelpMessage = "What is the project name?")]
+        [Parameter(Position = 0, HelpMessage = 'What is the project name?')]
         [ValidateNotNullOrEmpty()]
         [String]$Name = (Split-Path (Get-Location).path -Leaf),
 
-        [Parameter(HelpMessage = "What is the project path?")]
+        [Parameter(HelpMessage = 'What is the project path?')]
         [ValidateScript({ Test-Path $_ })]
         [String]$Path = (Get-Location).path,
 
-        [Parameter(HelpMessage = "When was the project last worked on?")]
+        [Parameter(HelpMessage = 'When was the project last worked on?')]
         [ValidateNotNullOrEmpty()]
-        [alias("date")]
+        [alias('date')]
         [DateTime]$LastUpdate = (Get-Date),
 
-        [Parameter(HelpMessage = "What are the remaining tasks?")]
+        [Parameter(HelpMessage = 'What are the remaining tasks?')]
         [string[]]$Tasks,
 
-        [Parameter(HelpMessage = "When is the project status?")]
-        [ValidateNotNullOrEmpty()]
-        [PSProjectStatus]$Status = "Development",
+        [Parameter(HelpMessage = 'What tags do you want to assign to this project?')]
+        [string[]]$Tags,
 
-        [Parameter(HelpMessage = "What is the project version?")]
+        [Parameter(HelpMessage = 'When is the project status?')]
         [ValidateNotNullOrEmpty()]
-        [alias("version")]
+        [PSProjectStatus]$Status = 'Development',
+
+        [Parameter(HelpMessage = 'What is the project version?')]
+        [ValidateNotNullOrEmpty()]
+        [alias('version')]
         [version]$ProjectVersion,
 
-        [Parameter(HelpMessage = "Enter an optional comment. This could be git tag, or an indication about the type of project.")]
+        [Parameter(HelpMessage = 'Enter an optional comment. This could be git tag, or an indication about the type of project.')]
         [String]$Comment,
 
-        [Parameter(HelpMessage = "Overwrite an existing PSProjectStatus file.")]
+        [Parameter(HelpMessage = 'Overwrite an existing PSProjectStatus file.')]
         [switch]$Force
     )
 
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Running under PowerShell version $($PSVersionTable.PSVersion)"
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Using PowerShell Host $($Host.Name)"
+    $PSDefaultParameterValues['_verbose:Command'] = $MyInvocation.MyCommand
+    $PSDefaultParameterValues['_verbose:ANSI'] = '[1;93m'
+    _verbose -message $strings.Starting
+    _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+    _verbose -message ($strings.UsingHost -f $host.Name)
+    _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
 
-    $exclude = "Verbose", "WhatIf", "Confirm", "ErrorAction", "Debug",
-    "WarningAction", "WarningVariable", "ErrorVariable","InformationAction",
-    "InformationVariable","ProgressAction","Force"
+    $exclude = 'Verbose', 'WhatIf', 'Confirm', 'ErrorAction', 'Debug',
+    'WarningAction', 'WarningVariable', 'ErrorVariable', 'InformationAction',
+    'InformationVariable', 'ProgressAction', 'Force'
 
     #convert the path to a filesystem path to avoid using PSDrive references
     $cPath = Convert-Path $Path
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Using path $Path"
+
+    _verbose ($strings.UsingPath -f $cPath)
 
     #Don't overwrite existing file unless -Force is specified
     $json = Join-Path -Path $cPath -ChildPath psproject.json
 
-    if ((Test-Path -path $json) -AND (-Not $Force)) {
-        Write-Warning "An existing project status file was found. You must either delete the file or re-run this command with -Force."
+    if ((Test-Path -Path $json) -AND (-Not $Force)) {
+        Write-Warning $strings.ExistingWarning
         #bail out of the command
         Return
     }
 
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Creating a new instance of the PSProject class"
+    _verbose $strings.NewInstance
     $new = [psproject]::New()
     $new.Path = $cPath
     $new | Select-Object * | Out-String | Write-Debug
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Using schema path $jsonSchema"
+
+    _verbose ($strings.UsingSchema -f $JsonSchema)
 
     #set the instance properties using parameter values from this command
     $PSBoundParameters.GetEnumerator() | Where-Object { $exclude -NotContains $_.key } |
     ForEach-Object {
-        Write-Verbose "[$((Get-Date).TimeOfDay)] Setting property $($_.key)"
+        _verbose ($strings.SetProperty -f $_.key)
         $new.$($_.key) = $_.value
     }
 
-    Write-Verbose "Testing for .git"
+    _verbose $strings.TestGit
     If (Test-Path .git) {
         $branch = git branch --show-current
-        Write-Verbose "[$((Get-Date).TimeOfDay)] Detected git branch $branch"
+        _verbose ($strings.FoundGit -f $branch)
         $new.GitBranch = $branch
 
         #get git remote
         $new.RemoteRepository = _getRemote
     }
     else {
-        Write-Verbose "[$((Get-Date).TimeOfDay)] No git branch detected"
+        _verbose $Strings.NoGit
     }
     if ($PSCmdlet.ShouldProcess($Name)) {
         $new
         $new.Save()
     }
-    Write-Verbose "[$((Get-Date).TimeOfDay)] Ending $($MyInvocation.MyCommand)"
+
+    _verbose $strings.Ending
 
 }

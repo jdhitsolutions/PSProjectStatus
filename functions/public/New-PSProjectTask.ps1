@@ -1,7 +1,6 @@
 Function New-PSProjectTask {
     [cmdletbinding(SupportsShouldProcess)]
     [OutputType('None','psProjectTask')]
-    [alias('alias')]
     Param(
         [Parameter(
             Position = 0,
@@ -20,16 +19,21 @@ Function New-PSProjectTask {
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using PowerShell Host $($Host.Name)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "Begin"
+        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;4m"
+        _verbose -message $strings.Starting
+        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+        _verbose -message ($strings.UsingHost -f $host.Name)
+        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
     } #begin
 
     Process {
+        $PSDefaultParameterValues["_verbose:block"] = "Process"
         $cPath = Convert-Path $Path
         $json = Join-Path $cPath -ChildPath psproject.json
         If (Test-Path -path $json) {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing tasks in $json"
+            _verbose ($strings.ProcessTasks -f $json)
             $in = Get-Content -Path $json | ConvertFrom-Json
             $in.Tasks+=$TaskDescription
             $in.LastUpdate = Get-Date
@@ -40,13 +44,16 @@ Function New-PSProjectTask {
             }
         }
         else {
-            Write-Warning "[$((Get-Date).TimeOfDay) PROCESS] Can't find psproject.json in the specified location $cPath."
+            Write-Warning $strings.missingJson
         }
 
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "End"
+        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;4m"
+        _verbose $strings.Ending
     } #end
 
-} #close New-PSProjectStatus
+} #close New-PSProjectTask

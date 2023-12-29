@@ -1,8 +1,23 @@
+# used for culture debugging
+# write-host "Importing with culture $(Get-Culture)"
+
+if ((Get-Culture).Name -match "\w+") {
+    #write-host "Using culture $(Get-Culture)" -ForegroundColor yellow
+    Import-LocalizedData -BindingVariable strings
+}
+else {
+    #force using En-US if no culture found, which might happen on non-Windows systems.
+    #write-host "Loading $PSScriptRoot/en-us/PSWorkItem.psd1" -ForegroundColor yellow
+    Import-LocalizedData -BindingVariable strings -FileName psprojectstatus.psd1 -BaseDirectory $PSScriptRoot/en-us
+}
+
+
 #dot source functions
 Get-ChildItem $PSScriptRoot\functions\*.ps1 -Recurse |
 ForEach-Object {
     . $_.FullName
 }
+
 
 #region class definitions
 enum PSProjectStatus {
@@ -47,13 +62,14 @@ Class PSProject {
     [DateTime]$LastUpdate = (Get-Date)
     [string[]]$Tasks = @()
     [PSProjectStatus]$Status = 'Development'
-    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
+    [Version]$ProjectVersion = (Test-ModuleManifest -Path ".\$(Split-Path $pwd -Leaf).psd1" -Verbose:$False -ErrorAction SilentlyContinue).version
     [string]$GitBranch = ''
     #using .NET classes to ensure compatibility with non-Windows platforms
     [string]$UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository = @()
-    [string]$Comment = 'none'
+    [string]$Comment = ''
+    [string[]]$Tags = @()
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
@@ -64,7 +80,7 @@ Class PSProject {
         @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
         @{Name = 'Status'; Expression = { $_.status.toString() } },
         @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
-        UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
+        UpdateUser,Computername,RemoteRepository,Tasks,GitBranch,Tags,Comment |
         ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
@@ -272,3 +288,7 @@ $jsonSchema = 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/
 
 # for testing
 # $jsonSchema = "file:///c:/scripts/psprojectstatus/psproject.schema.json"
+
+#Export the module version to a global variable that will be used in Verbose messages
+New-Variable -Name PSProjectStatusModule -Value "0.12.0" -Description "The PSProjectStatus module version used in verbose messaging."
+Export-ModuleMember -Variable PSProjectStatusModule -Alias 'Update-PSProjectStatus','gitstat','gpstat', 'npstat', 'spstat'

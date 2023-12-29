@@ -29,24 +29,35 @@ Function Get-PSProjectReport {
             ParameterSetName = "older",
             HelpMessage="Get projects where the age is older than X number of days"
         )]
-        [Int]$OlderThan
+        [Int]$OlderThan,
+
+        [Parameter(HelpMessage = "Get projects with a specific tag")]
+        [string]$Tag
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using PowerShell Host $($Host.Name)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "Begin"
+        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;213m"
+        _verbose -message $strings.Starting
+        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+        _verbose -message ($strings.UsingHost -f $host.Name)
+        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing PSProjects under $Path "
+        $PSDefaultParameterValues["_verbose:block"] = "Process"
+        _verbose -message ($strings.ProcessingPath -f $Path)
         $All =  Get-ChildItem -Path $Path -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
-        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($All.count) projects"
-
+        if ($Tag) {
+            _verbose -message ($strings.FilterTag -f $Tag)
+            $All = $All | Where-Object {$_.Tags -contains $Tag}
+        }
+        _verbose -message ($strings.FoundProjects -f $All.Count)
         Switch ($PSCmdlet.ParameterSetName) {
             "Status" {
                 if ($PSBoundParameters.ContainsKey("Status")) {
-                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering for $Status"
+                    _verbose -message ($strings.FilterStatus -f $status)
                     $results = $all.Where({$_.status -eq $status}) | Sort-Object -Property Age
                 }
                 else {
@@ -54,7 +65,7 @@ Function Get-PSProjectReport {
                 }
             }
             "newer" {
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering for projects last updated within the last $NewerThan days"
+                _verbose -message ($strings.FilterNewer -f $NewerThan)
                 if ($PSBoundParameters.ContainsKey("Status")) {
                     $results = $all.Where({$_.status -eq $status -AND $_.Age.TotalDays -le $NewerThan}) | Sort-Object -Property Age
                 }
@@ -63,7 +74,7 @@ Function Get-PSProjectReport {
                 }
             }
             "older" {
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering for projects last updated in the more than $OlderThan days ago."
+                _verbose -message ($strings.FilterOlder -f $OlderThan)
                 if ($PSBoundParameters.ContainsKey("Status")) {
                     $results = $all.Where({$_.status -eq $status -AND $_.Age.TotalDays -ge $OlderThan}) | Sort-Object -Property Age
                 }
@@ -77,7 +88,10 @@ Function Get-PSProjectReport {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "End"
+        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;213m"
+        _verbose $strings.Ending
     } #end
 
 } #close Get-PSProjectReport

@@ -18,21 +18,26 @@ Function Get-PSProjectTask {
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using PowerShell Host $($Host.Name)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "Begin"
+        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;10m"
+        _verbose -message $strings.Starting
+        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+        _verbose -message ($strings.UsingHost -f $host.Name)
+        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
     } #begin
 
     Process {
+        $PSDefaultParameterValues["_verbose:block"] = "Process"
         $cPath = Convert-Path $Path
         $json = Join-Path $cPath -ChildPath psproject.json
         If (Test-Path -path $json) {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing tasks in $json"
+            _verbose ($strings.ProcessTasks -f $json)
             $in = Get-Content -Path $json | ConvertFrom-Json
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($in.tasks.count) tasks"
+            _verbose ($strings.FoundTasks -f $in.tasks.count)
             if ($in.Tasks) {
                 if ($TaskID -gt 0) {
-                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting Task number $TaskID"
+                    _verbose ($strings.GetTaskID -f $TaskID)
                 }
                 #define a project task ID number
                 $i = 1
@@ -49,18 +54,20 @@ Function Get-PSProjectTask {
                 }
             }
             Else {
-                Write-Warning "[$((Get-Date).TimeOfDay) PROCESS] No tasks found for this project."
+                Write-Warning $strings.NoTasks
+
             }
         }
         else {
-            Write-Warning "[$((Get-Date).TimeOfDay) PROCESS] Can't find psproject.json in the specified location $cPath."
+            Write-Warning ($strings.missingJson -f $cPath)
         }
 
     } #process
 
     End {
-
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+        $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
+        $PSDefaultParameterValues["_verbose:block"] = "End"
+        _verbose $strings.Ending
     } #end
 
 } #close Get-PSProjectTask

@@ -18,6 +18,18 @@ the PowerShell Gallery.
           <Name>LastUpdate</Name>
         </ReferencedProperties>
       </PropertySet>
+        <PropertySet>
+        <Name>Info</Name>
+        <ReferencedProperties>
+          <Name>Name</Name>
+          <Name>Status</Name>
+          <Name>Version</Name>
+          <Name>GitBranch</Name>
+          <Name>Tasks</Name>
+          <Name>Tags</Name>
+          <Name>Comment</Name>
+        </ReferencedProperties>
+      </PropertySet>
       <AliasProperty>
         <Name>Version</Name>
         <ReferencedMemberName>ProjectVersion</ReferencedMemberName>

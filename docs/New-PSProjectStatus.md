@@ -14,10 +14,7 @@ Create a new PSProjectStatus.
 ## SYNTAX
 
 ```
-New-PSProjectStatus [[-Name] <String>] [-Path <String>]
-[-LastUpdate <DateTime>] [-Tasks <String[]>] [-Status <PSProjectStatus>]
-[-ProjectVersion <Version>] [-Comment <String>] [-Force] [-WhatIf] [-Confirm]
-[<CommonParameters>]
+New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Tags <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -209,6 +206,21 @@ Overwrite an existing PSProjectStatus file.
 
 ```yaml
 Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Tags
+What tags do you want to assign to this project?
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 

@@ -2,7 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSProjectStatus.png?style=for-the-badge&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSProjectStatus/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSProjectStatus.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSProjectStatus/)
 
-This PowerShell module is designed to make it easier to manage your projects and modules. It provides a snapshot overview of the project's status. You can use this to quickly determine when you last worked on a module and what high-level tasks remain. Status information is stored in a JSON file that resides in the module's root directory. If you have initialized *git* for the module, the project status will include the current branch.
+![icon](images/psproject-icon.png)This PowerShell module is designed to make it easier to manage your projects and modules. It provides a snapshot overview of the project's status. You can use this to quickly determine when you last worked on a module and what high-level tasks remain. Status information is stored in a JSON file that resides in the module's root directory. If you have initialized *git* for the module, the project status will include the current branch.
 
 ## Installation
 
@@ -12,7 +12,24 @@ Install this module from the PowerShell Gallery.
 Install-Module PSProjectStatus
 ```
 
+Or you can use the [`Microsoft.PowerShell.PSResourceGet`](https://github.com/PowerShell/PSResourceGet/) module.
+
+```powershell
+Install-PSResource PSProjectStatus -Scope AllUsers
+```
+
 This module should work in Windows PowerShell 5.1 and PowerShell 7.
+
+## Module Commands
+
+- [Get-PSProjectGitStatus](docs/Get-PSProjectGitStatus.md)
+- [Get-PSProjectReport](docs/Get-PSProjectReport.md)
+- [Get-PSProjectStatus](docs/Get-PSProjectStatus.md)
+- [Get-PSProjectTask](docs/Get-PSProjectTask.md)
+- [New-PSProjectStatus](docs/New-PSProjectStatus.md)
+- [New-PSProjectTask](docs/New-PSProjectTask.md)
+- [Remove-PSProjectTask](docs/Remove-PSProjectTask.md)
+- [Set-PSProjectStatus](docs/Set-PSProjectStatus.md)
 
 ## Class-Based
 
@@ -49,7 +66,7 @@ Class PSProject {
     [string]$UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
     [string]$Computername = [System.Environment]::MachineName
     [PSProjectRemote[]]$RemoteRepository = @()
-    [string]$Comment = 'none'
+    [string]$Comment = ''
 
     [void]Save() {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
@@ -158,7 +175,7 @@ The `Age` ScriptProperty and `VersionInfo` property sets are added to the object
 
 To create a project status file, navigate to the module root and run [New-PSProjectStatus](docs/New-PSProjectStatus.md). The default status is `Development`
 
-![new psproject status](images/new-psprojectstatus.png)
+![New PSProject Status](images/new-psprojectstatus.png)
 
 You can update properties when you create the project status.
 
@@ -175,16 +192,18 @@ The command will create `psproject.json` in the root folder.
   "$schema": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
   "Name": "PSHelpDesk",
   "Path": "C:\\Scripts\\PSHelpDesk",
-  "LastUpdate": "2022-02-20T09:47:33-05:00",
-  "Status": 1,
+  "LastUpdate": "2023-02-20T09:47:33-05:00",
+  "Status": "Updating",
   "ProjectVersion": "0.1.0",
   "UpdateUser": "PROSPERO\\Jeff",
   "Computername": "PROSPERO",
-  "RemoteRepository": null,
+  "RemoteRepository": [],
   "Tasks": [
     "update help"
   ],
-  "GitBranch": "dev"
+  "GitBranch": "dev",
+  "Tags : [],
+  "Comment": ""
 }
 ```
 
@@ -202,9 +221,9 @@ PS C:\scripts\PSCalendar> Get-PSProjectStatus
 
    Name: PSCalendar [C:\Scripts\PSCalendar]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-3/3/2022 10:24:49 AM   Patching          {Update help docu...      2.9.0   12.07:07
+LastUpdate             Status         Tasks                 GitBranch        Age
+----------             ------         -----                 ---------        ---
+3/3/2022 10:24:49 AM   Patching       {Update help docu...      2.9.0   12.07:07
 ```
 
 If the PowerShell host supports ANSI, a status of `Stable` will be displayed in Green. `Development` will be shown in Red and `Updating` in Yellow.
@@ -262,7 +281,7 @@ PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Dev
 
 LastUpdate             Status            Tasks                 GitBranch        Age
 ----------             ------            -----                 ---------        ---
-3/15/2022 5:53:54 PM   Development  {update help, add...             dev   00.00:00
+3/15/2023 5:53:54 PM   Development  {update help, add...             dev   00.00:00
 ```
 
 When defining tasks, use `-Concatenate` to append the tasks. Otherwise, tasks will be overwritten with the new value.
@@ -284,7 +303,7 @@ Name             : WingetTools
 Status           : Stable
 Version          :
 GitBranch        : main
-LastUpdate       : 3/17/2022 9:46:35 AM
+LastUpdate       : 3/17/2023 9:46:35 AM
 Age              : 9.00:22:39.3936893
 Path             : C:\Scripts\WingetTools
 ProjectVersion   :
@@ -293,6 +312,7 @@ Computername     :
 RemoteRepository : {}
 Tasks            : {}
 Comment          :
+Tags             : {}
 ```
 
 To update, get a reference to the project status object.
@@ -326,9 +346,9 @@ C:\Scripts\PSProjectStatus> Set-PSProjectStatus -Tasks "Update missing online he
 
    Name: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-12/22/2023 9:08:30 AM  Updating          {Consider a schema …     0.11.0   00.00:00
+LastUpdate             Status         Tasks                 GitBranch        Age
+----------             ------         -----                 ---------        ---
+12/22/2023 9:08:30 AM  Updating       {Consider a schema …     0.11.0   00.00:00
 ```
 
 Or you can use the task-related commands.
@@ -418,9 +438,148 @@ LastUpdate             Status            Tasks             GitBranch        Age
 1/20/2023 2:20:39 PM   Stable            {convert modu...       main   07.23:51
 ```
 
+## Project Tags
+
+Support for tags was added in version 0.12.0. You can define tags when you create the project status file.
+
+```powershell
+New-PSProjectStatus -Tasks "prototype" -Tags tui - -version 0.2.0
+```
+
+Or you can add them later.
+
+```powershell
+Set-PSProjectStatus -Tags "beta","tui"
+```
+
+When using this command you need to redefine existing tags. Or add the tags manually to the JSON file.
+
+You can view tags with a formatted list view.
+
+```powershell
+PS C:\work\terminalgui> Get-PSProjectStatus | Format-List
+
+   Project: terminalgui [C:\work\terminalgui]
+
+Version    : 0.2.0
+Status     : Development
+Tasks      : {prototype}
+Tags       : {beta, tui}
+GitBranch  :
+LastUpdate : 12/27/2023 5:11:30 PM
+Age        : 00:02:48.0251636
+```
+
+You are most likely to use tags when managing multiple projects. `Get-PSProjectReport` includes a `-Tag` parameter so that you can filter from your parent folder.
+
+```powershell
+PS C:\> Get-PSProjectReport -path c:\scripts -Tag json
+
+   Name: PSProjectStatus [C:\Scripts\PSProjectStatus]
+
+LastUpdate             Status        Tasks                 GitBranch        Age
+----------             ------        -----                 ---------        ---
+12/27/2023 5:16:52 PM  Updating      {Create TUI-based m…     0.12.0   00.00:00
+```
+
+If you want to remove tags, either manually edit the JSON file or use `Set-PSProjectStatus` and set an empty array.
+
+```powershell
+Set-PSProjectStatus -Tags @()
+```
+
 ## Removing Project Status
 
 If no you longer want to track the project status for a given folder, simply delete the associated JSON file. As an alternative, you can set the status to `Archive`.
+
+## Module Extensions
+
+### Type Extensions
+
+The commands in this module have defined type extensions. Alias and script properties have been defined.
+
+```powershell
+PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Get-Member -MemberType Properties,PropertySet
+
+   TypeName: PSProject
+
+Name             MemberType     Definition
+----             ----------     ----------
+Username         AliasProperty  Username = UpdateUser
+Version          AliasProperty  Version = ProjectVersion
+Comment          Property       string Comment {get;set;}
+Computername     Property       string Computername {get;set;}
+GitBranch        Property       string GitBranch {get;set;}
+LastUpdate       Property       datetime LastUpdate {get;set;}
+Name             Property       string Name {get;set;}
+Path             Property       string Path {get;set;}
+ProjectVersion   Property       version ProjectVersion {get;set;}
+RemoteRepository Property       PSProjectRemote[] RemoteRepository {get;set;}
+Status           Property       PSProjectStatus Status {get;set;}
+Tags             Property       string[] Tags {get;set;}
+Tasks            Property       string[] Tasks {get;set;}
+UpdateUser       Property       string UpdateUser {get;set;}
+Info             PropertySet    Info {Name, Status, Version, GitBranch, Tasks, Tags, Comment}
+versionInfo      PropertySet    versionInfo {Name, Status, Version, GitBranch, LastUpdate}
+Age              ScriptProperty System.Object Age {get=(Get-Date) - $this.lastUpdate;}
+```
+
+The property sets make it easier to display a group of related properties.
+
+```powershell
+PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Select Info
+
+Name      : PSProjectStatus
+Status    : Updating
+Version   : 0.12.0
+GitBranch : 0.12.0
+Tasks     : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10],
+            Pester tests, Update README…}
+Tags      : {json}
+Comment   : none
+```
+
+### Formatting
+
+The module uses custom and default formatting for projects and tasks. The default format is a table. There are examples you can see in several screenshots above. You can use also `Format-List`.
+
+```powershell
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Format-List
+
+   Project: PSProjectStatus [C:\Scripts\PSProjectStatus]
+
+Version    : 0.12.0
+Status     : Updating
+Tasks      : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10],
+             Pester tests, Update README…}
+Tags       : {json}
+GitBranch  : 0.12.0
+LastUpdate : 12/28/2023 5:51:42 PM
+Age        : 00:14:21.9538891
+```
+
+There is also a named view you can use.
+
+```powershell
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Format-List -View info
+
+   Project: PSProjectStatus [C:\Scripts\PSProjectStatus]
+
+Status  : Updating
+Tasks   : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10], Pester
+          tests, Update README…}
+Tags    : {json}
+Comment : none
+Age     : 00.00:16:04
+```
+
+### Verbose, Warning, and Debug
+
+The commands in this module use localized string data to display verbose, warning, and debug messages. The module uses a private helper function to display verbose messaging. Each module command can be identified with a different ANSI color scheme.
+
+![Sample verbose output](images/verbose-output.png)
+
+You must use a PowerShell console that supports ANSI escape sequences. The PowerShell ISE __does not__ support this feature.
 
 ## Editor Integration
 
@@ -463,9 +622,9 @@ These are a few things I'm considering or have been suggested.
 + Additional properties
   + priority
   + project type
-  + tags
-+ Extend the module to integrate into a SQLite database file. Although I would want this to work cross-platform.
 + Editor integration to manage project tasks.
 + A WPF or TUI form to display the project status and make it easier to edit tasks.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
+
+> Project icon by [Icons8](https://icons8.com)

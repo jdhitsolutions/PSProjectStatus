@@ -15,7 +15,14 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>PSProject</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"{0} [{1}]" -f $_.Name,$_.path</ScriptBlock>
+        <ScriptBlock>
+        If ($host.Name -match "ISE") {
+          "{0} [{1}]" -f $_.Name,$_.path
+        }
+        else {
+        "$([char]27)[96m{0}$([char]27)[0m [{1}]" -f $_.Name,$_.path
+        }
+        </ScriptBlock>
         <Label>Name</Label>
       </GroupBy>
       <TableControl>
@@ -56,7 +63,7 @@ https://github.com/jdhitsolutions/PSScriptTools
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>
-                  if ($host.name -match 'console|code') {
+                  if ($host.name -match 'console|code|serverremotehost') {
                     <!-- display status in color-->
                     if ($_.status -eq 'Development') {
                       <!--red-->
@@ -104,7 +111,14 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>PSProject</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"{0} [{1}]" -f $_.Name,$_.path</ScriptBlock>
+        <ScriptBlock>
+        If ($host.Name -match "ISE") {
+          "{0} [{1}]" -f $_.Name,$_.path
+        }
+        else {
+        "$([char]27)[96m{0}$([char]27)[0m [{1}]" -f $_.Name,$_.path
+        }
+        </ScriptBlock>
         <Label>Project</Label>
       </GroupBy>
       <ListControl>
@@ -115,7 +129,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                 <Label>Version</Label>
                 <PropertyName>ProjectVersion</PropertyName>
               </ListItem>
-                <ListItem>
+              <ListItem>
                 <Label>Status</Label>
                 <PropertyName>Status</PropertyName>
               </ListItem>
@@ -124,12 +138,66 @@ https://github.com/jdhitsolutions/PSScriptTools
                 <PropertyName>Tasks</PropertyName>
               </ListItem>
               <ListItem>
+                <Label>Tags</Label>
+                <PropertyName>Tags</PropertyName>
+              </ListItem>
+              <ListItem>
                 <Label>GitBranch</Label>
                 <PropertyName>GitBranch</PropertyName>
               </ListItem>
               <ListItem>
                 <Label>LastUpdate</Label>
                 <PropertyName>LastUpdate</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Age</Label>
+                <PropertyName>Age</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+    <View>
+      <!--Created 12/28/2023 17:28:18 by PROSPERO\Jeff-->
+      <Name>info</Name>
+      <ViewSelectedBy>
+        <TypeName>PSProject</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+        If ($host.Name -match "ISE") {
+          "{0} [{1}]" -f $_.Name,$_.path
+        }
+        else {
+        "$([char]27)[96m{0}$([char]27)[0m [{1}]" -f $_.Name,$_.path
+        }
+        </ScriptBlock>
+        <Label>Project</Label>
+      </GroupBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>Status</Label>
+                <PropertyName>Status</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Tasks</Label>
+                <PropertyName>Tasks</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Tags</Label>
+                <PropertyName>Tags</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Comment</Label>
+                <PropertyName>Comment</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Age</Label>
+                <ScriptBlock> $_.Age.ToString("dd\.hh\:mm\:ss")</ScriptBlock>
               </ListItem>
             </ListItems>
           </ListEntry>

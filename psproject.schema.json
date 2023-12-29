@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
     "title": "PSProject Status Schema",
-    "description": "Schema for the PSProjectStatus configuration file.",
+    "description": "Schema for the PSProjectStatus configuration file. Version 1.1.0 last updated 27 Dec 2023.",
     "type": "object",
     "properties": {
         "Name": {
@@ -46,6 +46,11 @@
             "description": "Specify a list of pending tasks for the project.",
             "type": "array",
             "default": "none"
+        },
+        "Tags" : {
+            "description" : "Specify a set of user-defined tags for this project.",
+            "type" : "array",
+            "default" : "none"
         },
         "Status": {
             "description": "Specify the project status.",
@@ -104,6 +109,7 @@
     },
     "required": [
         "Name",
-        "Path"
+        "Path",
+        "LastUpdate"
     ]
 }

@@ -13,8 +13,8 @@ Update a PSProject status.
 
 ## SYNTAX
 
-```yaml
-Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>] [[-Tasks] <String[]>] [-Concatenate] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>]  [[-Tasks] <String[]>] [-Concatenate] [-Tags <String[]>] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -226,6 +226,21 @@ Enter an optional comment. This could be git tag, or an indication about the typ
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Tags
+What tags do you want to assign to this project? If you want to append tags you either have to re-define all tags, or add a tag manually to the psproject.json file.
+
+```yaml
+Type: String[]
 Parameter Sets: (All)
 Aliases:
 

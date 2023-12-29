@@ -34,7 +34,7 @@ https://github.com/jdhitsolutions/PSScriptTools
             <TableColumnItems>
               <TableColumnItem>
                 <ScriptBlock>
-                if ($Host.Name -match "console|code") {
+                if ($Host.Name -match "console|code|serverremotehost") {
                   <!-- display task in italics-->
                   "   $([char]9679) $([char]27)[3m$($_.TaskDescription) [$($_.TaskID)]$([char]27)[0"
                 }
