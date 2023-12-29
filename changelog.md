@@ -1,5 +1,28 @@
 # Changelog for PSProjectStatus
 
+## v0.12.0
+
+### Added
+
+- Added support for tags to `New-PSProjectStatus`, `Set-PSProjectStatus`, and `Get-PSProjectReport`. Modified format file to display tags in the default list view. This also necessitated a change to the [JSON schema file](psproject.schema.json). [[Issue #8](https://github.com/jdhitsolutions/PSProjectStatus/issues/8)]
+- Added localized string data file `psprojectstatus.psd1`
+- Added a private function to display verbose messaging.
+- Added a new formatted list view called `info` to display `Tasks`, `Tags`, and `Comment` properties.
+- Added a custom property set called `Info` to display `Name`,`Status`,`Version`,`GitBranch`,`Tasks`,`Tags`, and `Comment` properties.
+- Defined alias `Update-PSProjectStatus` for `Set-PSProjectStatus`.
+- Added an exported variable, `PSProjectStatusModule` for the module version. This variable is used in verbose messaging. This necessitated using `Export-ModuleMember` in the root module file.
+
+### Changed
+
+- Modified format file for PSProjectStatus to display project name in `Cyan`. This applies to table and list views.
+- Modified verbose, warning and debug messages to use localized string data.
+- Modified JSON schema to require the `LastUpdated` property.
+- Help updates.
+
+### Fixed
+
+- Fixed format files to not use ANSI escape sequences if the PowerShell ISE is detected.
+
 ## v0.11.1
 
 ### Fixed
