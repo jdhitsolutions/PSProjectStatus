@@ -38,16 +38,19 @@ Function Get-PSProjectReport {
     Begin {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "Begin"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;213m"
         _verbose -message $strings.Starting
-        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
-        _verbose -message ($strings.UsingHost -f $host.Name)
-        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+
+        if ($MyInvocation.CommandOrigin -eq "Runspace") {
+            #Hide this metadata when the command is called from another command
+            _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+            _verbose -message ($strings.UsingHost -f $host.Name)
+            _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        }
     } #begin
 
     Process {
         $PSDefaultParameterValues["_verbose:block"] = "Process"
-        _verbose -message ($strings.ProcessingPath -f $Path)
+        _verbose -message ($strings.ProcessPath -f $Path)
         $All =  Get-ChildItem -Path $Path -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
         if ($Tag) {
             _verbose -message ($strings.FilterTag -f $Tag)
@@ -90,7 +93,6 @@ Function Get-PSProjectReport {
     End {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "End"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;213m"
         _verbose $strings.Ending
     } #end
 

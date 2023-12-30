@@ -39,11 +39,14 @@ Function New-PSProjectStatus {
     )
 
     $PSDefaultParameterValues['_verbose:Command'] = $MyInvocation.MyCommand
-    $PSDefaultParameterValues['_verbose:ANSI'] = '[1;93m'
+
     _verbose -message $strings.Starting
-    _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
-    _verbose -message ($strings.UsingHost -f $host.Name)
-    _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+    if ($MyInvocation.CommandOrigin -eq "Runspace") {
+        #Hide this metadata when the command is called from another command
+        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+        _verbose -message ($strings.UsingHost -f $host.Name)
+        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+    }
 
     $exclude = 'Verbose', 'WhatIf', 'Confirm', 'ErrorAction', 'Debug',
     'WarningAction', 'WarningVariable', 'ErrorVariable', 'InformationAction',

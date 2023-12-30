@@ -19,7 +19,7 @@ Get-PSProjectGitStatus [<CommonParameters>]
 
 ## DESCRIPTION
 
-Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not a git repository, nothing will be returned.
+Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not git initialized, nothing will be returned.
 
 ## EXAMPLES
 

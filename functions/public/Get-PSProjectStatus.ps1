@@ -16,11 +16,14 @@ Function Get-PSProjectStatus {
     Begin {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "Begin"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;96m"
         _verbose -message $strings.Starting
-        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
-        _verbose -message ($strings.UsingHost -f $host.Name)
-        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+
+        if ($MyInvocation.CommandOrigin -eq "Runspace") {
+            #Hide this metadata when the command is called from another command
+            _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+            _verbose -message ($strings.UsingHost -f $host.Name)
+            _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        }
     }
     Process {
         $PSDefaultParameterValues["_verbose:block"] = "Process"
@@ -60,7 +63,6 @@ Function Get-PSProjectStatus {
     End {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "End"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;96m"
         _verbose $strings.Ending
     }
 }

@@ -33,7 +33,7 @@ Get-PSProjectReport [-Path] <String> [-Status <PSProjectStatus>]
 
 ## DESCRIPTION
 
-The PSProjectStatus module makes an assumption that the majority of your projects are organized under a parent folder like C:\Scripts. This command is designed to make it easier to identify and manage projects you are working on. The default behavior is to get PSProject information from the top-level folders in your root directory. But you can also filter on status or age.
+The PSProjectStatus module makes an assumption that the majority of your projects are organized under a parent folder like C:\Scripts. This command is designed to make it easier to identify and manage projects you are working on. The default behavior is to get PSProject information from the top-level folders in your root directory. But you can also filter on status, age, or tag.
 
 ## EXAMPLES
 
@@ -70,10 +70,10 @@ Get PSProjects modified within the last 10 days.
 ### Example 3
 
 ```powershell
-PS C>\> Get-PSProjectReport c:\scripts -NewerThan 30 | Select Path,Name,Status,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | foreach-object { code $_.path }
+PS C>\> Get-PSProjectReport c:\scripts -NewerThan 60 | Select-Object Path,Name,Status,Tags,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | Foreach-Object { set-location $_.path ; code $_.path }
 ```
 
-Get projects modified in the last 30 days and send to Out-GridView. The selected project folder will be opened in VSCode.
+Get projects modified in the last 60 days and send to Out-GridView. The selected project folder will be opened in VSCode.
 
 ## PARAMETERS
 

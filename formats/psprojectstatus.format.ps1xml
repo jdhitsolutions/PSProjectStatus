@@ -151,7 +151,7 @@ https://github.com/jdhitsolutions/PSScriptTools
               </ListItem>
               <ListItem>
                 <Label>Age</Label>
-                <PropertyName>Age</PropertyName>
+                <ScriptBlock> $_.Age.ToString("dd\.hh\:mm\:ss")</ScriptBlock>
               </ListItem>
             </ListItems>
           </ListEntry>

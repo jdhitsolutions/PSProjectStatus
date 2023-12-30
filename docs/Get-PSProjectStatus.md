@@ -30,9 +30,9 @@ PS C:\Scripts\PSClock> Get-PSProjectStatus
 
    Name: PSClock [C:\Scripts\PSClock]
 
-LastUpdate             Status            Tasks                 GitBranch     Age
-----------             ------            -----                 ---------     ---
-3/2/2022 3:43:34 PM    Stable                                        main    12.19:14
+LastUpdate             Status            Tasks            GitBranch          Age
+----------             ------            -----            ---------          ---
+3/2/2022 3:43:34 PM    Stable                                   main    12.19:14
 ```
 
 Get the status from the current directory.
@@ -44,38 +44,40 @@ C:\Scripts\ dir -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
 
    Name: ADReportingTools [C:\Scripts\ADReportingTools]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-6/21/2021 4:47:11 PM   Updating          {Publish new releas…      1.4.0  266.17:59
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+6/21/2021 4:47:11 PM   Updating          {Publish new re…      1.4.0  266.17:59
 
    Name: GitDevTest [C:\scripts\GitDevTest]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-2/3/2022 4:50:37 PM    Stable            {update readme, add…     master   39.17:55
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+2/3/2022 4:50:37 PM    Stable            {update readme,…     master   39.17:55
 
    Name: MyTasks [C:\Scripts\MyTasks]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-10/14/2020 1:29:59 PM  Stable                                     master  516.21:16
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+10/14/2020 1:29:59 PM  Stable                                 master  516.21:16
 ...
 ```
 
-Get status for multiple projects.
+Get status for multiple projects. You could also use the Get-PSProjectReport command.
 
 ### Example 3
 
 ```powershell
 PS C:\Scripts\PSCalendar> Get-PSProjectStatus | Format-List
 
-   Project: PSCalendar [C:\Scripts\PSCalendar]
+   Project: PSCalendar [C:\scripts\PSCalendar]
 
 Version    : 2.9.0
-Status     : Patching
-Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
-GitBranch  : 2.9.0
-LastUpdate : 3/3/2022 10:24:49 AM
+Status     : Stable
+Tasks      : {Update Help, Issue 34}
+Tags       : {}
+GitBranch  : master
+LastUpdate : 3/1/2022 5:50:00 AM
+Age        : 669.10:07:19
 ```
 
 Use the default List view. This makes it easier to view the tasks.
@@ -83,7 +85,7 @@ Use the default List view. This makes it easier to view the tasks.
 ### Example 4
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,age
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,Age
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -136,3 +138,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Set-PSProjectStatus](Set-PSProjectStatus.md)
 
 [New-PSProjectStatus](New-PSProjectStatus.md)
+
+[Get-PSProjectReport](Get-PSProjectReport.md)

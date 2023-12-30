@@ -10,7 +10,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not a git repository, nothing will be returned.</maml:para>
+      <maml:para>Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not git initialized, nothing will be returned.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -78,7 +78,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The PSProjectStatus module makes an assumption that the majority of your projects are organized under a parent folder like C:\Scripts. This command is designed to make it easier to identify and manage projects you are working on. The default behavior is to get PSProject information from the top-level folders in your root directory. But you can also filter on status or age.</maml:para>
+      <maml:para>The PSProjectStatus module makes an assumption that the majority of your projects are organized under a parent folder like C:\Scripts. This command is designed to make it easier to identify and manage projects you are working on. The default behavior is to get PSProject information from the top-level folders in your root directory. But you can also filter on status, age, or tag.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -328,9 +328,9 @@ LastUpdate             Status            Tasks             GitBranch        Age
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C&gt;\&gt; Get-PSProjectReport c:\scripts -NewerThan 30 | Select Path,Name,Status,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | foreach-object { code $_.path }</dev:code>
+        <dev:code>PS C&gt;\&gt; Get-PSProjectReport c:\scripts -NewerThan 60 | Select-Object Path,Name,Status,Tags,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | Foreach-Object { set-location $_.path ; code $_.path }</dev:code>
         <dev:remarks>
-          <maml:para>Get projects modified in the last 30 days and send to Out-GridView. The selected project folder will be opened in VSCode.</maml:para>
+          <maml:para>Get projects modified in the last 60 days and send to Out-GridView. The selected project folder will be opened in VSCode.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -421,9 +421,9 @@ LastUpdate             Status            Tasks             GitBranch        Age
 
    Name: PSClock [C:\Scripts\PSClock]
 
-LastUpdate             Status            Tasks                 GitBranch     Age
-----------             ------            -----                 ---------     ---
-3/2/2022 3:43:34 PM    Stable                                        main    12.19:14</dev:code>
+LastUpdate             Status            Tasks            GitBranch          Age
+----------             ------            -----            ---------          ---
+3/2/2022 3:43:34 PM    Stable                                   main    12.19:14</dev:code>
         <dev:remarks>
           <maml:para>Get the status from the current directory.</maml:para>
         </dev:remarks>
@@ -434,44 +434,46 @@ LastUpdate             Status            Tasks                 GitBranch     Age
 
    Name: ADReportingTools [C:\Scripts\ADReportingTools]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-6/21/2021 4:47:11 PM   Updating          {Publish new releas…      1.4.0  266.17:59
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+6/21/2021 4:47:11 PM   Updating          {Publish new re…      1.4.0  266.17:59
 
    Name: GitDevTest [C:\scripts\GitDevTest]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-2/3/2022 4:50:37 PM    Stable            {update readme, add…     master   39.17:55
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+2/3/2022 4:50:37 PM    Stable            {update readme,…     master   39.17:55
 
    Name: MyTasks [C:\Scripts\MyTasks]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-10/14/2020 1:29:59 PM  Stable                                     master  516.21:16
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+10/14/2020 1:29:59 PM  Stable                                 master  516.21:16
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Get status for multiple projects.</maml:para>
+          <maml:para>Get status for multiple projects. You could also use the Get-PSProjectReport command.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\Scripts\PSCalendar&gt; Get-PSProjectStatus | Format-List
 
-   Project: PSCalendar [C:\Scripts\PSCalendar]
+   Project: PSCalendar [C:\scripts\PSCalendar]
 
 Version    : 2.9.0
-Status     : Patching
-Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
-GitBranch  : 2.9.0
-LastUpdate : 3/3/2022 10:24:49 AM</dev:code>
+Status     : Stable
+Tasks      : {Update Help, Issue 34}
+Tags       : {}
+GitBranch  : master
+LastUpdate : 3/1/2022 5:50:00 AM
+Age        : 669.10:07:19</dev:code>
         <dev:remarks>
           <maml:para>Use the default List view. This makes it easier to view the tasks.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | Select-Object VersionInfo,age
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | Select-Object VersionInfo,Age
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -495,6 +497,10 @@ Age        : 00:06:06.2337458</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectStatus</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSProjectReport</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

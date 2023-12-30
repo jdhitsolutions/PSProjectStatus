@@ -279,9 +279,9 @@ PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Dev
 
    Name: PSHelpDesk [C:\Scripts\PSHelpDesk]
 
-LastUpdate             Status            Tasks                 GitBranch        Age
-----------             ------            -----                 ---------        ---
-3/15/2023 5:53:54 PM   Development  {update help, add...             dev   00.00:00
+LastUpdate             Status            Tasks             GitBranch        Age
+----------             ------            -----             ---------        ---
+3/15/2023 5:53:54 PM   Development  {update help, add...         dev   00.00:00
 ```
 
 When defining tasks, use `-Concatenate` to append the tasks. Otherwise, tasks will be overwritten with the new value.
@@ -519,9 +519,9 @@ Status           Property       PSProjectStatus Status {get;set;}
 Tags             Property       string[] Tags {get;set;}
 Tasks            Property       string[] Tasks {get;set;}
 UpdateUser       Property       string UpdateUser {get;set;}
-Info             PropertySet    Info {Name, Status, Version, GitBranch, Tasks, Tags, Comment}
-versionInfo      PropertySet    versionInfo {Name, Status, Version, GitBranch, LastUpdate}
-Age              ScriptProperty System.Object Age {get=(Get-Date) - $this.lastUpdate;}
+Info             PropertySet    Info {Name, Status, Version, GitBranch, Tasks...
+versionInfo      PropertySet    versionInfo {Name, Status, Version, GitBranch...
+Age              ScriptProperty System.Object Age {get=(Get-Date) - $this.las...
 ```
 
 The property sets make it easier to display a group of related properties.
@@ -530,13 +530,23 @@ The property sets make it easier to display a group of related properties.
 PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Select Info
 
 Name      : PSProjectStatus
-Status    : Updating
-Version   : 0.12.0
-GitBranch : 0.12.0
-Tasks     : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10],
-            Pester tests, Update README…}
-Tags      : {json}
+Status    : AcceptanceTesting
+Version   : 0.13.0
+GitBranch : 0.13.0
+Tasks     : {Create TUI-based management tools, Consider extending schema for a
+             structured Task item [Issue 10],
+            Pester tests}
+Tags      : {}
 Comment   : none
+
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,age
+
+Name       : PSProjectStatus
+Status     : AcceptanceTesting
+Version    : 0.13.0
+GitBranch  : 0.13.0
+LastUpdate : 12/30/2023 1:43:37 PM
+Age        : 00:03:56.0703713
 ```
 
 ### Formatting
@@ -578,6 +588,37 @@ Age     : 00.00:16:04
 The commands in this module use localized string data to display verbose, warning, and debug messages. The module uses a private helper function to display verbose messaging. Each module command can be identified with a different ANSI color scheme.
 
 ![Sample verbose output](images/verbose-output.png)
+
+The defined ANSI sequences are stored in a variable called `$PSProjectANSI`. You can modify this variable to change the color for each command.
+
+```powershell
+$PSProjectANSI = @{
+    'Get-PSProjectGitStatus' = '[1;38;5;51m'
+    'Get-PSProjectReport'    = '[1;38;5;111m'
+    'Get-PSProjectStatus'    = '[1;96m'
+    'Get-PSProjectTask'      = '[1;38;5;10m'
+    'New-PSProjectStatus'    = '[1;38;5;208m'
+    'New-PSProjectTask'      = '[1;38;5;159m'
+    'Remove-PSProjectTask'   = '[1;38;5;195m'
+    'Set-PSProjectStatus'    = '[1;38;5;214m'
+    Default                  = '[1;38;5;51m'
+}
+```
+
+You can change a setting by modifying the variable. You can use ANSI sequences or `$PSStyle`
+
+```powershell
+$PSProjectANSI["Get-PSProjectStatus"] = "[1;92m"
+$PSProjectANSI["Get-PSProjectGitStatus"] = $PSStyle.Foreground.Cyan
+```
+
+These changes only persist for the duration of your PowerShell session or until you re-import the module. Use your profile script to import the module and update the variable.
+
+```powershell
+Import-Module PSProjectStatus
+$PSProjectANSI["Get-PSProjectStatus"] = "[1;38;5;140m"
+$PSProjectANSI["Get-PSProjectGitStatus"] = "[1;38;5;77m"
+```
 
 You must use a PowerShell console that supports ANSI escape sequences. The PowerShell ISE __does not__ support this feature.
 

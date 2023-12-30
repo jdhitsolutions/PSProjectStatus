@@ -1,7 +1,8 @@
+#region load string data
 # used for culture debugging
-# write-host "Importing with culture $(Get-Culture)"
+# write-host "Importing with culture $(Get-Culture)" -ForeGroundColor yellow
 
-if ((Get-Culture).Name -match "\w+") {
+if ((Get-Culture).Name -match '\w+') {
     #write-host "Using culture $(Get-Culture)" -ForegroundColor yellow
     Import-LocalizedData -BindingVariable strings
 }
@@ -11,12 +12,14 @@ else {
     Import-LocalizedData -BindingVariable strings -FileName psprojectstatus.psd1 -BaseDirectory $PSScriptRoot/en-us
 }
 
+#endregion
 
-#dot source functions
+#region dot source functions
 Get-ChildItem $PSScriptRoot\functions\*.ps1 -Recurse |
 ForEach-Object {
     . $_.FullName
 }
+#endregion
 
 
 #region class definitions
@@ -75,12 +78,12 @@ Class PSProject {
         $json = Join-Path -Path $this.path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         #convert the LastUpdate to a formatted date string
-        $this | Select-Object @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
+        $this | Select-Object -Property @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
         Name, Path,
         @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
         @{Name = 'Status'; Expression = { $_.status.toString() } },
         @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
-        UpdateUser,Computername,RemoteRepository,Tasks,GitBranch,Tags,Comment |
+        UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Tags, Comment |
         ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
     }
     [void]RefreshProjectVersion() {
@@ -283,12 +286,32 @@ if ($host.name -match 'ISE') {
 
 #endregion
 
+#region definitions and exports
+
 #path to the JSON schema file
 $jsonSchema = 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json'
 
 # for testing
 # $jsonSchema = "file:///c:/scripts/psprojectstatus/psproject.schema.json"
 
+#a hash table to store ANSI escape sequences for different commands used in verbose output with the
+#private _verbose helper function
+$PSProjectANSI = @{
+    'Get-PSProjectGitStatus' = '[1;38;5;51m'
+    'Get-PSProjectReport'    = '[1;38;5;111m'
+    'Get-PSProjectStatus'    = '[1;96m'
+    'Get-PSProjectTask'      = '[1;38;5;10m'
+    'New-PSProjectStatus'    = '[1;38;5;208m'
+    'New-PSProjectTask'      = '[1;38;5;159m'
+    'Remove-PSProjectTask'   = '[1;38;5;195m'
+    'Set-PSProjectStatus'    = '[1;38;5;214m'
+    Default                  = '[1;38;5;51m'
+}
+Set-Variable -Name PSProjectANSI -Description "a hash table to store ANSI escape sequences for different commands used in verbose output. You can modify settings using ANSI sequences or `$PSStyle"
+
 #Export the module version to a global variable that will be used in Verbose messages
-New-Variable -Name PSProjectStatusModule -Value "0.12.0" -Description "The PSProjectStatus module version used in verbose messaging."
-Export-ModuleMember -Variable PSProjectStatusModule -Alias 'Update-PSProjectStatus','gitstat','gpstat', 'npstat', 'spstat'
+New-Variable -Name PSProjectStatusModule -Value '0.13.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
+
+Export-ModuleMember -Variable PSProjectStatusModule, PSProjectANSI -Alias 'Update-PSProjectStatus', 'gitstat', 'gpstat', 'npstat', 'spstat'
+
+#endregion

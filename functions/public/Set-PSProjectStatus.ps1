@@ -1,6 +1,6 @@
 Function Set-PSProjectStatus {
     [CmdletBinding(SupportsShouldProcess)]
-    [alias('spstat','Update-PSProjectStatus')]
+    [alias('spstat')]
     [OutputType("PSProject")]
     Param(
         [Parameter(ValueFromPipeline, HelpMessage = "Specify a PSProject object")]
@@ -42,11 +42,14 @@ Function Set-PSProjectStatus {
     Begin {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "Begin"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;214m"
+
         _verbose -message $strings.Starting
-        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
-        _verbose -message ($strings.UsingHost -f $host.Name)
-        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        if ($MyInvocation.CommandOrigin -eq "Runspace") {
+            #Hide this metadata when the command is called from another command
+            _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+            _verbose -message ($strings.UsingHost -f $host.Name)
+            _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        }
     } #begin
     Process {
         $PSDefaultParameterValues["_verbose:block"] = "Process"
@@ -72,6 +75,10 @@ Function Set-PSProjectStatus {
             _verbose ($strings.Updating -f "Tags")
             $InputObject.Tags = $PSBoundParameters["Tags"]
         }
+        else {
+            #create an empty array
+            $InputObject.Tags = @()
+        }
         if ($PSBoundParameters.ContainsKey("Tasks")) {
             if ($Concatenate) {
                 _verbose $strings.appendTasks
@@ -88,7 +95,7 @@ Function Set-PSProjectStatus {
             #get git remote
             _verbose $strings.GetGitRemote
             $rm = _getRemote
-            $rm | Out-String | Write-Verbose
+            $rm | Out-String | Write-Debug
             if ($null -eq $rm) {
                 $rm = @()
             }

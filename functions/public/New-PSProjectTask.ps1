@@ -21,11 +21,14 @@ Function New-PSProjectTask {
     Begin {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "Begin"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;4m"
+
         _verbose -message $strings.Starting
-        _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
-        _verbose -message ($strings.UsingHost -f $host.Name)
-        _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        if ($MyInvocation.CommandOrigin -eq "Runspace") {
+            #Hide this metadata when the command is called from another command
+            _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
+            _verbose -message ($strings.UsingHost -f $host.Name)
+            _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
+        }
     } #begin
 
     Process {
@@ -52,7 +55,6 @@ Function New-PSProjectTask {
     End {
         $PSDefaultParameterValues["_verbose:Command"] = $MyInvocation.MyCommand
         $PSDefaultParameterValues["_verbose:block"] = "End"
-        $PSDefaultParameterValues["_verbose:ANSI"] = "[1;38;5;4m"
         _verbose $strings.Ending
     } #end
 
