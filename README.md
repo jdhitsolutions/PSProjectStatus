@@ -6,7 +6,7 @@
 
 ## Installation
 
-Install this module from the PowerShell Gallery.
+Install this module from the [PowerShell Gallery](https://www.powershellgallery.com/packages/PSProjectStatus).
 
 ```powershell
 Install-Module PSProjectStatus
@@ -209,7 +209,7 @@ The command will create `psproject.json` in the root folder.
 
 Note that the update time is formatted as a UTC string. The project version will be pulled from the module manifest if found. You can set this to a different value manually in the JSON file or by running `Set-PSProjectStatus`.
 
-> If you are using *git* with your module you may want to add `psproject.json` to your `.gitignore` file.
+> :octocat: If you are using *git* with your module you may want to add `psproject.json` to your `.gitignore` file.
 
 ## Getting a Project Status
 
@@ -666,6 +666,6 @@ These are a few things I'm considering or have been suggested.
 + Editor integration to manage project tasks.
 + A WPF or TUI form to display the project status and make it easier to edit tasks.
 
-If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
+🗨️ If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
 
 > :+1: Project icon by [Icons8](https://icons8.com)
