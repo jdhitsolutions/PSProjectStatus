@@ -18,7 +18,7 @@ Or you can use the [`Microsoft.PowerShell.PSResourceGet`](https://github.com/Pow
 Install-PSResource PSProjectStatus -Scope AllUsers
 ```
 
-This module should work in Windows PowerShell 5.1 and PowerShell 7.
+This module is supported in Windows PowerShell 5.1 and PowerShell 7.
 
 ## Module Commands
 
@@ -589,7 +589,7 @@ The commands in this module use localized string data to display verbose, warnin
 
 ![Sample verbose output](images/verbose-output.png)
 
-The defined ANSI sequences are stored in a variable called `$PSProjectANSI`. You can modify this variable to change the color for each command.
+The defined ANSI sequences are stored in a hashtable variable called `$PSProjectANSI`.
 
 ```powershell
 $PSProjectANSI = @{
@@ -620,7 +620,7 @@ $PSProjectANSI["Get-PSProjectStatus"] = "[1;38;5;140m"
 $PSProjectANSI["Get-PSProjectGitStatus"] = "[1;38;5;77m"
 ```
 
-You must use a PowerShell console that supports ANSI escape sequences. The PowerShell ISE __does not__ support this feature.
+:heavy_exclamation_mark: You must use a PowerShell console that supports ANSI escape sequences. The PowerShell ISE __does not__ support this feature.
 
 ## Editor Integration
 
@@ -668,4 +668,4 @@ These are a few things I'm considering or have been suggested.
 
 If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
 
-> Project icon by [Icons8](https://icons8.com)
+> :+1: Project icon by [Icons8](https://icons8.com)

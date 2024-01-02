@@ -1,5 +1,28 @@
 # Changelog for PSProjectStatus
 
+## v0.13.0
+
+### Added
+
+- Added string data for private helper functions.
+- Added exported variable `PSProjectANSI` to store ANSI escape sequences for color output in verbose messaging. This is a user-configurable setting.
+
+### Changed
+
+- Modified verbose output in the `Begin` block of module functions to only show metadata when the command is invoked directly. This will eliminate redundant metadata when a function is called from another function.
+- Moved command color highlighting to the `_verbose` helper function. The function will detect the associated ANSI escape sequence for each command from `$PSProjectANSI` and apply it to the command name.
+- Updated formatting file to display `Age` with out millisecond value.
+- Updated `README.md`.
+
+### Fixed
+
+- Fixed missing string data item.
+- Fixed wrong information in string data.
+
+### Removed
+
+- Removed alias `Update-PSProjectStatus` because it was conflicting with the VSCode  update extension.`
+
 ## v0.12.0
 
 ### Added
