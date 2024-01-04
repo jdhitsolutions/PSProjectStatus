@@ -1,5 +1,11 @@
 # Changelog for PSProjectStatus
 
+## v0.13.1
+
+### Fixed
+
+- Fixed bug in `Set-PSProjectStatus` that was deleting existing tags.
+-
 ## v0.13.0
 
 ### Added

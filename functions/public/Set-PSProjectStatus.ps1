@@ -75,10 +75,7 @@ Function Set-PSProjectStatus {
             _verbose ($strings.Updating -f "Tags")
             $InputObject.Tags = $PSBoundParameters["Tags"]
         }
-        else {
-            #create an empty array
-            $InputObject.Tags = @()
-        }
+
         if ($PSBoundParameters.ContainsKey("Tasks")) {
             if ($Concatenate) {
                 _verbose $strings.appendTasks
