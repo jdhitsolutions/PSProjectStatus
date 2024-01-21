@@ -75,7 +75,7 @@ Class PSProject {
     [string[]]$Tags = @()
 
     [void]Save() {
-        $json = Join-Path -Path $this.path -ChildPath psproject.json
+        $json = Join-Path -Path $this.Path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         #convert the LastUpdate to a formatted date string
         $this | Select-Object -Property @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
@@ -310,7 +310,7 @@ $PSProjectANSI = @{
 Set-Variable -Name PSProjectANSI -Description "a hash table to store ANSI escape sequences for different commands used in verbose output. You can modify settings using ANSI sequences or `$PSStyle"
 
 #Export the module version to a global variable that will be used in Verbose messages
-New-Variable -Name PSProjectStatusModule -Value '0.13.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
+New-Variable -Name PSProjectStatusModule -Value '0.14.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
 
 Export-ModuleMember -Variable PSProjectStatusModule, PSProjectANSI -Alias 'Update-PSProjectStatus', 'gitstat', 'gpstat', 'npstat', 'spstat'
 

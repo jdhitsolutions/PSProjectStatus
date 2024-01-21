@@ -22,14 +22,21 @@ This module is supported in Windows PowerShell 5.1 and PowerShell 7.
 
 ## Module Commands
 
-- [Get-PSProjectGitStatus](docs/Get-PSProjectGitStatus.md)
-- [Get-PSProjectReport](docs/Get-PSProjectReport.md)
-- [Get-PSProjectStatus](docs/Get-PSProjectStatus.md)
-- [Get-PSProjectTask](docs/Get-PSProjectTask.md)
+### Status
+
 - [New-PSProjectStatus](docs/New-PSProjectStatus.md)
-- [New-PSProjectTask](docs/New-PSProjectTask.md)
-- [Remove-PSProjectTask](docs/Remove-PSProjectTask.md)
+- [Get-PSProjectStatus](docs/Get-PSProjectStatus.md)
 - [Set-PSProjectStatus](docs/Set-PSProjectStatus.md)
+-
+### Tasks
+- [New-PSProjectTask](docs/New-PSProjectTask.md)
+- [Get-PSProjectTask](docs/Get-PSProjectTask.md)
+- [Remove-PSProjectTask](docs/Remove-PSProjectTask.md)
+
+### Other
+
+- [Get-PSProjectReport](docs/Get-PSProjectReport.md)
+- [Get-PSProjectGitStatus](docs/Get-PSProjectGitStatus.md)
 
 ## Class-Based
 
@@ -655,6 +662,10 @@ The menu will loop and display until you enter a valid number or press Enter wit
 ### JSON Schema
 
 A public JSON [schema file](https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json) was published with `v0.8.0`. If you edit the `psproject.json` file in VSCode, you should get tab completion for many of the settings. If you have a configuration file created with an earlier version of the module, run `Set-PSProjectStatus` with any parameter. This will insert the schema reference into the JSON file. Then you can edit the file in VSCode.
+
+## Cross-Platform Support
+
+The commands in this module should work under PowerShell 7.x cross-platform. Beginning with version 0.14.0, commands have been updated to store the path using operating system-appropriate paths. The only potential issue you might encounter is if you manage the same project files in Windows and Linux, e.g. using WSL. If that is the case, I recommend you run `Set-PSProjectStatus` before running any other commands. This will ensure the path in the JSON file is correct.
 
 ## Road Map
 

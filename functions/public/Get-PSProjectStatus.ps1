@@ -34,7 +34,7 @@ Function Get-PSProjectStatus {
             $psproject = [PSProject]::new()
 
             #get property names from the class
-            $properties = $psproject.PSObject.properties.name | Where-Object { $_ -ne "Age" }
+            $properties = $psproject.PSObject.properties.name | Where-Object { $_ -notMatch "Age|Path" }
             foreach ($property in $properties) {
                 if ($property -eq 'RemoteRepository') {
                     Write-Debug $strings.RemoteRepositoryInfo
@@ -50,6 +50,7 @@ Function Get-PSProjectStatus {
                     $psproject.$property = $in.$property
                 }
             }
+            $psproject.Path = Split-Path $json
             #The date time is stored as a UTC value so convert it to local
             $psproject.lastUpdate = $psproject.lastUpdate.ToLocalTime()
             #write the new object to the pipeline

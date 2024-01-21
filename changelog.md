@@ -1,5 +1,18 @@
 # Changelog for PSProjectStatus
 
+## v0.14.0
+
+### Fixed
+
+- Updated commands to better store status path when using non-Windows systems. [Issue #11](https://github.com/jdhitsolutions/PSProjectStatus/issues/11)
+- Updated `Set-PSProjectStatus` to insert empty arrays for Tasks and Tags when not specified.
+
+### Changed
+
+- Updated `New-PSProjectStatus` to add multiple tasks. [Issue #12](https://github.com/jdhitsolutions/PSProjectStatus/issues/12)
+- Help updates.
+- Updated `README`
+
 ## v0.13.1
 
 ### Fixed
@@ -185,5 +198,3 @@
 - Updated `psproject.format.ps1xml` to adjust table widths. Added a default list view.
 
 ## v0.1.0
-
-- Initial module files

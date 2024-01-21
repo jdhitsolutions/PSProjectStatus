@@ -14,7 +14,10 @@ Update a PSProject status.
 ## SYNTAX
 
 ```
-Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>] [[-LastUpdate] <DateTime>]  [[-Tasks] <String[]>] [-Concatenate] [-Tags <String[]>] [[-Status] <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>]
+[[-LastUpdate] <DateTime>] [[-Tasks] <String[]>] [-Concatenate]
+[-Tags <String[]>] [[-Status] <PSProjectStatus>]
+[-ProjectVersion <Version>] [-Comment <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -124,7 +127,7 @@ Accept wildcard characters: False
 
 ### -LastUpdate
 
-When was the project last worked on?
+When was the project last worked on or updated?
 
 ```yaml
 Type: DateTime

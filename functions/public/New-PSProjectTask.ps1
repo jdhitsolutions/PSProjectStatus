@@ -9,7 +9,7 @@ Function New-PSProjectTask {
             ValueFromPipelineByPropertyName,
             HelpMessage = "Enter the task description.")]
         [ValidateNotNullOrEmpty()]
-        [string]$TaskDescription,
+        [string[]]$TaskDescription,
         [Parameter(
             HelpMessage = "Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.")]
         [ValidateScript({ Test-Path $_ })]

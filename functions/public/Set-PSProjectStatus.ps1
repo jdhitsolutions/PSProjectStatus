@@ -75,6 +75,10 @@ Function Set-PSProjectStatus {
             _verbose ($strings.Updating -f "Tags")
             $InputObject.Tags = $PSBoundParameters["Tags"]
         }
+        elseif ($null -eq $InputObject.Tags) {
+            #1/21/2024 Insert an empty array if the tags property is null
+            $InputObject.Tags =@()
+        }
 
         if ($PSBoundParameters.ContainsKey("Tasks")) {
             if ($Concatenate) {
@@ -85,6 +89,10 @@ Function Set-PSProjectStatus {
                 _verbose $strings.ReplaceTasks
                 $InputObject.Tasks = $PSBoundParameters["Tasks"]
             }
+        }
+        elseif ($null -eq $InputObject.Tasks) {
+            #1/21/2024 Insert an empty array if the tasks property is null
+            $InputObject.Tasks =@()
         }
         If (Test-Path .git) {
             _verbose $strings.GetGitBranch
@@ -103,6 +111,7 @@ Function Set-PSProjectStatus {
         $InputObject.Computername = [System.Environment]::MachineName
         if ($PSCmdlet.ShouldProcess($InputObject.Name)) {
             $InputObject
+            _verbose ($strings.UsingPath -f $InputObject.Path)
             $InputObject.Save()
         }
     } #process

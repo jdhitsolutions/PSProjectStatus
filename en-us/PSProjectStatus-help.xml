@@ -1026,9 +1026,9 @@ LastUpdate             Status      Tasks                GitBranch          Age
           <maml:description>
             <maml:para>Enter the task description.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1078,18 +1078,6 @@ LastUpdate             Status      Tasks                GitBranch          Age
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="proga">
-          <maml:name>ProgressAction</maml:name>
-          <maml:description>
-            <maml:para>{{ Fill ProgressAction Description }}</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
-          <dev:type>
-            <maml:name>ActionPreference</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1134,9 +1122,9 @@ LastUpdate             Status      Tasks                GitBranch          Age
         <maml:description>
           <maml:para>Enter the task description.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>String[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -1152,18 +1140,6 @@ LastUpdate             Status      Tasks                GitBranch          Age
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="proga">
-        <maml:name>ProgressAction</maml:name>
-        <maml:description>
-          <maml:para>{{ Fill ProgressAction Description }}</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">ActionPreference</command:parameterValue>
-        <dev:type>
-          <maml:name>ActionPreference</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1453,7 +1429,7 @@ LastUpdate             Status      Tasks                GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="date">
           <maml:name>LastUpdate</maml:name>
           <maml:description>
-            <maml:para>When was the project last worked on?</maml:para>
+            <maml:para>When was the project last worked on or updated?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
           <dev:type>
@@ -1609,7 +1585,7 @@ LastUpdate             Status      Tasks                GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="date">
         <maml:name>LastUpdate</maml:name>
         <maml:description>
-          <maml:para>When was the project last worked on?</maml:para>
+          <maml:para>When was the project last worked on or updated?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
         <dev:type>
