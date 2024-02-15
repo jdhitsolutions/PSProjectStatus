@@ -1,5 +1,6 @@
 Function New-PSProjectTask {
     [cmdletbinding(SupportsShouldProcess)]
+    [alias("nptask")]
     [OutputType('None','psProjectTask')]
     Param(
         [Parameter(
@@ -10,8 +11,7 @@ Function New-PSProjectTask {
             HelpMessage = "Enter the task description.")]
         [ValidateNotNullOrEmpty()]
         [string[]]$TaskDescription,
-        [Parameter(
-            HelpMessage = "Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.")]
+        [Parameter(HelpMessage = "Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.")]
         [ValidateScript({ Test-Path $_ })]
         [alias("FullName")]
         [String]$Path = ".",

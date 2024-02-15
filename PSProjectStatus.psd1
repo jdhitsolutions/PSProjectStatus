@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.14.0'
+    ModuleVersion        = '0.14.1'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
@@ -19,7 +19,7 @@
         'New-PSProjectTask', 'Remove-PSProjectTask',
         'Update-PSProjectStatus'
     )
-    AliasesToExport      = @('gpstat', 'npstat', 'spstat', 'gitstat')
+    AliasesToExport      = @('gpstat', 'npstat', 'spstat', 'gitstat','nptask')
     PrivateData          = @{
         PSData = @{
             Tags                     = @('modules', 'scripting', 'project-management', 'project', 'psmodule', 'to-do')

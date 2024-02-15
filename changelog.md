@@ -1,5 +1,15 @@
 # Changelog for PSProjectStatus
 
+## v0.14.1
+
+### Changed
+
+- Updated `README`
+
+### Added
+
+- Added alias `nptask` for `New-PSProjectTask
+
 ## v0.14.0
 
 ### Fixed
@@ -198,3 +208,7 @@
 - Updated `psproject.format.ps1xml` to adjust table widths. Added a default list view.
 
 ## v0.1.0
+## [Unreleased]
+### Changed
+- Updated documentation
+

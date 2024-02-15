@@ -64,7 +64,6 @@ Function Get-PSProjectTask {
         else {
             Write-Warning ($strings.missingJson -f $cPath)
         }
-
     } #process
 
     End {
