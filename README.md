@@ -583,8 +583,7 @@ PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Format-List -View info
    Project: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
 Status  : Updating
-Tasks   : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10], Pester
-          tests, Update README…}
+Tasks   : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10], Pester tests, Update README…}
 Tags    : {json}
 Comment : none
 Age     : 00.00:16:04
