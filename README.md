@@ -27,8 +27,9 @@ This module is supported in Windows PowerShell 5.1 and PowerShell 7.
 - [New-PSProjectStatus](docs/New-PSProjectStatus.md)
 - [Get-PSProjectStatus](docs/Get-PSProjectStatus.md)
 - [Set-PSProjectStatus](docs/Set-PSProjectStatus.md)
--
+
 ### Tasks
+
 - [New-PSProjectTask](docs/New-PSProjectTask.md)
 - [Get-PSProjectTask](docs/Get-PSProjectTask.md)
 - [Remove-PSProjectTask](docs/Remove-PSProjectTask.md)
@@ -37,89 +38,98 @@ This module is supported in Windows PowerShell 5.1 and PowerShell 7.
 
 - [Get-PSProjectReport](docs/Get-PSProjectReport.md)
 - [Get-PSProjectGitStatus](docs/Get-PSProjectGitStatus.md)
+- [Open-PSProjectStatusHelp](docs/Open-PSProjectStatusHelp.md)
+
+After importing the module you can run `Open-PSProjectStatusHelp` which will open a PDF version of this document in the default application associated with PDF files. Or you can use the -`AsMarkdown` parameter to read this file using markdown formatting. Not all markdown features may properly render in the console.
 
 ## Class-Based
 
 The project status is based on a private class-based definition. The PowerShell classes are used to construct the JSON file which in turn is used to create a `PSProject` object and update its properties.
 
-
 ```powershell
 Class PSProjectRemote {
-    [string]$Name
-    [string]$Url
-    [gitMode]$Mode
+  [string]$Name
+  [string]$Url
+  [gitMode]$Mode
 
-    PSProjectRemote ($Name, $url, $mode) {
-        $this.Name = $Name
-        $this.url = $url
-        $this.mode = $mode
-    }
-    #allow an empty remote setting
-    PSProjectRemote() {
-        $this.Name = ''
-        $this.url = ''
-    }
+  PSProjectRemote ($Name, $url, $mode) {
+      $this.Name = $Name
+      $this.url = $url
+      $this.mode = $mode
+  }
+  #allow an empty remote setting
+  PSProjectRemote() {
+      $this.Name = ''
+      $this.url = ''
+  }
 }
 
+#I have formatted longer lines with artificial line breaks to fit a printed page.
 Class PSProject {
-    [string]$Name = (Split-Path (Get-Location).path -Leaf)
-    [string]$Path = (Convert-Path (Get-Location).path)
-    [DateTime]$LastUpdate = (Get-Date)
-    [string[]]$Tasks = @()
-    [PSProjectStatus]$Status = 'Development'
-    [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
-    [string]$GitBranch = ''
-    #using .NET classes to ensure compatibility with non-Windows platforms
-    [string]$UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
-    [string]$Computername = [System.Environment]::MachineName
-    [PSProjectRemote[]]$RemoteRepository = @()
-    [string]$Comment = ''
+  [string]$Name = (Split-Path (Get-Location).path -Leaf)
+  [string]$Path = (Convert-Path (Get-Location).path)
+  [DateTime]$LastUpdate = (Get-Date)
+  [string[]]$Tasks = @()
+  [PSProjectStatus]$Status = 'Development'
+  [Version]$ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" `
+  -ErrorAction SilentlyContinue).version
+  [string]$GitBranch = ''
+  #using .NET classes to ensure compatibility with non-Windows platforms
+  [string]$UpdateUser = "$([System.Environment]::UserDomainName)\`
+  $([System.Environment]::Username)"
+  [string]$Computername = [System.Environment]::MachineName
+  [PSProjectRemote[]]$RemoteRepository = @()
+  [string]$Comment = ''
 
-    [void]Save() {
-        $json = Join-Path -Path $this.path -ChildPath psproject.json
-        #convert the ProjectVersion to a string in the JSON file
-        #convert the LastUpdate to a formatted date string
-        $this | Select-Object @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
-        Name, Path,
-        @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
-        @{Name = 'Status'; Expression = { $_.status.toString() } },
-        @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
-        UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
-        ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
-    }
-    [void]RefreshProjectVersion() {
-        $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" -ErrorAction SilentlyContinue).version
-    }
-    [void]RefreshUser() {
-        $this.UpdateUser = "$([System.Environment]::UserDomainName)\$([System.Environment]::Username)"
-    }
-    [void]RefreshComputer() {
-        $this.Computername = [System.Environment]::MachineName
-    }
-    [void]RefreshRemoteRepository() {
-        if (Test-Path .git) {
-            $remotes = git remote -v
-            if ($remotes) {
-                $repos = @()
-                foreach ($remote in $remotes) {
-                    $split = $remote.split()
-                    $RemoteName = $split[0]
-                    $Url = $split[1]
-                    $Mode = $split[2].replace('(', '').Replace(')', '')
-                    $repos += [PSProjectRemote]::new($RemoteName, $url, $mode)
-                } #foreach
-                $this.RemoteRepository = $repos
-            } #if remotes found
-        }
-    }
+  [void]Save() {
+      $json = Join-Path -Path $this.path -ChildPath psproject.json
+      #convert the ProjectVersion to a string in the JSON file
+      #convert the LastUpdate to a formatted date string
+      $this | Select-Object @{Name = '$schema'; Expression = {
+      'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/
+      psproject.schema.json' } },
+      Name, Path,
+      @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
+      @{Name = 'Status'; Expression = { $_.status.toString() } },
+      @{Name = 'ProjectVersion'; Expression = { $_.ProjectVersion.toString() } },
+      UpdateUser, Computername, RemoteRepository, Tasks, GitBranch, Comment |
+      ConvertTo-Json | Out-File -FilePath $json -Encoding utf8
+  }
+  [void]RefreshProjectVersion() {
+      $this.ProjectVersion = (Test-ModuleManifest ".\$(Split-Path $pwd -Leaf).psd1" `
+      -ErrorAction SilentlyContinue).version
+  }
+  [void]RefreshUser() {
+      $this.UpdateUser = "$([System.Environment]::UserDomainName)\`
+      $([System.Environment]::Username)"
+  }
+  [void]RefreshComputer() {
+      $this.Computername = [System.Environment]::MachineName
+  }
+  [void]RefreshRemoteRepository() {
+      if (Test-Path .git) {
+          $remotes = git remote -v
+          if ($remotes) {
+              $repos = @()
+              foreach ($remote in $remotes) {
+                  $split = $remote.split()
+                  $RemoteName = $split[0]
+                  $Url = $split[1]
+                  $Mode = $split[2].replace('(', '').Replace(')', '')
+                  $repos += [PSProjectRemote]::new($RemoteName, $url, $mode)
+              } #foreach
+              $this.RemoteRepository = $repos
+          } #if remotes found
+      }
+  }
 
-    [void]RefreshAll() {
-        $this.RefreshProjectVersion()
-        $this.RefreshUser()
-        $this.RefreshComputer()
-        $this.RefreshRemoteRepository()
-        $this.Save()
-    }
+  [void]RefreshAll() {
+      $this.RefreshProjectVersion()
+      $this.RefreshUser()
+      $this.RefreshComputer()
+      $this.RefreshRemoteRepository()
+      $this.Save()
+  }
 }```
 
 The class includes a status enumeration.
@@ -187,7 +197,8 @@ To create a project status file, navigate to the module root and run [New-PSProj
 You can update properties when you create the project status.
 
 ```powershell
-New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).LastWriteTime -Status Updating -tasks "update help"
+New-PSProjectStatus -LastUpdate (Get-Item .\*.psd1).LastWriteTime -Status Updating `
+-tasks "update help"
 ```
 
 ![new custom project status](images/new-psprojectstatus2.png)
@@ -196,10 +207,11 @@ The command will create `psproject.json` in the root folder.
 
 ```json
 {
-  "$schema": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
+  "$schema": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/
+  main/psproject.schema.json",
   "Name": "PSHelpDesk",
   "Path": "C:\\Scripts\\PSHelpDesk",
-  "LastUpdate": "2023-02-20T09:47:33-05:00",
+  "LastUpdate": "2024-02-20T09:47:33-05:00",
   "Status": "Updating",
   "ProjectVersion": "0.1.0",
   "UpdateUser": "PROSPERO\\Jeff",
@@ -225,12 +237,11 @@ The easiest way to view a project status is by using [Get-PSProjectStatus](docs/
 ```powershell
 PS C:\scripts\PSCalendar> Get-PSProjectStatus
 
-
    Name: PSCalendar [C:\Scripts\PSCalendar]
 
 LastUpdate             Status         Tasks                 GitBranch        Age
 ----------             ------         -----                 ---------        ---
-3/3/2022 10:24:49 AM   Patching       {Update help docu...      2.9.0   12.07:07
+3/3/2024 10:24:49 AM   Patching       {Update help docu...      2.9.0   12.07:07
 ```
 
 If the PowerShell host supports ANSI, a status of `Stable` will be displayed in Green. `Development` will be shown in Red and `Updating` in Yellow.
@@ -240,14 +251,13 @@ The module has a default list view.
 ```powershell
 PS C:\scripts\PSCalendar> Get-PSProjectStatus | Format-List
 
-
    Project: PSCalendar [C:\Scripts\PSCalendar]
 
 Version    : 2.9.0
 Status     : Patching
 Tasks      : {Update help documentation, Issue #31, Issue #34, Issue #33}
 GitBranch  : 2.9.0
-LastUpdate : 3/3/2022 10:24:49 AM
+LastUpdate : 3/3/2024 10:24:49 AM
 ```
 
 This makes it easier to view tasks.
@@ -281,14 +291,17 @@ Archive = 10
 Or use the [Set-PSProjectStatus](docs/Set-PSProjectStatus.md) function.
 
 ```powershell
-PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) -Status Development -Tasks "add printer status function","revise user password function" -Concatenate
+PS C:\scripts\PSHelpDesk\> $tasks = "add printer status function",
+"revise user password function"
+PS C:\scripts\PSHelpDesk> Set-PSProjectStatus -LastUpdate (Get-Date) `
+-Status Development -Tasks $tasks -Concatenate
 
 
    Name: PSHelpDesk [C:\Scripts\PSHelpDesk]
 
-LastUpdate             Status            Tasks             GitBranch        Age
-----------             ------            -----             ---------        ---
-3/15/2023 5:53:54 PM   Development  {update help, add...         dev   00.00:00
+LastUpdate             Status        Tasks                  GitBranch        Age
+----------             ------        -----                  ---------        ---
+3/15/2024 5:53:54 PM   Development   {update help, add...         dev   00.00:00
 ```
 
 When defining tasks, use `-Concatenate` to append the tasks. Otherwise, tasks will be overwritten with the new value.
@@ -310,7 +323,7 @@ Name             : WingetTools
 Status           : Stable
 Version          :
 GitBranch        : main
-LastUpdate       : 3/17/2023 9:46:35 AM
+LastUpdate       : 3/17/2024 9:46:35 AM
 Age              : 9.00:22:39.3936893
 Path             : C:\Scripts\WingetTools
 ProjectVersion   :
@@ -349,13 +362,15 @@ $p.save()
 This module is intended to be a _simple_ project management tool. You can use it to track tasks or to-do items. These are added to the `Tasks` property as an array of strings. You can manually add them to the JSON file or use the `Set-PSProjectStatus` function.
 
 ```powershell
-C:\Scripts\PSProjectStatus> Set-PSProjectStatus -Tasks "Update missing online help links" -Concatenate
+C:\Scripts\PSProjectStatus> $params = @{Tasks="Update missing online help links";
+Concatenate=$true}
+C:\Scripts\PSProjectStatus> Set-PSProjectStatus @params
 
    Name: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
 LastUpdate             Status         Tasks                 GitBranch        Age
 ----------             ------         -----                 ---------        ---
-12/22/2023 9:08:30 AM  Updating       {Consider a schema …     0.11.0   00.00:00
+12/22/2024 9:08:30 AM  Updating       {Consider a schema …     0.11.0   00.00:00
 ```
 
 Or you can use the task-related commands.
@@ -379,7 +394,8 @@ Remove-PSProjectTask -TaskID 4
 If you have many projects, you can use this module to manage all of them.
 
 ```powershell
-Get-ChildItem -Path c:\scripts -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
+Get-ChildItem -Path c:\scripts -Directory |
+Get-PSProjectStatus -WarningAction SilentlyContinue
 ```
 
 ![list projects](images/list-projects.png)
@@ -394,8 +410,12 @@ You will want to suppress Warning messages. If you are running PowerShell 7 and 
 
 Import-Module PSProjectStatus -Force
 
+#Enumerate all directories and get the project status for each
 $all = Get-ChildItem -Path C:\scripts -Directory |
 Get-PSProjectStatus -WarningAction SilentlyContinue
+
+#Pipe directory output to Out-ConsoleGridView
+#and open the selected project in VS Code
 $all | Sort-Object Status, LastUpdate |
 Select-Object Path, Status,
 @{Name = "Tasks"; Expression = { $_.Tasks -join ',' } },
@@ -473,7 +493,7 @@ Status     : Development
 Tasks      : {prototype}
 Tags       : {beta, tui}
 GitBranch  :
-LastUpdate : 12/27/2023 5:11:30 PM
+LastUpdate : 12/27/2024 5:11:30 PM
 Age        : 00:02:48.0251636
 ```
 
@@ -486,7 +506,7 @@ PS C:\> Get-PSProjectReport -path c:\scripts -Tag json
 
 LastUpdate             Status        Tasks                 GitBranch        Age
 ----------             ------        -----                 ---------        ---
-12/27/2023 5:16:52 PM  Updating      {Create TUI-based m…     0.12.0   00.00:00
+12/27/2024 5:16:52 PM  Updating      {Create TUI-based m…     0.12.0   00.00:00
 ```
 
 If you want to remove tags, either manually edit the JSON file or use `Set-PSProjectStatus` and set an empty array.
@@ -506,7 +526,8 @@ If no you longer want to track the project status for a given folder, simply del
 The commands in this module have defined type extensions. Alias and script properties have been defined.
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Get-Member -MemberType Properties,PropertySet
+PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus |
+Get-Member -MemberType Properties,PropertySet
 
    TypeName: PSProject
 
@@ -534,7 +555,7 @@ Age              ScriptProperty System.Object Age {get=(Get-Date) - $this.las...
 The property sets make it easier to display a group of related properties.
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Select Info
+PS C:\Scripts\PSProjectStatus> Get-PSProjectstatus | Select-Object Info
 
 Name      : PSProjectStatus
 Status    : AcceptanceTesting
@@ -546,7 +567,7 @@ Tasks     : {Create TUI-based management tools, Consider extending schema for a
 Tags      : {}
 Comment   : none
 
-PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,age
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,Age
 
 Name       : PSProjectStatus
 Status     : AcceptanceTesting
@@ -565,14 +586,15 @@ PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Format-List
 
    Project: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
-Version    : 0.12.0
+Version    : 0.15.0
 Status     : Updating
-Tasks      : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10],
-             Pester tests, Update README…}
-Tags       : {json}
-GitBranch  : 0.12.0
-LastUpdate : 12/28/2023 5:51:42 PM
-Age        : 00:14:21.9538891
+Tasks      : {Create TUI-based management tools, Consider extending schema for
+             a structured Task item [Issue 10], Pester tests, Consider adding a
+             project type, eg module, to the schema…}
+Tags       : {json, class-based}
+GitBranch  : 0.15.0
+LastUpdate : 7/16/2024 1:07:22 PM
+Age        : 173.20:28:04
 ```
 
 There is also a named view you can use.
@@ -583,10 +605,12 @@ PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Format-List -View info
    Project: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
 Status  : Updating
-Tasks   : {Create TUI-based management tools, Consider extending schema for a structured Task item [Issue 10], Pester tests, Update README…}
-Tags    : {json}
-Comment : none
-Age     : 00.00:16:04
+Tasks   : {Create TUI-based management tools, Consider extending schema for a
+          structured Task item [Issue 10], Pester tests, Consider adding a
+          project type, eg module, to the schema…}
+Tags    : {json, class-based}
+Comment :
+Age     : 173.20:28:37
 ```
 
 ### Verbose, Warning, and Debug
@@ -673,9 +697,11 @@ These are a few things I'm considering or have been suggested.
 + Additional properties
   + priority
   + project type
-+ Editor integration to manage project tasks.
-+ A WPF or TUI form to display the project status and make it easier to edit tasks.
++ Editor integration to manage project tasks
++ Extending the schema to support tasks
++ Archiving completed tasks to a separate JSON file
++ A WPF or TUI form to display the project status and make it easier to edit tasks
 
 🗨️ If you have any suggestions on how to extend this module or tips to others on how you are using it, please feel free to use the [Discussions](https://github.com/jdhitsolutions/PSProjectStatus/discussions) section of this module's GitHub repository.
 
-> :+1: Project icon by [Icons8](https://icons8.com)
+> :thumbsup: Project icon by [Icons8](https://icons8.com)

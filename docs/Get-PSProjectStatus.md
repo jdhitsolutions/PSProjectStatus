@@ -13,7 +13,7 @@ Get project status.
 
 ## SYNTAX
 
-```
+```yaml
 Get-PSProjectStatus [[-Path] <String>] [<CommonParameters>]
 ```
 
@@ -30,9 +30,9 @@ PS C:\Scripts\PSClock> Get-PSProjectStatus
 
    Name: PSClock [C:\Scripts\PSClock]
 
-LastUpdate             Status            Tasks            GitBranch          Age
-----------             ------            -----            ---------          ---
-3/2/2022 3:43:34 PM    Stable                                   main    12.19:14
+LastUpdate             Status            Tasks             GitBranch      Age
+----------             ------            -----             ---------      ---
+10/17/2024 1:00:56 PM  Stable            {Pester tests}         main 80.20:40
 ```
 
 Get the status from the current directory.
@@ -117,6 +117,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

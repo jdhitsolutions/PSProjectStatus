@@ -13,7 +13,7 @@ Remove a task from the PSProject file.
 
 ## SYNTAX
 
-```
+```yaml
 Remove-PSProjectTask [-TaskID] <Int32[]> [-Path <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -34,6 +34,7 @@ Remove tasks 4 and 2 from the PSProject file.
 ## PARAMETERS
 
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -49,6 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 Enter the parent path to the psproject.json file, e.g.
 c:\scripts\mymodule.
 
@@ -65,6 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -TaskID
+
 Enter the task ID
 
 ```yaml
@@ -80,6 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
+
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
 
@@ -96,6 +100,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

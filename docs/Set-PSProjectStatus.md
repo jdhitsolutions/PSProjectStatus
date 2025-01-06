@@ -13,7 +13,7 @@ Update a PSProject status.
 
 ## SYNTAX
 
-```
+```yaml
 Set-PSProjectStatus [[-InputObject] <Object>] [[-Name] <String>]
 [[-LastUpdate] <DateTime>] [[-Tasks] <String[]>] [-Concatenate]
 [-Tags <String[]>] [[-Status] <PSProjectStatus>]
@@ -240,6 +240,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tags
+
 What tags do you want to assign to this project? If you want to append tags you either have to re-define all tags, or add a tag manually to the psproject.json file.
 
 ```yaml
@@ -255,6 +256,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

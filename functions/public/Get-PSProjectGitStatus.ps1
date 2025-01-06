@@ -12,6 +12,7 @@ Function Get-PSProjectGitStatus {
         #Hide this metadata when the command is called from another command
         _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
         _verbose -message ($strings.UsingHost -f $host.Name)
+        _verbose -message ($strings.UsingOS -f $PSVersionTable.OS)
         _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
     }
 

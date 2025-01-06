@@ -421,9 +421,9 @@ LastUpdate             Status            Tasks             GitBranch        Age
 
    Name: PSClock [C:\Scripts\PSClock]
 
-LastUpdate             Status            Tasks            GitBranch          Age
-----------             ------            -----            ---------          ---
-3/2/2022 3:43:34 PM    Stable                                   main    12.19:14</dev:code>
+LastUpdate             Status            Tasks             GitBranch      Age
+----------             ------            -----             ---------      ---
+10/17/2024 1:00:56 PM  Stable            {Pester tests}         main 80.20:40</dev:code>
         <dev:remarks>
           <maml:para>Get the status from the current directory.</maml:para>
         </dev:remarks>
@@ -1207,6 +1207,96 @@ LastUpdate             Status      Tasks                GitBranch          Age
       <maml:navigationLink>
         <maml:linkText>Remove-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Open-PSProjectStatusHelp</command:name>
+      <command:verb>Open</command:verb>
+      <command:noun>PSProjectStatusHelp</command:noun>
+      <maml:description>
+        <maml:para>Open the PSProjectStatus help document</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to open the PDF help document for the PSProjectStatus module with the associated application for PDF files. As an alternative you can view the documentation as a markdown document.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Open-PSProjectStatusHelp</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="md">
+          <maml:name>AsMarkdown</maml:name>
+          <maml:description>
+            <maml:para>Open the help file as markdown.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="md">
+        <maml:name>AsMarkdown</maml:name>
+        <maml:description>
+          <maml:para>Open the help file as markdown.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Open-PSProjectStatusHelp</dev:code>
+        <dev:remarks>
+          <maml:para>The file should open in the default application for PDF files.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Open-PSProjectStatusHelp -AsMarkdown | more</dev:code>
+        <dev:remarks>
+          <maml:para>View the help file a markdown document.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>PSProjectStatus GitHub Repository:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSProjectStatus</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

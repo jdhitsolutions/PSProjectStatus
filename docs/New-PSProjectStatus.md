@@ -13,7 +13,7 @@ Create a new PSProjectStatus.
 
 ## SYNTAX
 
-```
+```yaml
 New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>] [-Tasks <String[]>] [-Tags <String[]>] [-Status <PSProjectStatus>] [-ProjectVersion <Version>] [-Comment <String>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -202,6 +202,7 @@ Accept wildcard characters: False
 ```
 
 ### -Force
+
 Overwrite an existing PSProjectStatus file.
 
 ```yaml
@@ -217,6 +218,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tags
+
 What tags do you want to assign to this project?
 
 ```yaml
@@ -232,6 +234,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

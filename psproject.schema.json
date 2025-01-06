@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json",
     "title": "PSProject Status Schema",
-    "description": "Schema for the PSProjectStatus configuration file. Version 1.1.0 last updated 27 Dec 2023.",
+    "description": "Schema for the PSProjectStatus configuration file. Version 1.2.0 last updated 17 April 2024.",
     "type": "object",
     "properties": {
         "Name": {
@@ -97,13 +97,13 @@
                                 "description": "push"
                             }
                         ]
-                    },
-                    "required": [
+                    }
+                },
+                "required": [
                         "Name",
                         "Url",
                         "Mode"
                     ]
-                }
             }
         }
     },

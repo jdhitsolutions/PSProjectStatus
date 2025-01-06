@@ -14,19 +14,22 @@ Manage all your PSProject folders.
 ## SYNTAX
 
 ### status (Default)
-```
+
+```yaml
 Get-PSProjectReport [-Path] <String> [-Status <PSProjectStatus>]
 [-Tag <String>] [<CommonParameters>]
 ```
 
 ### older
-```
+
+```yaml
 Get-PSProjectReport [-Path] <String> [-Status <PSProjectStatus>]
 [-OlderThan <Int32>] [-Tag <String>] [<CommonParameters>]
 ```
 
 ### newer
-```
+
+```yaml
 Get-PSProjectReport [-Path] <String> [-Status <PSProjectStatus>]
 [-NewerThan <Int32>] [-Tag <String>] [<CommonParameters>]
 ```
@@ -143,6 +146,7 @@ Accept wildcard characters: False
 ```
 
 ### -Tag
+
 Get projects with a specific tag. You can combine this with other filtering parameters.
 
 ```yaml
@@ -158,6 +162,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

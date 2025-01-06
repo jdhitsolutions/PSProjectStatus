@@ -22,6 +22,7 @@ Function Get-PSProjectStatus {
             #Hide this metadata when the command is called from another command
             _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
             _verbose -message ($strings.UsingHost -f $host.Name)
+            _verbose -message ($strings.UsingOS -f $PSVersionTable.OS)
             _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
         }
     }
@@ -43,7 +44,6 @@ Function Get-PSProjectStatus {
                         $remote += [PSProjectRemote]::new($repo.name, $repo.url, $repo.mode)
                     }
                     $psproject.RemoteRepository = $remote
-
                 }
                 else {
                     Write-Debug ($strings.addProperty -f $property)

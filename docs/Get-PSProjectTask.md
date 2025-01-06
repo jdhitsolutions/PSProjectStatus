@@ -13,7 +13,7 @@ List project tasks
 
 ## SYNTAX
 
-```
+```yaml
 Get-PSProjectTask [[-Path] <String>] [-TaskID <Int32>] [<CommonParameters>]
 ```
 
@@ -53,6 +53,7 @@ Get a task by ID number.
 ## PARAMETERS
 
 ### -Path
+
 Enter the parent path to the psproject.json file, e.g.
 c:\scripts\mymodule.
 
@@ -69,6 +70,7 @@ Accept wildcard characters: False
 ```
 
 ### -TaskID
+
 Get a task by its ID number
 
 ```yaml
@@ -84,6 +86,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

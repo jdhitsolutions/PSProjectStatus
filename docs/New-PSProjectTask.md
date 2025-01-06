@@ -13,7 +13,7 @@ Create a new task in the PSProject file.
 
 ## SYNTAX
 
-```
+```yaml
 New-PSProjectTask [-TaskDescription] <String[]> [-Path <String>] [-PassThru] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
@@ -47,6 +47,7 @@ C:\Scripts\PSProjectStatus> New-PSProjectTask -TaskDescription "Pester tests" -P
 ## PARAMETERS
 
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -78,6 +79,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 Enter the parent path to the psproject.json file, e.g.
 c:\scripts\mymodule.
 
@@ -94,6 +96,7 @@ Accept wildcard characters: False
 ```
 
 ### -TaskDescription
+
 Enter the task description.
 
 ```yaml
@@ -109,6 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
+
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
 
@@ -125,6 +129,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

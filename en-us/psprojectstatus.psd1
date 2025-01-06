@@ -7,6 +7,7 @@ ConvertFrom-StringData @"
     DetectedParameterSet = Detected parameter set {0}
     Ending = Ending PSProjectStatus module command
     ExistingWarning = $([char]27)[91mAn existing project status file was found. You must either delete the file or re-run this command with -Force.$([char]27)[0m
+    FailPDF = Failed to open the help file. {0}. You can try opening the help as markdown.
     FilterNewer = Filtering for projects last updated within the last {0} days
     FilterOlder = Filtering for projects last updated in the more than {0} days ago
     FilterStatus = Filtering for status {0}
@@ -26,6 +27,8 @@ ConvertFrom-StringData @"
     NoGitRemote = No git remote detected
     NoTasks = No tasks found for this project
     NoTaskID =  $([char]27)[91mCould not find a task with an ID of {0} $([char]27)[0m
+    OpenMarkdownHelp = Opening the help file as markdown
+    OpenPDFHelp = Attempting to open {0} with the default PDF viewer
     ProcessPath = Processing PSProject path {0}
     ProcessProjects = Processing PSProjects under {0}
     ProcessTasks = Processing tasks in {0}
@@ -39,6 +42,7 @@ ConvertFrom-StringData @"
     UpdateProperty = Updating property {0}
     UsingHost = Using PowerShell Host {0}
     UsingModule = Using module PSProjectStatus version {0}
+    UsingOS = Running under Operating System {0}
     UsingPath = Using filesystem path {0}
     UsingSchema = Using schema path {0}
 "@

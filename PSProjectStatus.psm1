@@ -23,7 +23,7 @@ ForEach-Object {
 
 
 #region class definitions
-enum PSProjectStatus {
+Enum PSProjectStatus {
     Development
     Updating
     Stable
@@ -42,6 +42,12 @@ Enum gitMode {
     push
 }
 
+#the default task priority will be medium
+Enum PSProjectTaskPriority {
+    Medium
+    Low
+    High
+}
 Class PSProjectRemote {
     [string]$Name
     [string]$Url
@@ -59,11 +65,34 @@ Class PSProjectRemote {
     }
 }
 
+Class PSProjectTask {
+    [int32]$TaskID
+    [string]$TaskName
+    [string]$TaskDescription
+    [PSProjectTaskPriority]$Priority
+    [string[]]$TaskTags
+    [DateTime]$Created = (Get-Date)
+    [DateTime]$DueDate
+    [DateTime]$CompletedDate
+    [ValidateRange(0, 100)]
+    [Int32]$Progress = 0
+    [string]$AssignedTo = [System.Environment]::Username
+    [System.Boolean]$Completed = $false
+
+    PSProjectTask ([string]$TaskName) {
+        # $this.TaskID = _getNextTaskID
+        $this.TaskName = $TaskName
+        #$this.TaskDescription = $Description
+    }
+    PSProjectTask () {
+
+    }
+}
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
     [DateTime]$LastUpdate = (Get-Date)
-    [string[]]$Tasks = @()
+    [PSProjectTask[]]$Tasks = @()
     [PSProjectStatus]$Status = 'Development'
     [Version]$ProjectVersion = (Test-ModuleManifest -Path ".\$(Split-Path $pwd -Leaf).psd1" -Verbose:$False -ErrorAction SilentlyContinue).version
     [string]$GitBranch = ''
@@ -134,7 +163,7 @@ This would be a major breaking change
 
 #>
 
-Class PSProjectTask {
+<# Class PSProjectTask {
     [string]$ProjectName
     [string]$Path
     [string]$TaskDescription
@@ -147,7 +176,7 @@ Class PSProjectTask {
         $this.TaskDescription = $TaskDescription
         $this.ProjectVersion = $ProjectVersion
     }
-}
+} #>
 
 #endregion
 
