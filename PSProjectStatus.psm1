@@ -1,14 +1,14 @@
 #region load string data
 # used for culture debugging
-# write-host "Importing with culture $(Get-Culture)" -ForeGroundColor yellow
+#Write-Host "Importing with culture $(Get-Culture)" -ForeGroundColor yellow
 
 if ((Get-Culture).Name -match '\w+') {
-    #write-host "Using culture $(Get-Culture)" -ForegroundColor yellow
+    #Write-Host "Using culture $(Get-Culture)" -ForegroundColor yellow
     Import-LocalizedData -BindingVariable strings
 }
 else {
     #force using En-US if no culture found, which might happen on non-Windows systems.
-    #write-host "Loading $PSScriptRoot/en-us/PSWorkItem.psd1" -ForegroundColor yellow
+    #Write-Host "Loading $PSScriptRoot/en-us/PSWorkItem.psd1" -ForegroundColor yellow
     Import-LocalizedData -BindingVariable strings -FileName psprojectstatus.psd1 -BaseDirectory $PSScriptRoot/en-us
 }
 
@@ -66,6 +66,11 @@ Class PSProjectRemote {
 }
 
 Class PSProjectTask {
+    <#
+    this class is designed with future enhancements in mind.
+    Not all properties are utilized in the current version of the module.
+    #>
+
     [int32]$TaskID
     [string]$TaskName
     [string]$TaskDescription
@@ -78,6 +83,8 @@ Class PSProjectTask {
     [Int32]$Progress = 0
     [string]$AssignedTo = [System.Environment]::Username
     [System.Boolean]$Completed = $false
+    [string]$ProjectName
+    [string]$Path
 
     PSProjectTask ([string]$TaskName) {
         # $this.TaskID = _getNextTaskID
@@ -326,7 +333,7 @@ $jsonSchema = 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/
 #a hash table to store ANSI escape sequences for different commands used in verbose output with the
 #private _verbose helper function
 $PSProjectANSI = @{
-    'Get-PSProjectGitStatus' = '[1;38;5;51m'
+    'Get-PSProjectGitStatus' = '[1;38;5;140m'
     'Get-PSProjectReport'    = '[1;38;5;111m'
     'Get-PSProjectStatus'    = '[1;96m'
     'Get-PSProjectTask'      = '[1;38;5;10m'
@@ -336,10 +343,11 @@ $PSProjectANSI = @{
     'Set-PSProjectStatus'    = '[1;38;5;214m'
     Default                  = '[1;38;5;51m'
 }
+
 Set-Variable -Name PSProjectANSI -Description "a hash table to store ANSI escape sequences for different commands used in verbose output. You can modify settings using ANSI sequences or `$PSStyle"
 
 #Export the module version to a global variable that will be used in Verbose messages
-New-Variable -Name PSProjectStatusModule -Value '0.14.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
+New-Variable -Name PSProjectStatusModule -Value '0.16.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
 
 Export-ModuleMember -Variable PSProjectStatusModule, PSProjectANSI -Alias 'Update-PSProjectStatus', 'gitstat', 'gpstat', 'npstat', 'spstat'
 

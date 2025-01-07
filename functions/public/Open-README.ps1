@@ -1,11 +1,31 @@
 Function Open-PSProjectStatusHelp {
     [CmdletBinding()]
     [OutputType('None')]
-    Param(
-        [Parameter(HelpMessage = 'Open the help file as markdown.')]
-        [Alias('md')]
-        [switch]$AsMarkdown
-    )
+    Param( )
+    DynamicParam {
+        # This feature requires PowerShell 7
+        If ($IsCoreClr) {
+
+            $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+
+            # Defining parameter attributes
+            $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+            $attributes = New-Object System.Management.Automation.ParameterAttribute
+            $attributes.ParameterSetName = '__AllParameterSets'
+            $attributes.HelpMessage = 'Op[en the help file as markdown if running PowerShell 7'
+            $attributeCollection.Add($attributes)
+
+            # Adding a parameter alias
+            $dynAlias = New-Object System.Management.Automation.AliasAttribute -ArgumentList 'md'
+            $attributeCollection.Add($dynAlias)
+
+            # Defining the runtime parameter
+            $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('AsMarkdown', [Switch], $attributeCollection)
+            $paramDictionary.Add('AsMarkdown', $dynParam1)
+
+            return $paramDictionary
+        } # end if
+    } #end DynamicParam
 
     Begin {
         $PSDefaultParameterValues['_verbose:Command'] = $MyInvocation.MyCommand
@@ -20,19 +40,37 @@ Function Open-PSProjectStatusHelp {
             _verbose -message ($strings.UsingModule -f $ModuleVersion)
         }
 
-        if ($AsMarkdown) {
+        #write-debug "detected culture $((Get-Culture).Name)"
+        if ($PSBoundParameters.ContainsKey('AsMarkdown')) {
             #need to accommodate the directory structure for this command
             #relative to the module root
-            $docPath = "$PSScriptRoot\..\..\README.md"
+
+            #test for localized help
+            if (Test-Path -Path "$PSScriptRoot\..\..\$((Get-Culture).Name)") {
+                $docPath = "$PSScriptRoot\..\..\$((Get-Culture).Name)\README.md"
+            }
+            else {
+                $docPath = "$PSScriptRoot\..\..\README.md"
+            }
         }
         else {
-            $docPath = "$PSScriptRoot\..\..\PSProjectStatus-Help.pdf"
+            #write-debug "Testing for $PSScriptRoot\..\..\$((Get-Culture).Name)\PSProjectStatus-Help.pdf"
+            if (Test-Path -Path "$PSScriptRoot\..\..\$((Get-Culture).Name)\PSProjectStatus-Help.pdf") {
+                #write-debug "Using localized help for $((Get-Culture).Name)"
+
+                $docPath = "$PSScriptRoot\..\..\$((Get-Culture).Name)\PSProjectStatus-Help.pdf"
+            }
+            else {
+                #write-debug "Using en-US help"
+                $docPath = "$PSScriptRoot\..\..\PSProjectStatus-Help.pdf"
+            }
+            #write-debug "using docpath $docPath"
         }
 
     } #begin
     Process {
         $PSDefaultParameterValues['_verbose:block'] = 'Process'
-        if ($AsMarkdown) {
+        if ($PSBoundParameters.ContainsKey('AsMarkdown')) {
             _verbose -Message $strings.OpenMarkdownHelp
             Show-Markdown -Path $docPath
         }

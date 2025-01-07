@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version: https://bit.ly/3MXO7Ho
+online version:
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create a new PSProjectStatus.
+Créer un nouveau PSProjectStatus.
 
 ## SYNTAX
 
@@ -19,9 +19,9 @@ New-PSProjectStatus [[-Name] <String>] [-Path <String>] [-LastUpdate <DateTime>]
 
 ## DESCRIPTION
 
-Create a new PSProject file. Ideally, you will run this command in the module root directory. The module manifest, if found, will be used for the Project Version. If a git branch is detected, it will automatically be used.
+Créer un nouveau fichier PSProject. Idéalement, vous exécuterez cette commande dans le répertoire racine du module. Le manifeste du module, s'il est trouvé, sera utilisé pour la version du projet. Si une branche git est détectée, elle sera automatiquement utilisée.
 
-The command will not overwrite an existing PSProjectStatus file. If you want to overwrite an existing file, use the -Force parameter.
+La commande ne remplacera pas un fichier PSProjectStatus existant. Si vous souhaitez remplacer un fichier existant, utilisez le paramètre -Force.
 
 ## EXAMPLES
 
@@ -37,12 +37,12 @@ LastUpdate             Status         Tasks      GitBranch        Age
 12/22/2024 8:35:55 AM  Development    {}              main   00.00:00
 ```
 
-Create a new project status using default values.
+Créer un nouveau statut de projet en utilisant les valeurs par défaut.
 
 ### Example 2
 
 ```powershell
-PS C:\Scripts\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).LastWriteTime -Status Stable -Comment "Script module"
+PS C:\Scripts\PSScriptingInventory> New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).LastWriteTime -Status Stable -Comment "Module de script"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
@@ -51,13 +51,13 @@ LastUpdate             Status      Tasks        GitBranch          Age
 6/19/2024 8:42:04 AM   Stable      {}                main    234.01:13
 ```
 
-Create a new project status. PSDrive references will be converted to filesystem paths. The Age property is automatically calculated from the LastUpdate value.
+Créer un nouveau statut de projet. Les références PSDrive seront converties en chemins de système de fichiers. La propriété Âge est automatiquement calculée à partir de la valeur LastUpdate.
 
 ## PARAMETERS
 
 ### -Confirm
 
-Prompts you for confirmation before running the cmdlet.
+Vous demande de confirmer avant d'exécuter le cmdlet.
 
 ```yaml
 Type: SwitchParameter
@@ -73,7 +73,7 @@ Accept wildcard characters: False
 
 ### -LastUpdate
 
-When was the project last worked on?
+Quand le projet a-t-il été travaillé pour la dernière fois ?
 
 ```yaml
 Type: DateTime
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 
 ### -Name
 
-What is the project name? The default is the current folder name.
+Quel est le nom du projet ? La valeur par défaut est le nom du dossier actuel.
 
 ```yaml
 Type: String
@@ -105,7 +105,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-What is the project path?
+Quel est le chemin du projet ?
 
 ```yaml
 Type: String
@@ -121,7 +121,7 @@ Accept wildcard characters: False
 
 ### -Status
 
-What is the project status? Accepted values are:
+Quel est le statut du projet ? Les valeurs acceptées sont:
  Development
  Updating
  Stable
@@ -148,7 +148,7 @@ Accept wildcard characters: False
 
 ### -Tasks
 
-What are the remaining tasks?
+Quelles sont les tâches restantes ?
 
 ```yaml
 Type: String[]
@@ -164,8 +164,8 @@ Accept wildcard characters: False
 
 ### -WhatIf
 
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+Montre ce qui se passerait si le cmdlet s'exécutait.
+Le cmdlet n'est pas exécuté.
 
 ```yaml
 Type: SwitchParameter
@@ -181,7 +181,7 @@ Accept wildcard characters: False
 
 ### -ProjectVersion
 
-What is the project version? The default value will be detected from a module manifest if found.
+Quelle est la version du projet ? La valeur par défaut sera détectée à partir d'un manifeste de module s'il est trouvé.
 
 ```yaml
 Type: Version
@@ -197,7 +197,7 @@ Accept wildcard characters: False
 
 ### -Comment
 
-Enter an optional comment. This could be git tag, or an indication about the type of project.
+Entrez un commentaire facultatif. Cela pourrait être une étiquette git ou une indication sur le type de projet.
 
 ```yaml
 Type: String
@@ -213,7 +213,7 @@ Accept wildcard characters: False
 
 ### -Force
 
-Overwrite an existing PSProjectStatus file.
+Remplacer un fichier PSProjectStatus existant.
 
 ```yaml
 Type: SwitchParameter
@@ -229,7 +229,7 @@ Accept wildcard characters: False
 
 ### -Tags
 
-What tags do you want to assign to this project?
+Quels tags voulez-vous attribuer à ce projet ?
 
 ```yaml
 Type: String[]
@@ -245,11 +245,11 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+Ce cmdlet prend en charge les paramètres communs : -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, et -WarningVariable. Pour plus d'informations, voir [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
+### Aucune
 
 ## OUTPUTS
 
@@ -257,9 +257,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-This command has an alias of npstat.
+Cette commande a un alias de npstat.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

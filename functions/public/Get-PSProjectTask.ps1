@@ -1,6 +1,6 @@
 Function Get-PSProjectTask {
     [cmdletbinding()]
-    [OutputType('psProjectTask')]
+    [OutputType('PSProjectTask')]
 
     Param(
         [Parameter(
@@ -46,7 +46,13 @@ Function Get-PSProjectTask {
                 #define a project task ID number
                 $i = 1
                 foreach ($task in $in.tasks) {
-                    $taskItem = [PSProjectTask]::New($task,$in.Path, $in.Name, $in.ProjectVersion)
+                    #6 Jan 2024 Fix task constructor. Issue #14
+                    #$taskItem = [PSProjectTask]::New($task,$in.Path,$in.Name,$in.ProjectVersion)
+                    $taskItem = [PSProjectTask]::New($in.Name)
+                    $taskItem.TaskDescription = $task
+                    $taskItem.Path = $in.Path
+                    $taskItem.ProjectName = $in.Name
+                    #$taskItem.ProjectVersion = $in.ProjectVersion #>
                     $taskItem.TaskID = $i
                     if ($TaskID -AND ($TaskID -eq $i)) {
                         $taskItem

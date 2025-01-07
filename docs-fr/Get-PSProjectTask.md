@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version: https://bit.ly/4833Pv8
+online version:
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-List project tasks
+Lister les tâches du projet
 
 ## SYNTAX
 
@@ -19,14 +19,14 @@ Get-PSProjectTask [[-Path] <String>] [-TaskID <Int32>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-List defined tasks in the PSProject file. You will get a warning if no tasks are defined.
+Lister les tâches définies dans le fichier PSProject. Vous recevrez un avertissement si aucune tâche n'est définie.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\Scripts\PSWorkItem> Get-PSProjectTask
+PS C:\PSWorkItem> Get-PSProjectTask
 
    Name: PSWorkItem [C:\Scripts\PSWorkItem]
 
@@ -36,7 +36,7 @@ PS C:\Scripts\PSWorkItem> Get-PSProjectTask
 
 ```
 
-Display tasks. If you run this in the console of VSCode, you should get ANSI formatted output. The number in brackets is the TaskID.
+Afficher les tâches. Si vous exécutez cela dans la console de VSCode, vous devriez obtenir une sortie formatée en ANSI. Le numéro entre crochets est l'ID de la tâche.
 
 ### Example 2
 
@@ -48,13 +48,13 @@ PS C:\PSWorkItem> Get-PSProjectTask -TaskID 2
    ● add message localization [2]
 ```
 
-Get a task by ID number.
+Obtenir une tâche par numéro d'ID.
 
 ## PARAMETERS
 
 ### -Path
 
-Enter the parent path to the psproject.json file, e.g.
+Entrez le chemin parent vers le fichier psproject.json, par Example
 c:\scripts\mymodule.
 
 ```yaml
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 
 ### -TaskID
 
-Get a task by its ID number
+Obtenir une tâche par son numéro d'ID
 
 ```yaml
 Type: Int32
@@ -87,7 +87,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+Ce cmdlet prend en charge les paramètres communs : -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction et -WarningVariable. Pour plus d'informations, voir [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

@@ -1,7 +1,7 @@
 ---
 external help file: PSProjectStatus-help.xml
 Module Name: PSProjectStatus
-online version: https://bit.ly/37oLez9
+online version:
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get project status.
+Obtenir le statut du projet.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-PSProjectStatus [[-Path] <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will get the project status from the JSON file found in the module root directory. Get-PSProjectStatus will check the current directory by default, or you can specify the parent path of another directory.
+Cette commande obtiendra le statut du projet à partir du fichier JSON trouvé dans le répertoire racine du module. Get-PSProjectStatus vérifiera le répertoire actuel par défaut, ou vous pouvez spécifier le chemin parent d'un autre répertoire.
 
 ## EXAMPLES
 
@@ -35,24 +35,24 @@ LastUpdate             Status            Tasks             GitBranch      Age
 10/17/2024 1:00:56 PM  Stable            {Pester tests}         main 80.20:40
 ```
 
-Get the status from the current directory.
+Obtenez le statut du répertoire actuel.
 
 ### Example 2
 
 ```powershell
 C:\Scripts\ dir -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
 
-   Name: ADReportingTools [C:\Scripts\ADReportingTools]
+  Name: ADReportingTools [C:\Scripts\ADReportingTools]
 
 LastUpdate             Status            Tasks             GitBranch        Age
 ----------             ------            -----             ---------        ---
-6/21/2021 4:47:11 PM   Updating          {Publish new ...      1.4.0  266.17:59
+6/21/2021 4:47:11 PM   Updating          {Publish new re       1.4.0  266.17:59
 
    Name: GitDevTest [C:\scripts\GitDevTest]
 
 LastUpdate             Status            Tasks             GitBranch        Age
 ----------             ------            -----             ---------        ---
-2/3/2022 4:50:37 PM    Stable            {update readm...     master   39.17:55
+2/3/2022 4:50:37 PM    Stable            {update readme,       master   39.17:55
 
    Name: MyTasks [C:\Scripts\MyTasks]
 
@@ -62,7 +62,7 @@ LastUpdate             Status            Tasks             GitBranch        Age
 ...
 ```
 
-Get status for multiple projects. You could also use the Get-PSProjectReport command.
+Obtenez le statut de plusieurs projets. Vous pouvez également utiliser la commande Get-PSProjectReport.
 
 ### Example 3
 
@@ -80,12 +80,12 @@ LastUpdate : 3/1/2022 5:50:00 AM
 Age        : 669.10:07:19
 ```
 
-Use the default List view. This makes it easier to view the tasks.
+Utilisez la vue Liste par défaut. Cela facilite la visualisation des tâches.
 
 ### Example 4
 
 ```powershell
-PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,Age
+PS C:\Scripts\PSProjectStatus> Get-PSProjectStatus | Select-Object VersionInfo,Âge
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -95,13 +95,13 @@ LastUpdate : 3/23/2022 11:30:42 AM
 Age        : 00:06:06.2337458
 ```
 
-Get status using the versionInfo property set and the Age script property.
+Obtenez le statut en utilisant la propriété versionInfo et la propriété de script Âge.
 
 ## PARAMETERS
 
 ### -Path
 
-Enter the parent path to the psproject.json file, e.g.
+Entrez le chemin parent vers le fichier psproject.json, par Example
 c:\scripts\mymodule
 
 ```yaml
@@ -118,11 +118,11 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+Ce cmdlet prend en charge les paramètres communs : -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, et -WarningVariable. Pour plus d'informations, voir [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
-### None
+### Aucune
 
 ## OUTPUTS
 
@@ -130,9 +130,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-This command has an alias of gpstat.
+Cette commande a un alias de gpstat.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

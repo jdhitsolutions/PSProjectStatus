@@ -6,11 +6,11 @@
       <command:verb>Get</command:verb>
       <command:noun>PSProjectGitStatus</command:noun>
       <maml:description>
-        <maml:para>Get git project status.</maml:para>
+        <maml:para>Obtenir le statut du projet git.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Presumably you are using git to manage your project. If so, some git-related information is included in the PSProjectStatus output. Get-PSProjectGitStatus is intended to provide more git-specific details. You should run this command in the root of your project directory. If the project is not git initialized, nothing will be returned.</maml:para>
+      <maml:para>Il est présumé que vous utilisez git pour gérer votre projet. Si c'est le cas, certaines informations liées à git sont incluses dans la sortie de PSProjectStatus. Get-PSProjectGitStatus est destiné à fournir plus de détails spécifiques à git. Vous devez exécuter cette commande à la racine de votre répertoire de projet. Si le projet n'est pas initialisé avec git, rien ne sera retourné.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -21,7 +21,7 @@
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>Aucune</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -40,8 +40,8 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command has an alias of gitstat.</maml:para>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>Cette commande a un alias de gitstat.</maml:para>
+        <maml:para>En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -59,10 +59,6 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3jSB1hH</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -74,11 +70,11 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:verb>Get</command:verb>
       <command:noun>PSProjectReport</command:noun>
       <maml:description>
-        <maml:para>Manage all your PSProject folders.</maml:para>
+        <maml:para>Gérer tous vos dossiers PSProject.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The PSProjectStatus module makes an assumption that the majority of your projects are organized under a parent folder like C:\Scripts. This command is designed to make it easier to identify and manage projects you are working on. The default behavior is to get PSProject information from the top-level folders in your root directory. But you can also filter on status, age, or tag.</maml:para>
+      <maml:para>Le module PSProjectStatus suppose que la majorité de vos projets sont organisés sous un dossier parent comme C:\Scripts. Cette commande est conçue pour faciliter l'identification et la gestion des projets sur lesquels vous travaillez. Le comportement par défaut est d'obtenir des informations PSProject à partir des dossiers de niveau supérieur dans votre répertoire racine. Mais vous pouvez également filtrer par statut, âge ou tag.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -86,7 +82,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Specify the top level folder</maml:para>
+            <maml:para>Spécifiez le dossier de niveau supérieur</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -98,7 +94,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>NewerThan</maml:name>
           <maml:description>
-            <maml:para>Get projects where the age is newer than X number of days</maml:para>
+            <maml:para>Obtenir des projets dont l'âge est inférieur à X jours</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -110,7 +106,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Status</maml:name>
           <maml:description>
-            <maml:para>Filter projects by status</maml:para>
+            <maml:para>Filtrer les projets par statut</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Development</command:parameterValue>
@@ -135,7 +131,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Tag</maml:name>
           <maml:description>
-            <maml:para>Get projects with a specific tag. You can combine this with other filtering parameters.</maml:para>
+            <maml:para>Obtenir des projets avec un tag spécifique. Vous pouvez combiner cela avec d'autres paramètres de filtrage.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -150,7 +146,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Specify the top level folder</maml:para>
+            <maml:para>Spécifiez le dossier de niveau supérieur</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -162,7 +158,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>OlderThan</maml:name>
           <maml:description>
-            <maml:para>Get projects where the age is older than X number of days</maml:para>
+            <maml:para>Obtenir des projets dont l'âge est supérieur à X jours</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -174,7 +170,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Status</maml:name>
           <maml:description>
-            <maml:para>Filter projects by status</maml:para>
+            <maml:para>Filtrer les projets par statut</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Development</command:parameterValue>
@@ -199,7 +195,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Tag</maml:name>
           <maml:description>
-            <maml:para>Get projects with a specific tag. You can combine this with other filtering parameters.</maml:para>
+            <maml:para>Obtenir des projets avec un tag spécifique. Vous pouvez combiner cela avec d'autres paramètres de filtrage.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -214,7 +210,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>NewerThan</maml:name>
         <maml:description>
-          <maml:para>Get projects where the age is newer than X number of days</maml:para>
+          <maml:para>Obtenir des projets dont l'âge est inférieur à X jours</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -226,7 +222,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>OlderThan</maml:name>
         <maml:description>
-          <maml:para>Get projects where the age is older than X number of days</maml:para>
+          <maml:para>Obtenir des projets dont l'âge est supérieur à X jours</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -238,7 +234,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Specify the top level folder</maml:para>
+          <maml:para>Spécifiez le dossier de niveau supérieur</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -250,7 +246,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Status</maml:name>
         <maml:description>
-          <maml:para>Filter projects by status</maml:para>
+          <maml:para>Filtrer les projets par statut</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSProjectStatus</command:parameterValue>
         <dev:type>
@@ -262,7 +258,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Tag</maml:name>
         <maml:description>
-          <maml:para>Get projects with a specific tag. You can combine this with other filtering parameters.</maml:para>
+          <maml:para>Obtenir des projets avec un tag spécifique. Vous pouvez combiner cela avec d'autres paramètres de filtrage.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -275,7 +271,7 @@ PSProjectStatus 0.6.0  3/29/2022 5:23:20 PM @{RemoteName=origin; LastPush=3/26/2
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>Aucune</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -309,7 +305,7 @@ LastUpdate             Status            Tasks         GitBranch        Age
 ----------             ------            -----         ---------        ---
 7/20/2022 11:58:54 AM  Other             {}                master  192.02:11</dev:code>
         <dev:remarks>
-          <maml:para>Get PSProject information based on a status.</maml:para>
+          <maml:para>Obtenir des informations PSProject basées sur un statut.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -323,22 +319,21 @@ LastUpdate             Status            Tasks             GitBranch        Age
 ----------             ------            -----             ---------        ---
 1/20/2023 2:20:39 PM   Stable            {convert modu...       main   07.23:51</dev:code>
         <dev:remarks>
-          <maml:para>Get PSProjects modified within the last 10 days.</maml:para>
+          <maml:para>Obtenir des PSProjects modifiés au cours des 10 derniers jours.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C&gt;\&gt; Get-PSProjectReport c:\scripts -NewerThan 60 | Select-Object Path,Name,Status,Tags,LastUpdate | Out-GridView -Title "Select a project" -OutputMode Single | Foreach-Object { set-location $_.path ; code $_.path }</dev:code>
+        <dev:code>PS C&gt;\&gt; Get-PSProjectReport c:\scripts -NewerThan 60 |
+Select-Object Path,Name,Status,Tags,LastUpdate |
+Out-GridView -Title "Sélectionnez un projet" -OutputMode Single |
+Foreach-Object { set-location $_.path ; code $_.path }</dev:code>
         <dev:remarks>
-          <maml:para>Get projects modified in the last 60 days and send to Out-GridView. The selected project folder will be opened in VSCode.</maml:para>
+          <maml:para>Obtenir des projets modifiés au cours des 60 derniers jours et envoyer à Out-GridView. Le dossier du projet sélectionné sera ouvert dans VSCode.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3OSBu3L</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
@@ -351,11 +346,11 @@ LastUpdate             Status            Tasks             GitBranch        Age
       <command:verb>Get</command:verb>
       <command:noun>PSProjectStatus</command:noun>
       <maml:description>
-        <maml:para>Get project status.</maml:para>
+        <maml:para>Obtenir le statut du projet.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will get the project status from the JSON file found in the module root directory. Get-PSProjectStatus will check the current directory by default, or you can specify the parent path of another directory.</maml:para>
+      <maml:para>Cette commande obtiendra le statut du projet à partir du fichier JSON trouvé dans le répertoire racine du module. Get-PSProjectStatus vérifiera le répertoire actuel par défaut, ou vous pouvez spécifier le chemin parent d'un autre répertoire.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -363,7 +358,7 @@ LastUpdate             Status            Tasks             GitBranch        Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule</maml:para>
+            <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -378,7 +373,7 @@ LastUpdate             Status            Tasks             GitBranch        Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule</maml:para>
+          <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -391,7 +386,7 @@ LastUpdate             Status            Tasks             GitBranch        Age
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>Aucune</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -410,8 +405,8 @@ LastUpdate             Status            Tasks             GitBranch        Age
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command has an alias of gpstat.</maml:para>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>Cette commande a un alias de gpstat.</maml:para>
+        <maml:para>En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -425,24 +420,24 @@ LastUpdate             Status            Tasks             GitBranch      Age
 ----------             ------            -----             ---------      ---
 10/17/2024 1:00:56 PM  Stable            {Pester tests}         main 80.20:40</dev:code>
         <dev:remarks>
-          <maml:para>Get the status from the current directory.</maml:para>
+          <maml:para>Obtenez le statut du répertoire actuel.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>C:\Scripts\ dir -Directory | Get-PSProjectStatus -WarningAction SilentlyContinue
 
-   Name: ADReportingTools [C:\Scripts\ADReportingTools]
+  Name: ADReportingTools [C:\Scripts\ADReportingTools]
 
 LastUpdate             Status            Tasks             GitBranch        Age
 ----------             ------            -----             ---------        ---
-6/21/2021 4:47:11 PM   Updating          {Publish new ...      1.4.0  266.17:59
+6/21/2021 4:47:11 PM   Updating          {Publish new re       1.4.0  266.17:59
 
    Name: GitDevTest [C:\scripts\GitDevTest]
 
 LastUpdate             Status            Tasks             GitBranch        Age
 ----------             ------            -----             ---------        ---
-2/3/2022 4:50:37 PM    Stable            {update readm...     master   39.17:55
+2/3/2022 4:50:37 PM    Stable            {update readme,       master   39.17:55
 
    Name: MyTasks [C:\Scripts\MyTasks]
 
@@ -451,7 +446,7 @@ LastUpdate             Status            Tasks             GitBranch        Age
 10/14/2020 1:29:59 PM  Stable                                 master  516.21:16
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Get status for multiple projects. You could also use the Get-PSProjectReport command.</maml:para>
+          <maml:para>Obtenez le statut de plusieurs projets. Vous pouvez également utiliser la commande Get-PSProjectReport.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -468,12 +463,12 @@ GitBranch  : master
 LastUpdate : 3/1/2022 5:50:00 AM
 Age        : 669.10:07:19</dev:code>
         <dev:remarks>
-          <maml:para>Use the default List view. This makes it easier to view the tasks.</maml:para>
+          <maml:para>Utilisez la vue Liste par défaut. Cela facilite la visualisation des tâches.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | Select-Object VersionInfo,Age
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; Get-PSProjectStatus | Select-Object VersionInfo,Âge
 
 Name       : PSProjectStatus
 Status     : Updating
@@ -482,15 +477,11 @@ GitBranch  : 0.5.0
 LastUpdate : 3/23/2022 11:30:42 AM
 Age        : 00:06:06.2337458</dev:code>
         <dev:remarks>
-          <maml:para>Get status using the versionInfo property set and the Age script property.</maml:para>
+          <maml:para>Obtenez le statut en utilisant la propriété versionInfo et la propriété de script Âge.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/37oLez9</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
@@ -511,11 +502,11 @@ Age        : 00:06:06.2337458</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>PSProjectTask</command:noun>
       <maml:description>
-        <maml:para>List project tasks</maml:para>
+        <maml:para>Lister les tâches du projet</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>List defined tasks in the PSProject file. You will get a warning if no tasks are defined.</maml:para>
+      <maml:para>Lister les tâches définies dans le fichier PSProject. Vous recevrez un avertissement si aucune tâche n'est définie.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -523,7 +514,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+            <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -535,7 +526,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ID">
           <maml:name>TaskID</maml:name>
           <maml:description>
-            <maml:para>Get a task by its ID number</maml:para>
+            <maml:para>Obtenir une tâche par son numéro d'ID</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -550,7 +541,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="FullName">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+          <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -562,7 +553,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ID">
         <maml:name>TaskID</maml:name>
         <maml:description>
-          <maml:para>Get a task by its ID number</maml:para>
+          <maml:para>Obtenir une tâche par son numéro d'ID</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -600,7 +591,7 @@ Age        : 00:06:06.2337458</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSWorkItem&gt; Get-PSProjectTask
+        <dev:code>PS C:\PSWorkItem&gt; Get-PSProjectTask
 
    Name: PSWorkItem [C:\Scripts\PSWorkItem]
 
@@ -608,7 +599,7 @@ Age        : 00:06:06.2337458</dev:code>
    ● add message localization [2]
    ● fix PDF image location [3]</dev:code>
         <dev:remarks>
-          <maml:para>Display tasks. If you run this in the console of VSCode, you should get ANSI formatted output. The number in brackets is the TaskID.</maml:para>
+          <maml:para>Afficher les tâches. Si vous exécutez cela dans la console de VSCode, vous devriez obtenir une sortie formatée en ANSI. Le numéro entre crochets est l'ID de la tâche.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -619,15 +610,11 @@ Age        : 00:06:06.2337458</dev:code>
 
    ● add message localization [2]</dev:code>
         <dev:remarks>
-          <maml:para>Get a task by ID number.</maml:para>
+          <maml:para>Obtenir une tâche par numéro d'ID.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/4833Pv8</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
@@ -644,12 +631,12 @@ Age        : 00:06:06.2337458</dev:code>
       <command:verb>New</command:verb>
       <command:noun>PSProjectStatus</command:noun>
       <maml:description>
-        <maml:para>Create a new PSProjectStatus.</maml:para>
+        <maml:para>Créer un nouveau PSProjectStatus.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Create a new PSProject file. Ideally, you will run this command in the module root directory. The module manifest, if found, will be used for the Project Version. If a git branch is detected, it will automatically be used.</maml:para>
-      <maml:para>The command will not overwrite an existing PSProjectStatus file. If you want to overwrite an existing file, use the -Force parameter.</maml:para>
+      <maml:para>Créer un nouveau fichier PSProject. Idéalement, vous exécuterez cette commande dans le répertoire racine du module. Le manifeste du module, s'il est trouvé, sera utilisé pour la version du projet. Si une branche git est détectée, elle sera automatiquement utilisée.</maml:para>
+      <maml:para>La commande ne remplacera pas un fichier PSProjectStatus existant. Si vous souhaitez remplacer un fichier existant, utilisez le paramètre -Force.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -657,7 +644,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>What is the project name? The default is the current folder name.</maml:para>
+            <maml:para>Quel est le nom du projet ? La valeur par défaut est le nom du dossier actuel.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -669,7 +656,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
           <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+            <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -680,7 +667,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="date">
           <maml:name>LastUpdate</maml:name>
           <maml:description>
-            <maml:para>When was the project last worked on?</maml:para>
+            <maml:para>Quand le projet a-t-il été travaillé pour la dernière fois ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
           <dev:type>
@@ -692,7 +679,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>What is the project path?</maml:para>
+            <maml:para>Quel est le chemin du projet ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -704,7 +691,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Status</maml:name>
           <maml:description>
-            <maml:para>What is the project status? Accepted values are:  Development  Updating  Stable  AlphaTesting  BetaTesting  ReleaseCandidate  Patching  UnitTesting  AcceptanceTesting  Other</maml:para>
+            <maml:para>Quel est le statut du projet ? Les valeurs acceptées sont:  Development  Updating  Stable  AlphaTesting  BetaTesting  ReleaseCandidate  Patching  UnitTesting  AcceptanceTesting  Other</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Development</command:parameterValue>
@@ -728,7 +715,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Tasks</maml:name>
           <maml:description>
-            <maml:para>What are the remaining tasks?</maml:para>
+            <maml:para>Quelles sont les tâches restantes ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -740,7 +727,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
           <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+            <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -751,7 +738,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
           <maml:name>ProjectVersion</maml:name>
           <maml:description>
-            <maml:para>What is the project version? The default value will be detected from a module manifest if found.</maml:para>
+            <maml:para>Quelle est la version du projet ? La valeur par défaut sera détectée à partir d'un manifeste de module s'il est trouvé.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
           <dev:type>
@@ -763,7 +750,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Comment</maml:name>
           <maml:description>
-            <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+            <maml:para>Entrez un commentaire facultatif. Cela pourrait être une étiquette git ou une indication sur le type de projet.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -775,7 +762,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Force</maml:name>
           <maml:description>
-            <maml:para>Overwrite an existing PSProjectStatus file.</maml:para>
+            <maml:para>Remplacer un fichier PSProjectStatus existant.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -786,7 +773,7 @@ Age        : 00:06:06.2337458</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Tags</maml:name>
           <maml:description>
-            <maml:para>What tags do you want to assign to this project?</maml:para>
+            <maml:para>Quels tags voulez-vous attribuer à ce projet ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -801,7 +788,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
         <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -813,7 +800,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="date">
         <maml:name>LastUpdate</maml:name>
         <maml:description>
-          <maml:para>When was the project last worked on?</maml:para>
+          <maml:para>Quand le projet a-t-il été travaillé pour la dernière fois ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
         <dev:type>
@@ -825,7 +812,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>What is the project name? The default is the current folder name.</maml:para>
+          <maml:para>Quel est le nom du projet ? La valeur par défaut est le nom du dossier actuel.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -837,7 +824,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>What is the project path?</maml:para>
+          <maml:para>Quel est le chemin du projet ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -849,7 +836,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Status</maml:name>
         <maml:description>
-          <maml:para>What is the project status? Accepted values are:  Development  Updating  Stable  AlphaTesting  BetaTesting  ReleaseCandidate  Patching  UnitTesting  AcceptanceTesting  Other</maml:para>
+          <maml:para>Quel est le statut du projet ? Les valeurs acceptées sont:  Development  Updating  Stable  AlphaTesting  BetaTesting  ReleaseCandidate  Patching  UnitTesting  AcceptanceTesting  Other</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSProjectStatus</command:parameterValue>
         <dev:type>
@@ -861,7 +848,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Tasks</maml:name>
         <maml:description>
-          <maml:para>What are the remaining tasks?</maml:para>
+          <maml:para>Quelles sont les tâches restantes ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -873,7 +860,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
         <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -885,7 +872,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
         <maml:name>ProjectVersion</maml:name>
         <maml:description>
-          <maml:para>What is the project version? The default value will be detected from a module manifest if found.</maml:para>
+          <maml:para>Quelle est la version du projet ? La valeur par défaut sera détectée à partir d'un manifeste de module s'il est trouvé.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
         <dev:type>
@@ -897,7 +884,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Comment</maml:name>
         <maml:description>
-          <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+          <maml:para>Entrez un commentaire facultatif. Cela pourrait être une étiquette git ou une indication sur le type de projet.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -909,7 +896,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Force</maml:name>
         <maml:description>
-          <maml:para>Overwrite an existing PSProjectStatus file.</maml:para>
+          <maml:para>Remplacer un fichier PSProjectStatus existant.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -921,7 +908,7 @@ Age        : 00:06:06.2337458</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Tags</maml:name>
         <maml:description>
-          <maml:para>What tags do you want to assign to this project?</maml:para>
+          <maml:para>Quels tags voulez-vous attribuer à ce projet ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -934,7 +921,7 @@ Age        : 00:06:06.2337458</dev:code>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>None</maml:name>
+          <maml:name>Aucune</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -953,8 +940,8 @@ Age        : 00:06:06.2337458</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command has an alias of npstat.</maml:para>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>Cette commande a un alias de npstat.</maml:para>
+        <maml:para>En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -968,12 +955,12 @@ LastUpdate             Status         Tasks      GitBranch        Age
 ----------             ------         -----      ---------        ---
 12/22/2024 8:35:55 AM  Development    {}              main   00.00:00</dev:code>
         <dev:remarks>
-          <maml:para>Create a new project status using default values.</maml:para>
+          <maml:para>Créer un nouveau statut de projet en utilisant les valeurs par défaut.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).LastWriteTime -Status Stable -Comment "Script module"
+        <dev:code>PS C:\Scripts\PSScriptingInventory&gt; New-PSProjectStatus -LastUpdate (Get-Item .\PSScriptingInventory.psd1).LastWriteTime -Status Stable -Comment "Module de script"
 
    Name: PSScriptingInventory [C:\scripts\PSScriptingInventory]
 
@@ -981,15 +968,11 @@ LastUpdate             Status      Tasks        GitBranch          Age
 ----------             ------      -----        ---------          ---
 6/19/2024 8:42:04 AM   Stable      {}                main    234.01:13</dev:code>
         <dev:remarks>
-          <maml:para>Create a new project status. PSDrive references will be converted to filesystem paths. The Age property is automatically calculated from the LastUpdate value.</maml:para>
+          <maml:para>Créer un nouveau statut de projet. Les références PSDrive seront converties en chemins de système de fichiers. La propriété Âge est automatiquement calculée à partir de la valeur LastUpdate.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3MXO7Ho</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>
@@ -1010,12 +993,12 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:verb>New</command:verb>
       <command:noun>PSProjectTask</command:noun>
       <maml:description>
-        <maml:para>Create a new task in the PSProject file.</maml:para>
+        <maml:para>Créer une nouvelle tâche dans le fichier PSProject.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can add tasks directly in the PSProject file, or you can use this function. Specify a task description and it will be added to the PSProject file. The task ID is assigned automatically.</maml:para>
-      <maml:para>You can also use Set-PSProjectTask set tasks.</maml:para>
+      <maml:para>Vous pouvez ajouter des tâches directement dans le fichier PSProject, ou vous pouvez utiliser cette fonction. Spécifiez une description de tâche et elle sera ajoutée au fichier PSProject. L'ID de la tâche est attribué automatiquement.</maml:para>
+      <maml:para>Vous pouvez également utiliser Set-PSProjectTask pour définir des tâches.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1023,7 +1006,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
           <maml:name>TaskDescription</maml:name>
           <maml:description>
-            <maml:para>Enter the task description.</maml:para>
+            <maml:para>Entrez la description de la tâche.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -1035,7 +1018,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
           <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+            <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1046,7 +1029,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PassThru</maml:name>
           <maml:description>
-            <maml:para>Display the new task.</maml:para>
+            <maml:para>Afficher la nouvelle tâche.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1057,7 +1040,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="FullName">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+            <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1069,7 +1052,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
           <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+            <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1083,7 +1066,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
         <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1095,7 +1078,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>PassThru</maml:name>
         <maml:description>
-          <maml:para>Display the new task.</maml:para>
+          <maml:para>Afficher la nouvelle tâche.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1107,7 +1090,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="FullName">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+          <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1119,7 +1102,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
         <maml:name>TaskDescription</maml:name>
         <maml:description>
-          <maml:para>Enter the task description.</maml:para>
+          <maml:para>Entrez la description de la tâche.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1131,7 +1114,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
         <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1177,28 +1160,24 @@ LastUpdate             Status      Tasks        GitBranch          Age
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\Scripts\PSProjectStatus&gt; New-PSProjectTask -TaskDescription "Update README"</dev:code>
+        <dev:code>PS C:\Scripts\PSProjectStatus&gt; New-PSProjectTask -TaskDescription "Mettre à jour le README"</dev:code>
         <dev:remarks>
-          <maml:para>Add a new task.</maml:para>
+          <maml:para>Ajouter une nouvelle tâche.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>C:\Scripts\PSProjectStatus&gt; New-PSProjectTask -TaskDescription "Pester tests" -PassThru
+        <dev:code>C:\Scripts\PSProjectStatus&gt; New-PSProjectTask -TaskDescription "Tests Pester" -PassThru
 
    Name: PSProjectStatus [C:\Scripts\PSProjectStatus]
 
-   Pester tests [7]</dev:code>
+   Tests Pester [7]</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3tyR5xe</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
@@ -1215,11 +1194,11 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:verb>Open</command:verb>
       <command:noun>PSProjectStatusHelp</command:noun>
       <maml:description>
-        <maml:para>Open the PSProjectStatus help document</maml:para>
+        <maml:para>Ouvrir le document d'aide PSProjectStatus</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to open the PDF help document for the PSProjectStatus module with the associated application for PDF files. If you are running PowerShell 7, as an alternative you can view the documentation as a markdown document with the -AsMarkdown parameter. This is a dynamic parameter that does not exist in Windows PowerShell.</maml:para>
+      <maml:para>Utilisez cette commande pour ouvrir le document d'aide PDF pour le module PSProjectStatus avec l'application associée pour les fichiers PDF. Si vous exécutez PowerShell 7, vous pouvez également afficher la documentation sous forme de document markdown avec le paramètre -AsMarkdown. Il s'agit d'un paramètre dynamique qui n'existe pas dans Windows PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1227,7 +1206,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="md">
           <maml:name>AsMarkdown</maml:name>
           <maml:description>
-            <maml:para>If you are running PowerShell 7, as an alternative you can view the documentation as a markdown document with the -AsMarkdown parameter. This is a dynamic parameter that does not exist in Windows PowerShell.</maml:para>
+            <maml:para>Si vous exécutez PowerShell 7, vous pouvez également afficher la documentation sous forme de document markdown avec le paramètre -AsMarkdown. Il s'agit d'un paramètre dynamique qui n'existe pas dans Windows PowerShell.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1241,7 +1220,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="md">
         <maml:name>AsMarkdown</maml:name>
         <maml:description>
-          <maml:para>If you are running PowerShell 7, as an alternative you can view the documentation as a markdown document with the -AsMarkdown parameter. This is a dynamic parameter that does not exist in Windows PowerShell.</maml:para>
+          <maml:para>Si vous exécutez PowerShell 7, vous pouvez également afficher la documentation sous forme de document markdown avec le paramètre -AsMarkdown. Il s'agit d'un paramètre dynamique qui n'existe pas dans Windows PowerShell.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1281,14 +1260,14 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Open-PSProjectStatusHelp</dev:code>
         <dev:remarks>
-          <maml:para>The file should open in the default application for PDF files.</maml:para>
+          <maml:para>Le fichier doit s'ouvrir dans l'application par défaut pour les fichiers PDF.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Open-PSProjectStatusHelp -AsMarkdown | more</dev:code>
         <dev:remarks>
-          <maml:para>View the help file a markdown document if running PowerShell 7.</maml:para>
+          <maml:para>Affichez le fichier d'aide sous forme de document markdown si vous exécutez PowerShell 7.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1305,11 +1284,11 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:verb>Remove</command:verb>
       <command:noun>PSProjectTask</command:noun>
       <maml:description>
-        <maml:para>Remove a task from the PSProject file.</maml:para>
+        <maml:para>Supprimer une tâche du fichier PSProject.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can manually remove tasks from the PSProject file, or you can use this function. Specify a task ID and it will be removed from the PSProject file.</maml:para>
+      <maml:para>Vous pouvez supprimer manuellement des tâches du fichier PSProject, ou vous pouvez utiliser cette fonction. Spécifiez un ID de tâche et il sera supprimé du fichier PSProject.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1317,7 +1296,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ID">
           <maml:name>TaskID</maml:name>
           <maml:description>
-            <maml:para>Enter the task ID</maml:para>
+            <maml:para>Entrez l'ID de la tâche</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
           <dev:type>
@@ -1329,7 +1308,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
           <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+            <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1340,7 +1319,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="FullName">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+            <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1352,7 +1331,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
           <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+            <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1366,7 +1345,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
         <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1378,7 +1357,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="FullName">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter the parent path to the psproject.json file, e.g. c:\scripts\mymodule.</maml:para>
+          <maml:para>Entrez le chemin parent vers le fichier psproject.json, par Example c:\scripts\mymodule.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1390,7 +1369,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ID">
         <maml:name>TaskID</maml:name>
         <maml:description>
-          <maml:para>Enter the task ID</maml:para>
+          <maml:para>Entrez l'ID de la tâche</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
         <dev:type>
@@ -1402,7 +1381,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
         <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1442,15 +1421,11 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\scripts\PSProjectStatus&gt; Remove-PSProjectTask -TaskID 4,2</dev:code>
         <dev:remarks>
-          <maml:para>Remove tasks 4 and 2 from the PSProject file.</maml:para>
+          <maml:para>Supprimez les tâches 4 et 2 du fichier PSProject.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/48pXpWM</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectTask</maml:linkText>
         <maml:uri></maml:uri>
@@ -1467,14 +1442,14 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:verb>Set</command:verb>
       <command:noun>PSProjectStatus</command:noun>
       <maml:description>
-        <maml:para>Update a PSProject status.</maml:para>
+        <maml:para>Mettre à jour le statut d'un PSProject.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to update a PSProject status. If a git branch is detected, it will automatically be used. Ideally, you will run Set-PSProjectStatus from the module root directory. You can always manually modify the psproject.json file in your editor. To manually update the LastUpdate value, convert a datetime value to JSON.</maml:para>
+      <maml:para>Utilisez cette commande pour mettre à jour le statut d'un PSProject. Si une branche git est détectée, elle sera automatiquement utilisée. Idéalement, vous exécuterez Set-PSProjectStatus depuis le répertoire racine du module. Vous pouvez toujours modifier manuellement le fichier psproject.json dans votre éditeur. Pour mettre à jour manuellement la valeur LastUpdate, convertissez une valeur datetime en JSON.</maml:para>
       <maml:para>Get-Date -format o | Set-Clipboard</maml:para>
-      <maml:para>Manually copy the value into the JSON file.</maml:para>
-      <maml:para>The Status value is an integer indicating a private enumeration value.</maml:para>
+      <maml:para>Copiez manuellement la valeur dans le fichier JSON.</maml:para>
+      <maml:para>La valeur Status est un entier indiquant une valeur d'énumération privée.</maml:para>
       <maml:para>- Development = 0</maml:para>
       <maml:para>- Updating = 1</maml:para>
       <maml:para>- Stable = 2</maml:para>
@@ -1486,7 +1461,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <maml:para>- AcceptanceTesting = 8</maml:para>
       <maml:para>- Other = 9</maml:para>
       <maml:para></maml:para>
-      <maml:para>Enter one of these string values. If you edit the file in VSCode, it should detect the JSON schema and provide completion values.</maml:para>
+      <maml:para>Entrez l'une de ces valeurs de chaîne. Si vous modifiez le fichier dans VSCode, il devrait détecter le schéma JSON et fournir des valeurs de complétion.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1494,7 +1469,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:description>
-            <maml:para>Specify a PSProject object.</maml:para>
+            <maml:para>Spécifiez un objet PSProject.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
@@ -1506,7 +1481,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
-            <maml:para>What is the project name?</maml:para>
+            <maml:para>Quel est le nom du projet ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1518,7 +1493,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="date">
           <maml:name>LastUpdate</maml:name>
           <maml:description>
-            <maml:para>When was the project last worked on or updated?</maml:para>
+            <maml:para>Quand le projet a-t-il été travaillé ou mis à jour pour la dernière fois ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
           <dev:type>
@@ -1530,7 +1505,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
           <maml:name>Tasks</maml:name>
           <maml:description>
-            <maml:para>What are the remaining tasks?</maml:para>
+            <maml:para>Quelles sont les tâches restantes ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -1542,7 +1517,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
           <maml:name>Status</maml:name>
           <maml:description>
-            <maml:para>What is the project status? Accepted values are Development, Updating, Stable, AlphaTesting, BetaTesting, ReleaseCandidate, Patching, UnitTesting, AcceptanceTesting, and Other.</maml:para>
+            <maml:para>Quel est le statut du projet ? Les valeurs acceptées sont Development, Updating, Stable, AlphaTesting, BetaTesting, ReleaseCandidate, Patching, UnitTesting, AcceptanceTesting, et Other.</maml:para>
           </maml:description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Development</command:parameterValue>
@@ -1566,7 +1541,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
           <maml:name>Concatenate</maml:name>
           <maml:description>
-            <maml:para>Concatenate new tasks.</maml:para>
+            <maml:para>Concaténer de nouvelles tâches.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1577,7 +1552,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
           <maml:name>Confirm</maml:name>
           <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+            <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1588,7 +1563,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
           <maml:name>WhatIf</maml:name>
           <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+            <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1599,7 +1574,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
           <maml:name>ProjectVersion</maml:name>
           <maml:description>
-            <maml:para>What is the project version?</maml:para>
+            <maml:para>Quelle est la version du projet ?</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
           <dev:type>
@@ -1611,7 +1586,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Comment</maml:name>
           <maml:description>
-            <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+            <maml:para>Entrez un commentaire facultatif. Cela pourrait être un tag git, ou une indication sur le type de projet.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -1623,7 +1598,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Tags</maml:name>
           <maml:description>
-            <maml:para>What tags do you want to assign to this project? If you want to append tags you either have to re-define all tags, or add a tag manually to the psproject.json file.</maml:para>
+            <maml:para>Quels tags voulez-vous attribuer à ce projet ? Si vous souhaitez ajouter des tags, vous devez soit redéfinir tous les tags, soit ajouter un tag manuellement au fichier psproject.json.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -1638,7 +1613,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="add">
         <maml:name>Concatenate</maml:name>
         <maml:description>
-          <maml:para>Concatenate new tasks.</maml:para>
+          <maml:para>Concaténer de nouvelles tâches.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1650,7 +1625,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
         <maml:name>Confirm</maml:name>
         <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          <maml:para>Vous demande de confirmer avant d'exécuter le cmdlet.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1662,7 +1637,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>InputObject</maml:name>
         <maml:description>
-          <maml:para>Specify a PSProject object.</maml:para>
+          <maml:para>Spécifiez un objet PSProject.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
@@ -1674,7 +1649,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="date">
         <maml:name>LastUpdate</maml:name>
         <maml:description>
-          <maml:para>When was the project last worked on or updated?</maml:para>
+          <maml:para>Quand le projet a-t-il été travaillé ou mis à jour pour la dernière fois ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
         <dev:type>
@@ -1686,7 +1661,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
-          <maml:para>What is the project name?</maml:para>
+          <maml:para>Quel est le nom du projet ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1698,7 +1673,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
         <maml:name>Status</maml:name>
         <maml:description>
-          <maml:para>What is the project status? Accepted values are Development, Updating, Stable, AlphaTesting, BetaTesting, ReleaseCandidate, Patching, UnitTesting, AcceptanceTesting, and Other.</maml:para>
+          <maml:para>Quel est le statut du projet ? Les valeurs acceptées sont Development, Updating, Stable, AlphaTesting, BetaTesting, ReleaseCandidate, Patching, UnitTesting, AcceptanceTesting, et Other.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSProjectStatus</command:parameterValue>
         <dev:type>
@@ -1710,7 +1685,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
         <maml:name>Tasks</maml:name>
         <maml:description>
-          <maml:para>What are the remaining tasks?</maml:para>
+          <maml:para>Quelles sont les tâches restantes ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1722,7 +1697,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
         <maml:name>WhatIf</maml:name>
         <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          <maml:para>Montre ce qui se passerait si le cmdlet s'exécutait. Le cmdlet n'est pas exécuté.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1734,7 +1709,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="version">
         <maml:name>ProjectVersion</maml:name>
         <maml:description>
-          <maml:para>What is the project version?</maml:para>
+          <maml:para>Quelle est la version du projet ?</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
         <dev:type>
@@ -1746,7 +1721,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Comment</maml:name>
         <maml:description>
-          <maml:para>Enter an optional comment. This could be git tag, or an indication about the type of project.</maml:para>
+          <maml:para>Entrez un commentaire facultatif. Cela pourrait être un tag git, ou une indication sur le type de projet.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -1758,7 +1733,7 @@ LastUpdate             Status      Tasks        GitBranch          Age
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Tags</maml:name>
         <maml:description>
-          <maml:para>What tags do you want to assign to this project? If you want to append tags you either have to re-define all tags, or add a tag manually to the psproject.json file.</maml:para>
+          <maml:para>Quels tags voulez-vous attribuer à ce projet ? Si vous souhaitez ajouter des tags, vous devez soit redéfinir tous les tags, soit ajouter un tag manuellement au fichier psproject.json.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -1790,8 +1765,8 @@ LastUpdate             Status      Tasks        GitBranch          Age
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command has an alias of spstat.</maml:para>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>Cette commande a un alias de spstat.</maml:para>
+        <maml:para>En savoir plus sur PowerShell : http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -1803,9 +1778,9 @@ LastUpdate             Status      Tasks        GitBranch          Age
 
 LastUpdate             Status      Tasks              GitBranch          Age
 ----------             ------      -----              ---------          ---
-3/15/2023 10:09:05 AM  Develo..    {help docs, readm… 0.2.0         00.00:00</dev:code>
+15/03/2023 10:09:05    Develo..    {help docs, readm… 0.2.0         00.00:00</dev:code>
         <dev:remarks>
-          <maml:para>Update the project status using the current date and time. Set the Status property to Development and use the last git tag as a comment.</maml:para>
+          <maml:para>Mettez à jour le statut du projet en utilisant la date et l'heure actuelles. Définissez la propriété Status sur Development et utilisez le dernier tag git comme commentaire.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -1818,17 +1793,13 @@ Version    : 0.5.0
 Status     : Updating
 Tasks      : {help docs, readme, pester tests, resolve project path for json…}
 GitBranch  : 0.5.0
-LastUpdate : 3/23/2023 10:20:26 AM</dev:code>
+LastUpdate : 23/03/2023 10:20:26</dev:code>
         <dev:remarks>
-          <maml:para>Update the project and add a task.</maml:para>
+          <maml:para>Mettez à jour le projet et ajoutez une tâche.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3JlDkEM</maml:uri>
-      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSProjectStatus</maml:linkText>
         <maml:uri></maml:uri>

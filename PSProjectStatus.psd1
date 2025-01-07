@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.15.0'
+    ModuleVersion        = '0.16.0'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
@@ -27,56 +27,22 @@
             ProjectUri               = 'https://github.com/jdhitsolutions/PSProjectStatus'
             IconUri                  = 'https://raw.githubusercontent.com./jdhitsolutions/PSProjectStatus/main/images/psproject-icon.png'
             ReleaseNotes             = @'
-## [0.15.0] - 2025-01-06
+## [0.16.0] - 2025-01-07
 
 ### Added
 
-- Added command `Open-PSProjectStatusHelp` to open a PDF version of the `README` file.
-- Updated help documentation.
+- Added localized verbose messaging, help documentation, and a version of the README help to French. Translations were done with GitHub CoPilot so I can't guarantee the quality.
 
 ### Changed
 
-- Updated verbose messaging.
 - Updated `README.md`.
-
-### Fixed
-
-- Fixed bug in JSON schema for required `RemoteRegistry` properties.
-- Fixed layout errors in the changelog.
-
-## [0.15.0] - 2025-01-06
-
-### Added
-
-- Added command `Open-PSProjectStatusHelp` to open a PDF version of the `README` file.
 - Updated help documentation.
-
-### Changed
-
-- Updated verbose messaging.@'
-## [0.15.0] - 2025-01-06
-
-### Added
-
-- Added command `Open-PSProjectStatusHelp` to open a PDF version of the `README` file.
-- Updated help documentation.
-
-### Changed
-
-- Updated verbose messaging.
-- Updated `README.md`.
+- Revised PDF layout settings.
 
 ### Fixed
 
-- Fixed bug in JSON schema for required `RemoteRegistry` properties.
-- Fixed layout errors in the changelog.
-
-- Updated `README.md`.
-
-### Fixed
-
-- Fixed bug in JSON schema for required `RemoteRegistry` properties.
-- Fixed layout errors in the changelog.
+- Fixed `Get-PSProjectTask` bug. [Issue #14](https://github.com/jdhitsolutions/PSProjectStatus/issues/14).
+- Fixed `Open-PSProjectStatusHelp` to make `-AsMarkdown` a dynamic parameter for PowerShell 7. [Issue #13](https://github.com/jdhitsolutions/PSProjectStatus/issues/13)
 '@
             RequireLicenseAcceptance = $false
         }

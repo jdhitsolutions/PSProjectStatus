@@ -19,7 +19,7 @@ Open-PSProjectStatusHelp [-AsMarkdown] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Use this command to open the PDF help document for the PSProjectStatus module with the associated application for PDF files. As an alternative you can view the documentation as a markdown document.
+Use this command to open the PDF help document for the PSProjectStatus module with the associated application for PDF files. If you are running PowerShell 7, as an alternative you can view the documentation as a markdown document with the -AsMarkdown parameter. This is a dynamic parameter that does not exist in Windows PowerShell.
 
 ## EXAMPLES
 
@@ -37,13 +37,13 @@ The file should open in the default application for PDF files.
 PS C:\> Open-PSProjectStatusHelp -AsMarkdown | more
 ```
 
-View the help file a markdown document.
+View the help file a markdown document if running PowerShell 7.
 
 ## PARAMETERS
 
 ### -AsMarkdown
 
-Open the help file as markdown.
+If you are running PowerShell 7, as an alternative you can view the documentation as a markdown document with the -AsMarkdown parameter. This is a dynamic parameter that does not exist in Windows PowerShell.
 
 ```yaml
 Type: SwitchParameter

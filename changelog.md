@@ -2,6 +2,23 @@
 
 ## [Unreleased]
 
+## [0.16.0] - 2025-01-07
+
+### Added
+
+- Added localized verbose messaging, help documentation, and a version of the README help to French. Translations were done with GitHub CoPilot so I can't guarantee the quality.
+
+### Changed
+
+- Updated `README.md`.
+- Updated help documentation.
+- Revised PDF layout settings.
+
+### Fixed
+
+- Fixed `Get-PSProjectTask` bug. [Issue #14](https://github.com/jdhitsolutions/PSProjectStatus/issues/14).
+- Fixed `Open-PSProjectStatusHelp` to make `-AsMarkdown` a dynamic parameter for PowerShell 7. [Issue #13](https://github.com/jdhitsolutions/PSProjectStatus/issues/13)
+
 ## [0.15.0] - 2025-01-06
 
 ### Added
@@ -238,7 +255,8 @@
 - Modified `New-PSProjectStatus` to convert all paths to full filesystem paths and not PSDrives.
 - Updated `psproject.format.ps1xml` to adjust table widths. Added a default list view.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.15.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.16.0..HEAD
+[0.16.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.15.0..v0.16.0
 [0.15.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/vv0.14.1..v0.15.0
 [v0.14.1]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.14.0..v0.14.1
 [v0.14.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.13.1..v0.14.0
