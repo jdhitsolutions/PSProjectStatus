@@ -46,13 +46,19 @@ Function Get-PSProjectTask {
                 #define a project task ID number
                 $i = 1
                 foreach ($task in $in.tasks) {
+                    <#
+                      7 Jan 2025 Rolling this code back to v0.14.0 until
+                      the new PSProjectTask class is ready
+
                     #6 Jan 2024 Fix task constructor. Issue #14
                     #$taskItem = [PSProjectTask]::New($task,$in.Path,$in.Name,$in.ProjectVersion)
                     $taskItem = [PSProjectTask]::New($in.Name)
                     $taskItem.TaskDescription = $task
                     $taskItem.Path = $in.Path
                     $taskItem.ProjectName = $in.Name
-                    #$taskItem.ProjectVersion = $in.ProjectVersion #>
+                    #$taskItem.ProjectVersion = $in.ProjectVersion
+                    #>
+                    $taskItem = [PSProjectTask]::New($task,$in.Path, $in.Name, $in.ProjectVersion)
                     $taskItem.TaskID = $i
                     if ($TaskID -AND ($TaskID -eq $i)) {
                         $taskItem

@@ -65,41 +65,13 @@ Class PSProjectRemote {
     }
 }
 
-Class PSProjectTask {
-    <#
-    this class is designed with future enhancements in mind.
-    Not all properties are utilized in the current version of the module.
-    #>
-
-    [int32]$TaskID
-    [string]$TaskName
-    [string]$TaskDescription
-    [PSProjectTaskPriority]$Priority
-    [string[]]$TaskTags
-    [DateTime]$Created = (Get-Date)
-    [DateTime]$DueDate
-    [DateTime]$CompletedDate
-    [ValidateRange(0, 100)]
-    [Int32]$Progress = 0
-    [string]$AssignedTo = [System.Environment]::Username
-    [System.Boolean]$Completed = $false
-    [string]$ProjectName
-    [string]$Path
-
-    PSProjectTask ([string]$TaskName) {
-        # $this.TaskID = _getNextTaskID
-        $this.TaskName = $TaskName
-        #$this.TaskDescription = $Description
-    }
-    PSProjectTask () {
-
-    }
-}
+#7 Jan 2025 - removed PSProjectTask class as this is still a work in progress
+#Rolling back related code in the module to 0.14.0
 Class PSProject {
     [string]$Name = (Split-Path (Get-Location).path -Leaf)
     [string]$Path = (Convert-Path (Get-Location).path)
     [DateTime]$LastUpdate = (Get-Date)
-    [PSProjectTask[]]$Tasks = @()
+    [string[]]$Tasks = @()
     [PSProjectStatus]$Status = 'Development'
     [Version]$ProjectVersion = (Test-ModuleManifest -Path ".\$(Split-Path $pwd -Leaf).psd1" -Verbose:$False -ErrorAction SilentlyContinue).version
     [string]$GitBranch = ''
@@ -114,7 +86,8 @@ Class PSProject {
         $json = Join-Path -Path $this.Path -ChildPath psproject.json
         #convert the ProjectVersion to a string in the JSON file
         #convert the LastUpdate to a formatted date string
-        $this | Select-Object -Property @{Name = '$schema'; Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
+        $this | Select-Object -Property @{Name = '$schema';
+        Expression = { 'https://raw.githubusercontent.com/jdhitsolutions/PSProjectStatus/main/psproject.schema.json' } },
         Name, Path,
         @{Name = 'LastUpdate'; Expression = { '{0:o}' -f $_.LastUpdate } },
         @{Name = 'Status'; Expression = { $_.status.toString() } },
@@ -170,7 +143,8 @@ This would be a major breaking change
 
 #>
 
-<# Class PSProjectTask {
+#7 Jan 2025 Restoring the old version until the new PSProjectTask class is ready
+Class PSProjectTask {
     [string]$ProjectName
     [string]$Path
     [string]$TaskDescription
@@ -183,7 +157,8 @@ This would be a major breaking change
         $this.TaskDescription = $TaskDescription
         $this.ProjectVersion = $ProjectVersion
     }
-} #>
+}
+
 
 #endregion
 
@@ -347,7 +322,7 @@ $PSProjectANSI = @{
 Set-Variable -Name PSProjectANSI -Description "a hash table to store ANSI escape sequences for different commands used in verbose output. You can modify settings using ANSI sequences or `$PSStyle"
 
 #Export the module version to a global variable that will be used in Verbose messages
-New-Variable -Name PSProjectStatusModule -Value '0.16.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
+New-Variable -Name PSProjectStatusModule -Value '0.17.0' -Description 'The PSProjectStatus module version used in verbose messaging.'
 
 Export-ModuleMember -Variable PSProjectStatusModule, PSProjectANSI -Alias 'Update-PSProjectStatus', 'gitstat', 'gpstat', 'npstat', 'spstat'
 

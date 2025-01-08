@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+## [0.17.0] - 2025-01-08
+
+### Changed
+
+- Moved default help PDF to en-US.
+- Updates to `README` files.
+
+### Fixed
+
+- Fixed doc links in the French help PDF file. [Issue #16](https://github.com/jdhitsolutions/PSProjectStatus/issues/16)
+- Fixed issue trying to open default `README` as markdown. [Issue #15](https://github.com/jdhitsolutions/PSProjectStatus/issues/15)
+- Fixed task-related bugs. Rolled class definition and code back to v0.14.0. [Issue #17](https://github.com/jdhitsolutions/PSProjectStatus/issues/17) _This is a potential breaking change._
+
 ## [0.16.0] - 2025-01-07
 
 ### Added
@@ -255,7 +268,8 @@
 - Modified `New-PSProjectStatus` to convert all paths to full filesystem paths and not PSDrives.
 - Updated `psproject.format.ps1xml` to adjust table widths. Added a default list view.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.16.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.17.0..HEAD
+[0.17.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.16.0..v0.17.0
 [0.16.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.15.0..v0.16.0
 [0.15.0]: https://github.com/jdhitsolutions/PSProjectStatus/compare/vv0.14.1..v0.15.0
 [v0.14.1]: https://github.com/jdhitsolutions/PSProjectStatus/compare/v0.14.0..v0.14.1

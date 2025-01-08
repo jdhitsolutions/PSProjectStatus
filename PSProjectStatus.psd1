@@ -2,7 +2,7 @@
 
 @{
     RootModule           = 'PSProjectStatus.psm1'
-    ModuleVersion        = '0.16.0'
+    ModuleVersion        = '0.17.0'
     CompatiblePSEditions = 'Desktop', 'Core'
     GUID                 = 'ec249544-dc4e-4e24-aae8-4281ec84f54d'
     Author               = 'Jeff Hicks'
@@ -27,22 +27,18 @@
             ProjectUri               = 'https://github.com/jdhitsolutions/PSProjectStatus'
             IconUri                  = 'https://raw.githubusercontent.com./jdhitsolutions/PSProjectStatus/main/images/psproject-icon.png'
             ReleaseNotes             = @'
-## [0.16.0] - 2025-01-07
-
-### Added
-
-- Added localized verbose messaging, help documentation, and a version of the README help to French. Translations were done with GitHub CoPilot so I can't guarantee the quality.
+## [0.17.0] - 2025-01-08
 
 ### Changed
 
-- Updated `README.md`.
-- Updated help documentation.
-- Revised PDF layout settings.
+- Moved default help PDF to en-US.
+- Updates to `README` files.
 
 ### Fixed
 
-- Fixed `Get-PSProjectTask` bug. [Issue #14](https://github.com/jdhitsolutions/PSProjectStatus/issues/14).
-- Fixed `Open-PSProjectStatusHelp` to make `-AsMarkdown` a dynamic parameter for PowerShell 7. [Issue #13](https://github.com/jdhitsolutions/PSProjectStatus/issues/13)
+- Fixed doc links in the French help PDF file. [Issue #16](https://github.com/jdhitsolutions/PSProjectStatus/issues/16)
+- Fixed issue trying to open default `README` as markdown. [Issue #15](https://github.com/jdhitsolutions/PSProjectStatus/issues/15)
+- Fixed task-related bugs. Rolled class definition and code back to v0.14.0. [Issue #17](https://github.com/jdhitsolutions/PSProjectStatus/issues/17) _This is a potential breaking change._
 '@
             RequireLicenseAcceptance = $false
         }

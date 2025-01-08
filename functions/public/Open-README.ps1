@@ -37,7 +37,7 @@ Function Open-PSProjectStatusHelp {
             _verbose -message ($strings.PSVersion -f $PSVersionTable.PSVersion)
             _verbose -message ($strings.UsingHost -f $host.Name)
             _verbose -message ($strings.UsingOS -f $PSVersionTable.OS)
-            _verbose -message ($strings.UsingModule -f $ModuleVersion)
+            _verbose -message ($strings.UsingModule -f $PSProjectStatusModule)
         }
 
         #write-debug "detected culture $((Get-Culture).Name)"
@@ -46,7 +46,7 @@ Function Open-PSProjectStatusHelp {
             #relative to the module root
 
             #test for localized help
-            if (Test-Path -Path "$PSScriptRoot\..\..\$((Get-Culture).Name)") {
+            if (Test-Path -Path "$PSScriptRoot\..\..\$((Get-Culture).Name)\README.md") {
                 $docPath = "$PSScriptRoot\..\..\$((Get-Culture).Name)\README.md"
             }
             else {
@@ -64,14 +64,15 @@ Function Open-PSProjectStatusHelp {
                 #write-debug "Using en-US help"
                 $docPath = "$PSScriptRoot\..\..\PSProjectStatus-Help.pdf"
             }
-            #write-debug "using docpath $docPath"
         }
+        #Write-Debug "using docpath $docPath"
 
     } #begin
     Process {
         $PSDefaultParameterValues['_verbose:block'] = 'Process'
         if ($PSBoundParameters.ContainsKey('AsMarkdown')) {
             _verbose -Message $strings.OpenMarkdownHelp
+            _verbose -message $docPath
             Show-Markdown -Path $docPath
         }
         else {

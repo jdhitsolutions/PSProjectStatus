@@ -64,6 +64,21 @@ Class PSProjectRemote {
   }
 }
 
+Class PSProjectTask {
+  [string]$ProjectName
+  [string]$Path
+  [string]$TaskDescription
+  [version]$ProjectVersion
+  [int]$TaskID
+
+  PSProjectTask ($TaskDescription,$Path,$ProjectName,$ProjectVersion) {
+      $this.ProjectName = $ProjectName
+      $this.Path = $Path
+      $this.TaskDescription = $TaskDescription
+      $this.ProjectVersion = $ProjectVersion
+  }
+}
+
 #J'ai formaté les lignes plus longues avec des sauts de ligne artificiels
 #pour tenir sur une page imprimée.
 Class PSProject {
@@ -237,7 +252,7 @@ Notez que l'heure de mise à jour est formatée en tant que chaîne UTC. La vers
 
 ## Obtention d'un statut de projet
 
-La façon la plus simple de visualiser un statut de projet est d'utiliser [Get-PSProjectStatus](../docs-fr/New-PSProjectStatus.md).
+La façon la plus simple de visualiser un statut de projet est d'utiliser [Get-PSProjectStatus](../docs-fr/Get-PSProjectStatus.md).
 
 ```powershell
 PS C:\scripts\PSCalendar> Get-PSProjectStatus
